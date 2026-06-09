@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>GALAXY MOTO — Аренда · 5 вариантов</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e8e8ed;padding:28px 16px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif}
+h1{text-align:center;font-size:24px;font-weight:800;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.sub{text-align:center;font-size:13px;color:#666;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px}
+.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.cl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;text-align:center;margin-bottom:10px}
+.phone{max-width:340px;margin:0 auto;border-radius:36px;overflow:hidden;box-shadow:0 0 0 2px #3a3a3e,0 12px 40px rgba(0,0,0,.15);background:#fff;position:relative}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:100px;height:20px;background:#0d0d0f;border-radius:0 0 9px 9px;z-index:10}
+.screen{width:100%;padding:40px 14px 14px;position:relative;min-height:500px;font-family:'Inter',sans-serif}
+.st{text-align:center;font-size:18px;font-weight:700;color:#111;margin-bottom:2px}
+.sst{text-align:center;font-size:12px;color:#888;margin-bottom:12px}
+.pdots{display:flex;justify-content:center;gap:6px;margin-bottom:14px}
+.pdots div{width:8px;height:8px;border-radius:50%;background:#ddd}
+.pdots .act{background:#0bc5ea}
+.step-label{font-size:14px;font-weight:600;color:#111;margin-bottom:10px;text-align:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:10px}
+.cal-grid .wd{font-size:9px;color:#999;text-align:center;padding:4px 0}
+.cal-grid .d{font-size:11px;text-align:center;padding:6px 0;border-radius:50%;color:#333}
+.cal-grid .d.sel{background:#0bc5ea;color:#fff}
+.cal-grid .d.today{font-weight:700;color:#111}
+.btn-s{display:block;width:100%;padding:10px;border-radius:10px;background:#111;color:#fff;border:none;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px}
+.btn-o{display:block;width:100%;padding:10px;border-radius:10px;background:transparent;color:#111;border:1px solid #ddd;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:6px}
+.inp{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit;margin-bottom:8px;color:#111}
+.inp::placeholder{color:#aaa}
+.desc{font-size:10px;color:#aaa;text-align:center;margin-top:8px}
+.v2 .steps{display:flex;gap:6px;justify-content:center;margin-bottom:10px}
+.v2 .steps div{width:32px;height:32px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#888}
+.v2 .steps .act{background:#0bc5ea;color:#fff}
+.v2 .step-card{border:1.5px solid #0bc5ea;border-radius:14px;padding:14px}
+.v2 .scc-name{font-size:14px;font-weight:700;color:#111;text-align:center}
+.v2 .scc-sub{font-size:11px;color:#888;text-align:center}
+.v2 .scc-price{font-size:18px;font-weight:800;color:#0bc5ea;margin:6px 0;text-align:center}
+.v2 .scc-dep{font-size:11px;color:#666;text-align:center}
+.v3 .hero-card{position:relative;border-radius:14px;overflow:hidden;margin-bottom:10px;height:150px}
+.v3 .hero-card img{width:100%;height:100%;object-fit:cover}
+.v3 .hero-card .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.7))}
+.v3 .hero-card .ct{position:absolute;bottom:12px;left:12px;color:#fff}
+.v3 .hero-card .ct .n{font-size:18px;font-weight:800}
+.v3 .hero-card .ct .p{font-size:14px;opacity:.9;margin-top:2px}
+.v5 .inp{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#fff}
+.v5 .inp::placeholder{color:rgba(255,255,255,.4)}
+</style>
+</head>
+<body>
+<h1>GALAXY MOTO</h1>
+<p class="sub">5 вариантов аренды с пошаговой модалкой — выбери лучший</p>
+<div class="grid">
+
+<!-- V1 -->
+<div class="card"><div class="cl">Вариант 1 · Классический stepper</div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="st">Аренда скутера</div>
+<div class="sst">4 шага до поездки</div>
+<div class="pdots"><div class="act"></div><div></div><div></div><div></div></div>
+<div class="step-label">Шаг 1 — Выберите даты</div>
+<div style="font-size:11px;color:#888;margin-bottom:6px">Июнь 2026</div>
+<div class="cal-grid">
+<div class="wd">Пн</div><div class="wd">Вт</div><div class="wd">Ср</div><div class="wd">Чт</div><div class="wd">Пт</div><div class="wd">Сб</div><div class="wd">Вс</div>
+<div></div><div></div><div class="d">1</div><div class="d">2</div><div class="d">3</div><div class="d">4</div><div class="d">5</div>
+<div class="d">6</div><div class="d">7</div><div class="d">8</div><div class="d">9</div><div class="d today">10</div><div class="d sel">11</div><div class="d sel">12</div>
+<div class="d">13</div><div class="d">14</div><div class="d">15</div><div class="d">16</div><div class="d">17</div><div class="d">18</div><div class="d">19</div>
+</div>
+<button class="btn-s">Далее → выбор модели</button>
+</div></div><div class="desc">Классический · календарь · точки-шаги</div></div>
+
+<!-- V2 -->
+<div class="card"><div class="cl">Вариант 2 · Карточный stepper</div>
+<div class="phone"><div class="notch"></div><div class="screen v2">
+<div class="st">Аренда скутера</div>
+<div class="sst">4 шага до поездки</div>
+<div class="steps"><div class="act">1</div><div>2</div><div>3</div><div>4</div></div>
+<div class="step-label">Шаг 2 — Выберите модель</div>
+<div class="step-card">
+<div style="text-align:center;margin-bottom:6px"><img src="images/catalog/maxi-galaxy-3.jpg" style="width:100%;height:100px;object-fit:cover;border-radius:8px"></div>
+<div class="scc-name">Tank Next</div>
+<div class="scc-sub">150cc · 100 км/ч</div>
+<div class="scc-price">7 200 ₽ / 3 дня</div>
+<div class="scc-dep">Залог: 15 000 ₽</div>
+<button class="btn-s">Да, этот!</button>
+<button class="btn-o">Нет, следующий →</button>
+</div>
+</div></div><div class="desc">Карточка с фото · цена/залог · Да/Нет</div></div>
+
+<!-- V3 -->
+<div class="card"><div class="cl">Вариант 3 · С героем модели</div>
+<div class="phone"><div class="notch"></div><div class="screen v3">
+<div class="st">Аренда скутера</div>
+<div class="sst">4 шага до поездки</div>
+<div class="pdots"><div></div><div class="act"></div><div></div><div></div></div>
+<div class="step-label">Шаг 2 — Ваш скутер</div>
+<div class="hero-card"><img src="images/catalog/v3-photo1.jpg"><div class="ov"></div><div class="ct"><div class="n">V3 Sport</div><div class="p">200cc · 140 км/ч</div></div></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0">
+<div><div style="font-size:11px;color:#888">3 дня</div><div style="font-size:16px;font-weight:700">7 200 ₽</div></div>
+<div style="text-align:right"><div style="font-size:11px;color:#888">Залог</div><div style="font-size:16px;font-weight:700">15 000 ₽</div></div>
+</div>
+<button class="btn-s">Бронировать</button>
+</div></div><div class="desc">Крупное фото · цена и залог блоками</div></div>
+
+<!-- V4 -->
+<div class="card"><div class="cl">Вариант 4 · Компактный</div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="st">Аренда скутера</div>
+<div class="sst">4 шага до поездки</div>
+<div class="pdots"><div></div><div></div><div class="act"></div><div></div></div>
+<div class="step-label">Шаг 3 — Контакты</div>
+<input class="inp" placeholder="Имя" value="Александр">
+<input class="inp" placeholder="Телефон" value="+7 (900) 123-45-67">
+<div style="font-size:13px;color:#111;font-weight:600;margin:6px 0 4px">Забрать скутер</div>
+<input class="inp" placeholder="Дата и время" value="12 июня, 14:00">
+<button class="btn-s">Забронировать</button>
+<div style="background:#f0faf0;border-radius:12px;padding:14px;margin-top:10px;text-align:center">
+<div style="font-size:28px;margin-bottom:4px">🎉</div>
+<div style="font-size:14px;font-weight:700;color:#111">Скутер забронирован!</div>
+<div style="font-size:17px;font-weight:800;color:#111;margin:4px 0">Осталось: 6 700 ₽</div>
+<div style="font-size:11px;color:#666;line-height:1.7">Задаток 1 500₽ — перевод на карту<br>С собой: права, паспорт<br>+7 (900) 001-80-23</div>
+</div>
+</div></div><div class="desc">Форма контактов · бронь успешна · платёж</div></div>
+
+<!-- V5 -->
+<div class="card"><div class="cl">Вариант 5 · Тёмный премиум</div>
+<div class="phone"><div class="notch"></div><div class="screen v5" style="background:#0d0d0f;color:#fff">
+<div style="text-align:center;padding:20px 0 10px"><div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Аренда</div>
+<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">4 шага</div></div>
+<div class="pdots"><div></div><div></div><div></div><div class="act"></div></div>
+<div class="step-label" style="color:#fff">Шаг 4 — Подтверждение</div>
+<div style="background:rgba(255,255,255,.05);border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,.08)">
+<div style="display:flex;gap:10px;margin-bottom:10px"><div style="font-size:28px">✅</div><div><div style="font-weight:600;font-size:15px">Скутер забронирован!</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Tank Next · 12–14 июня</div></div></div>
+<div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+<div>💳 Задаток: <strong style="color:#fff">1 500 ₽</strong></div>
+<div>💰 На месте: <strong style="color:#0bc5ea">6 700 ₽</strong></div>
+<div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.5)">
+Альфа / Райффайзен по СПБ<br>
+Получатель: Юлия Валерьевна Ш.<br><br>
+📄 С собой: права, паспорт<br>
+📞 +7 (900) 001-80-23</div>
+</div>
+</div>
+<button class="btn-s" style="background:linear-gradient(135deg,#0bc5ea,#8b5cf6)">Понял, спасибо!</button>
+</div></div><div class="desc">Тёмный фон · градиент · премиум</div></div>
+
+</div>
+</body>
+</html>
