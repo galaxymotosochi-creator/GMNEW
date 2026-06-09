@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>GALAXY MOTO — Hero</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e8e8ed;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif}
+.phone{max-width:340px;width:100%;border-radius:40px;overflow:hidden;box-shadow:0 0 0 2px #3a3a3e,0 20px 60px rgba(0,0,0,.2);position:relative;aspect-ratio:340/700;background:#fff}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:110px;height:22px;background:#0d0d0f;border-radius:0 0 10px 10px;z-index:10}
+.screen{width:100%;height:100%;background-image:url(images/hero-bg.jpg);background-size:cover;background-position:center;display:flex;flex-direction:column;position:relative}
+.ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.55) 100%);backdrop-filter:blur(2px)}
+.ct{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 20px 24px;gap:5px}
+.bdg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:5px 12px 5px 8px;border-radius:16px;background:#fff;color:#111;margin-bottom:4px}
+.bdg .dot{width:7px;height:7px;border-radius:50%;background:#34c759;flex-shrink:0}
+.ttl{font-size:21px;font-weight:800;line-height:1.3;color:#fff}
+.dsc{font-size:12px;line-height:1.5;max-width:280px;color:rgba(255,255,255,.8)}
+.r8{display:flex;align-items:center;gap:5px;font-size:11px;margin:4px 0 8px;color:rgba(255,255,255,.65)}
+.r8 .st{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.btns{display:flex;flex-direction:column;gap:6px;width:100%;max-width:270px}
+.br{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.btn{display:flex;align-items:center;justify-content:center;padding:11px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:inherit;border:none;cursor:pointer;text-decoration:none}
+.btn:active{transform:scale(.97)}
+.b1{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.b2{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+</style>
+</head>
+<body>
+<div class="phone"><div class="notch"></div>
+<div class="screen"><div class="ov"></div><div class="ct">
+  <div class="bdg"><span class="dot"></span> Работаем ежедневно</div>
+  <div class="ttl">GALAXY MOTO<br>Полный цикл твоего движения</div>
+  <div class="dsc">Покупка, аренда, честный сервис и оригинальные запчасти для мототехники. Берем все заботы на себя</div>
+  <div class="r8"><div class="st">⭐</div><strong>5.0</strong> Яндекс.Карты · читайте отзывы</div>
+  <div class="btns">
+    <button class="btn b1">Выбрать технику</button>
+    <div class="br"><button class="btn b2">Взять в аренду</button><button class="btn b2">Записаться на сервис</button></div>
+  </div>
+</div></div></div>
+</body>
+</html>
