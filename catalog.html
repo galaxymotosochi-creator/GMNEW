@@ -11,7 +11,7 @@ h1{text-align:center;font-size:24px;font-weight:800;background:linear-gradient(1
 .sub{text-align:center;font-size:13px;color:#666;margin-bottom:28px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;max-width:1800px;margin:0 auto}
 .card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.cl{font-size:11px;font-weight:600;color:#888;letter-spacing:.06em;text-transform:uppercase;text-align:center;margin-bottom:10px}
+.cl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;text-align:center;margin-bottom:10px}
 .phone{max-width:340px;margin:0 auto;border-radius:36px;overflow:hidden;box-shadow:0 0 0 2px #3a3a3e,0 12px 40px rgba(0,0,0,.15);background:#fff;position:relative}
 .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:100px;height:20px;background:#0d0d0f;border-radius:0 0 9px 9px;z-index:10}
 .screen{width:100%;padding:40px 16px 16px;position:relative}
@@ -22,17 +22,12 @@ h1{text-align:center;font-size:24px;font-weight:800;background:linear-gradient(1
 .scroll-x > *{scroll-snap-align:start;flex-shrink:0}
 .oldp{font-size:11px;color:#aaa;text-decoration:line-through;margin-right:4px}
 .btn-td{padding:6px 12px;border-radius:8px;background:#111;color:#fff;font-size:11px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:6px;display:inline-block}
-
-/* V1 - Classic scroll cards */
 .v1 .c{width:230px;border-radius:12px;overflow:hidden;background:#f8f8f8}
 .v1 .c img{width:100%;height:130px;object-fit:cover;display:block}
 .v1 .ci{padding:10px 12px 12px}
 .v1 .ci .n{font-size:14px;font-weight:700;color:#111;margin-bottom:4px}
-.v1 .ci .specs{font-size:10px;color:#888;line-height:1.6;margin-bottom:4px}
-.v1 .ci .specs span{display:inline;margin-right:4px}
+.v1 .ci .specs{font-size:10px;color:#888;line-height:1.6}
 .v1 .ci .price{font-size:15px;font-weight:700;color:#0bc5ea;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
-
-/* V2 - Grid 2 cols */
 .v2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .v2 .c{border-radius:12px;overflow:hidden;background:#f8f8f8}
 .v2 .c img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
@@ -41,85 +36,140 @@ h1{text-align:center;font-size:24px;font-weight:800;background:linear-gradient(1
 .v2 .ci .specs{font-size:9px;color:#888;line-height:1.5}
 .v2 .ci .price{font-size:13px;font-weight:700;color:#0bc5ea;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:3px}
 .v2 .btn-td{font-size:10px;padding:4px 8px}
-
-/* V3 - Tabs + cards */
 .v3 .tabs{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;padding:2px}
 .v3 .tabs > div{padding:6px 12px;border-radius:16px;font-size:11px;font-weight:600;background:#f0f0f0;color:#888;white-space:nowrap;flex-shrink:0}
 .v3 .tabs .act{background:#111;color:#fff}
 .v3 .c{width:200px;border-radius:12px;overflow:hidden;background:#f8f8f8}
 .v3 .c img{width:100%;height:120px;object-fit:cover;display:block}
 .v3 .ci{padding:8px 10px 10px}
-.v3 .ci .n{font-size:13px;font-weight:700;color:#111;margin-bottom:2px}
+.v3 .ci .n{font-size:13px;font-weight:700;color:#111}
 .v3 .ci .specs{font-size:9px;color:#888;line-height:1.5}
-.v3 .ci .price{font-size:13px;font-weight:700;color:#0bc5ea;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:3px}
-.v3 .btn-td{font-size:10px;padding:4px 8px}
-
-/* V4 - Gradient overlay */
+.v3 .ci .price{font-size:13px;font-weight:700;color:#0bc5ea;display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
 .v4 .c{width:240px;border-radius:14px;overflow:hidden;position:relative}
 .v4 .c img{width:100%;height:200px;object-fit:cover;display:block}
 .v4 .c .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85))}
 .v4 .c .ci{position:absolute;bottom:0;left:0;right:0;padding:12px;color:#fff}
-.v4 .c .ci .n{font-size:15px;font-weight:700;margin-bottom:2px}
+.v4 .c .ci .n{font-size:15px;font-weight:700}
 .v4 .c .ci .specs{font-size:9px;opacity:.8;line-height:1.5}
-.v4 .c .ci .price{font-size:13px;font-weight:600;opacity:.95;margin-top:2px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-.v4 .btn-td{font-size:10px;padding:4px 8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:#fff}
-
-/* V5 - Large with badges */
+.v4 .c .ci .price{font-size:13px;font-weight:600;opacity:.95;margin-top:2px;display:flex;gap:4px;flex-wrap:wrap}
+.v4 .btn-td{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff}
 .v5 .c{width:250px;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #eee;position:relative}
-.v5 .c .badge{position:absolute;top:8px;left:8px;z-index:2;padding:3px 8px;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);color:#fff;font-size:9px;font-weight:700;border-radius:4px;letter-spacing:.3px}
+.v5 .c .badge{position:absolute;top:8px;left:8px;z-index:2;padding:3px 8px;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);color:#fff;font-size:9px;font-weight:700;border-radius:4px}
 .v5 .c img{width:100%;height:140px;object-fit:cover;display:block}
 .v5 .ci{padding:10px 12px 14px}
-.v5 .ci .n{font-size:14px;font-weight:700;color:#111;margin-bottom:2px}
+.v5 .ci .n{font-size:14px;font-weight:700;color:#111}
 .v5 .ci .specs{font-size:9px;color:#888;line-height:1.5}
-.v5 .ci .price{font-size:15px;font-weight:700;color:#0bc5ea;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:3px}
-
-.desc{font-size:10px;color:#aaa;text-align:center;margin-top:8px;line-height:1.4}
-
-@media(max-width:720px){body{padding:16px 10px}.grid{gap:18px}}
+.v5 .ci .price{font-size:15px;font-weight:700;color:#0bc5ea;display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+.desc{font-size:10px;color:#aaa;text-align:center;margin-top:8px}
 </style>
 </head>
 <body>
 <h1>GALAXY MOTO</h1>
 <p class="sub">5 вариантов каталога техники — выбери лучший</p>
-
 <div class="grid">
 
-<!-- ВАРИАНТ 1 -->
+<!-- V1 -->
 <div class="card">
-  <div class="cl">Вариант 1 · Классическая карусель</div>
-  <div class="phone"><div class="notch"></div><div class="screen v1">
-    <div class="st">Каталог техники</div>
-    <div class="sst">Выбирай под свой характер</div>
-    <div class="scroll-x">
-      <div class="c"><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ci"><div class="n">Tank Next</div><div class="specs">б/у · пластик без трещин · техн. отличное · пробег 12000 км · 150cc · карбюратор · возд. охлажд. · макс 100 км/ч</div><div class="price"><span class="oldp">89 900 ₽</span> <strong>72 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-      <div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ci"><div class="n">Gusite AGV R2</div><div class="specs">новый · пластик новый · техн. новый · пробег 0 км · 175cc · инжектор · жидкостное · макс 120 км/ч</div><div class="price"><span class="oldp">169 900 ₽</span> <strong>139 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-      <div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ci"><div class="n">V3 Sport</div><div class="specs">б/у · пластик отличный · техн. отличное · пробег 8000 км · 200cc · инжектор · жидкостное · макс 140 км/ч</div><div class="price"><strong>149 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-      <div class="c"><img src="images/catalog/t5-photo1.jpg"><div class="ci"><div class="n">T5 City</div><div class="specs">б/у · пластик хороший · техн. хорошее · пробег 15000 км · 125cc · карбюратор · возд. охлажд. · макс 90 км/ч</div><div class="price"><strong>99 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-    </div>
-  </div></div>
-  <div class="desc">Горизонтальная карусель, характеристики, старая/новая цена, кнопка тест-драйв</div>
+<div class="cl">Вариант 1 · Классическая карусель</div>
+<div class="phone"><div class="notch"></div><div class="screen v1">
+<div class="st">Каталог техники</div>
+<div class="sst">Выбирай под свой характер</div>
+<div class="scroll-x">
+<div class="c"><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ci">
+<div class="n">Tank Next</div>
+<div class="specs">б/у · пластик без трещин · техн. отличное · пробег 12000 км · 150cc · карбюратор · возд. охлажд. · макс 100 км/ч</div>
+<div class="price"><span class="oldp">89 900 ₽</span><strong>72 900 ₽</strong></div>
+<button class="btn-td">🚀 Тест-драйв</button>
+</div></div>
+<div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ci">
+<div class="n">Gusite AGV R2</div>
+<div class="specs">новый · 175cc · инжектор · жидкостное · макс 120 км/ч</div>
+<div class="price"><span class="oldp">169 900 ₽</span><strong>139 900 ₽</strong></div>
+<button class="btn-td">🚀 Тест-драйв</button>
+</div></div>
+<div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ci">
+<div class="n">V3 Sport</div>
+<div class="specs">б/у · пробег 8000 км · 200cc · макс 140 км/ч</div>
+<div class="price"><strong>149 900 ₽</strong></div>
+<button class="btn-td">🚀 Тест-драйв</button>
+</div></div>
+<div class="c"><img src="images/catalog/t5-photo1.jpg"><div class="ci">
+<div class="n">T5 City</div>
+<div class="specs">б/у · пробег 15000 км · 125cc · 90 км/ч</div>
+<div class="price"><strong>99 900 ₽</strong></div>
+<button class="btn-td">🚀 Тест-драйв</button>
+</div></div>
+</div></div></div>
+<div class="desc">Горизонтальная карусель · характеристики · цены · тест-драйв</div>
 </div>
 
-<!-- ВАРИАНТ 2 -->
+<!-- V2 -->
 <div class="card">
-  <div class="cl">Вариант 2 · Сетка 2×3</div>
-  <div class="phone"><div class="notch"></div><div class="screen">
-    <div class="st">Каталог техники</div>
-    <div class="sst">Выбирай технику под свой характер</div>
-    <div class="v2">
-      <div class="c"><img src="images/catalog/maxi-galaxy.jpg"><div class="ci"><div class="n">Maxi Galaxy</div><div class="specs">новый · 150cc · макс 110 км/ч</div><div class="price"><strong>119 900 ₽</strong></div><button class="btn-td">🚀</button></div></div>
-      <div class="c"><img src="images/catalog/px3-photo1.jpg"><div class="ci"><div class="n">PX3</div><div class="specs">б/у · 125cc · макс 95 км/ч</div><div class="price"><strong>109 900 ₽</strong></div><button class="btn-td">🚀</button></div></div>
-      <div class="c"><img src="images/catalog/v2-photo1.jpg"><div class="ci"><div class="n">V2 Classic</div><div class="specs">новый · 150cc · макс 100 км/ч</div><div class="price"><strong>89 900 ₽</strong></div><button class="btn-td">🚀</button></div></div>
-      <div class="c"><img src="images/catalog/maxi-galaxy-2.jpg"><div class="ci"><div class="n">Maxi 2</div><div class="specs">б/у · 175cc · макс 120 км/ч</div><div class="price"><strong>129 900 ₽</strong></div><button class="btn-td">🚀</button></div></div>
-      <div class="c"><img src="images/catalog/gusite-agv-r-1.jpg"><div class="ci"><div class="n">Gusite AGV</div><div class="specs">новый · 200cc · макс 130 км/ч</div><div class="price"><strong>99 900 ₽</strong></div><button class="btn-td">🚀</button></div></div>
-      <div class="c"><img src="images/catalog/t7-photo1.jpg"><div class="ci"><div class="n">T7 Pro</div><div class="specs">новый · 250cc · макс 150 км/ч</div><div class="price"><strong>159 900 ₽</strong></div><button class="btn-td">🚀</button></div></div>
-    </div>
-  </div></div>
-  <div class="desc">Сетка 2 колонки, сразу видны 6 моделей</div>
+<div class="cl">Вариант 2 · Сетка 2×3</div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="st">Каталог техники</div>
+<div class="sst">Выбирай технику под свой характер</div>
+<div class="v2">
+<div class="c"><img src="images/catalog/maxi-galaxy.jpg"><div class="ci"><div class="n">Maxi Galaxy</div><div class="specs">новый · 150cc</div><div class="price">119 900 ₽</div><button class="btn-td">🚀</button></div></div>
+<div class="c"><img src="images/catalog/px3-photo1.jpg"><div class="ci"><div class="n">PX3</div><div class="specs">б/у · 125cc</div><div class="price">109 900 ₽</div><button class="btn-td">🚀</button></div></div>
+<div class="c"><img src="images/catalog/v2-photo1.jpg"><div class="ci"><div class="n">V2 Classic</div><div class="specs">новый · 150cc</div><div class="price">89 900 ₽</div><button class="btn-td">🚀</button></div></div>
+<div class="c"><img src="images/catalog/maxi-galaxy-2.jpg"><div class="ci"><div class="n">Maxi 2</div><div class="specs">б/у · 175cc</div><div class="price">129 900 ₽</div><button class="btn-td">🚀</button></div></div>
+<div class="c"><img src="images/catalog/gusite-agv-r-1.jpg"><div class="ci"><div class="n">Gusite AGV</div><div class="specs">новый · 200cc</div><div class="price">99 900 ₽</div><button class="btn-td">🚀</button></div></div>
+<div class="c"><img src="images/catalog/t7-photo1.jpg"><div class="ci"><div class="n">T7 Pro</div><div class="specs">новый · 250cc</div><div class="price">159 900 ₽</div><button class="btn-td">🚀</button></div></div>
+</div></div></div>
+<div class="desc">Сетка 2 колонки · компактно · сразу 6 моделей</div>
 </div>
 
-<!-- ВАРИАНТ 3 -->
+</div>
+</body>
+</html>
+
+<!-- V3 -->
 <div class="card">
-  <div class="cl">Вариант 3 · Вкладки + карусель</div>
-  <div class="phone"><div class="notch"></div><div class="screen v3">
-    <div class="st">Каталог тех
+<div class="cl">Вариант 3 · Вкладки + карусель</div>
+<div class="phone"><div class="notch"></div><div class="screen v3">
+<div class="st">Каталог техники</div>
+<div class="sst">Выбирай технику под свой характер</div>
+<div class="tabs"><div class="act">Все</div><div>Скутеры</div><div>Мотоциклы</div><div>Электро</div></div>
+<div class="scroll-x">
+<div class="c"><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ci"><div class="n">Tank Next</div><div class="specs">б/у · 150cc</div><div class="price">72 900 ₽</div><button class="btn-td">🚀</button></div></div>
+<div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ci"><div class="n">V3 Sport</div><div class="specs">б/у · 200cc</div><div class="price">149 900 ₽</div><button class="btn-td">🚀</button></div></div>
+<div class="c"><img src="images/catalog/t5-photo1.jpg"><div class="ci"><div class="n">T5 City</div><div class="specs">б/у · 125cc</div><div class="price">99 900 ₽</div><button class="btn-td">🚀</button></div></div>
+<div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ci"><div class="n">AGV R2</div><div class="specs">новый · 175cc</div><div class="price">139 900 ₽</div><button class="btn-td">🚀</button></div></div>
+</div></div></div>
+<div class="desc">Категории сверху · карусель снизу · фильтрация</div>
+</div>
+
+<!-- V4 -->
+<div class="card">
+<div class="cl">Вариант 4 · Градиентные карточки</div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="st">Каталог техники</div>
+<div class="sst">Выбирай технику под свой характер</div>
+<div class="scroll-x v4">
+<div class="c"><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ov"></div><div class="ci"><div class="n">Tank Next</div><div class="specs">б/у · 150cc · 100 км/ч</div><div class="price"><strong>72 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
+<div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ov"></div><div class="ci"><div class="n">AGV R2</div><div class="specs">новый · 175cc · 120 км/ч</div><div class="price"><strong>139 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
+<div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ov"></div><div class="ci"><div class="n">V3 Sport</div><div class="specs">б/у · 200cc · 140 км/ч</div><div class="price"><strong>149 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
+<div class="c"><img src="images/catalog/t5-photo1.jpg"><div class="ov"></div><div class="ci"><div class="n">T5 City</div><div class="specs">б/у · 125cc · 90 км/ч</div><div class="price"><strong>99 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
+</div></div></div>
+<div class="desc">Фото во всю карточку · градиент · текст снизу</div>
+</div>
+
+<!-- V5 -->
+<div class="card">
+<div class="cl">Вариант 5 · Крупные с бейджами</div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="st">Каталог техники</div>
+<div class="sst">Выбирай технику под свой характер</div>
+<div class="scroll-x v5">
+<div class="c"><span class="badge">🔥 ХИТ</span><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ci"><div class="n">Tank Next</div><div class="specs">б/у · 150cc · 100 км/ч</div><div class="price"><span class="oldp">89 900 ₽</span><strong>72 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
+<div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ci"><div class="n">V3 Sport</div><div class="specs">б/у · 200cc · 140 км/ч</div><div class="price"><strong>149 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
+<div class="c"><span class="badge">-15%</span><img src="images/catalog/t5-photo1.jpg"><div class="ci"><div class="n">T5 City</div><div class="specs">б/у · 125cc · 90 км/ч</div><div class="price"><span class="oldp">119 900 ₽</span><strong>99 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
+<div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ci"><div class="n">AGV R2</div><div class="specs">новый · 175cc · 120 км/ч</div><div class="price"><strong>139 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
+</div></div></div>
+<div class="desc">Крупные карточки · бейджи · старая/новая цена</div>
+</div>
+
+</div>
+</body>
+</html>
