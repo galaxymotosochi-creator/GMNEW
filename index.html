@@ -25,16 +25,16 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .btn{display:flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:12px;font-size:clamp(14px,2.5vw,16px);font-weight:600;font-family:inherit;border:none;cursor:pointer;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px)}
 .btn:active{transform:scale(.97)}
 .ct-hd{text-align:center;padding:60px 20px 24px}
-.ct-hd h2{font-size:24px;font-weight:800;color:#111;margin-bottom:4px}
+.ct-hd h2{font-size:24px;font-weight:800;color:#111;margin-bottom:4px;text-transform:uppercase}
 .ct-hd p{font-size:14px;color:#888}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px;max-width:500px;margin:0 auto}
 .card{border-radius:12px;overflow:hidden;background:#fff;cursor:pointer;border:1px solid #eee}
 .card:active{transform:scale(.97)}
 .card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
 .ci{padding:8px 10px 12px}
-.ci .n{font-size:13px;font-weight:700;color:#111}
-.ci .st{font-size:10px;color:#888}
-.ci .p{font-size:14px;font-weight:700;color:#0bc5ea}
+.ci .n{font-size:14px;font-weight:700;color:#111;text-transform:uppercase}
+.ci .st{font-size:11px;color:#888}
+.ci .p{font-size:13px;font-weight:700;color:#111}
 .ci .p .old{font-size:11px;color:#aaa;text-decoration:line-through;margin-right:4px}
 .modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);justify-content:center;align-items:center}
 .modal.open{display:flex}
@@ -95,7 +95,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 </div>
 <script>
 const models = [
-  {id:1,name:"Tank Next",img:"images/catalog/tank-next.jpg",price:72900,oldPrice:89900,status:"б/у",specs:[["Состояние","б/у"],["Пластик","без трещин"],["Технически","отличное"],["Пробег","12000 км"],["Мощность","150/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","12/12"]]},
+  {id:1,name:"TANK NEXT",img:"images/catalog/tank-next.jpg",price:72900,oldPrice:89900,status:"б/у",specs:[["Состояние","б/у"],["Пластик","без трещин"],["Технически","отличное"],["Пробег","12000 км"],["Мощность","150/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","12/12"]]},
   {id:2,name:"TANK X",img:"images/catalog/tank-x.jpg",price:129900,oldPrice:0,status:"новый",specs:[["Состояние","новый"],["Пластик","новый"],["Пробег","0 км"],["Мощность","175/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","13/13"]]},
   {id:3,name:"N-MAX BAM-X",img:"images/catalog/n-max-bam-x-1.jpg",price:169900,oldPrice:0,status:"б/у",specs:[["Состояние","б/у"],["Пластик","без трещин"],["Технически","отлично"],["Пробег","2700 км"],["Мощность","175/49сс"],["Подача","инжектор"],["Охлаждение","водяное"],["Макс.скорость","100 км/ч"],["Колёса","13/13"]]},
   {id:4,name:"MAXI / GALAXY",img:"images/catalog/maxi-galaxy.jpg",price:65900,oldPrice:0,status:"б/у",specs:[["Состояние","б/у"],["Пластик","притёртости"],["Технически","отличное"],["Пробег","13800 км"],["Мощность","150/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","12/12"]]},
