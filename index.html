@@ -92,6 +92,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .rent .success-box .det{font-size:12px;color:#666;line-height:1.8}
 .btn-s{display:block;width:100%;padding:10px;border-radius:10px;background:#111;color:#fff;border:none;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px}
 .btn-o{display:block;width:100%;padding:10px;border-radius:10px;background:transparent;color:#111;border:1px solid #ddd;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:6px}
+.rent .step2-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -138,22 +139,23 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
       <button onclick="nextMonth()" style="background:none;border:none;font-size:18px;cursor:pointer;color:#111;padding:4px">▶</button>
     </div>
     <div class="cal-grid" id="rentCalendar"></div>
-    <button class="btn-s" onclick="nextStep()" style="width:auto;padding:10px 24px;display:inline-block">Далее → выбор модели</button>
+    <div style="text-align:center"><button class="btn-s" onclick="nextStep()" style="width:auto;padding:10px 24px;display:inline-block">Далее → выбор модели</button></div>
   </div>
 
   <div class="rent-step" id="step2">
     <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px;text-align:center">Шаг 2 — Выберите модель</div>
-    <div id="rentModelCard" style="border:1.5px solid #0bc5ea;border-radius:14px;overflow:hidden;margin-bottom:10px">
-      <div style="text-align:center"><img id="rmImg" src="" style="width:100%;height:120px;object-fit:cover;display:block"></div>
-      <div style="padding:12px;text-align:center">
-        <div id="rmName" style="font-size:15px;font-weight:700;color:#111"></div>
-        <div id="rmSpec" style="font-size:12px;color:#888;margin:2px 0"></div>
-        <div id="rmPrice" style="font-size:20px;font-weight:800;color:#0bc5ea;margin:6px 0"></div>
+    <div id="rentModelCard" style="border:1px solid #ddd;border-radius:14px;overflow:hidden;margin-bottom:10px">
+      <div style="text-align:center"><img id="rmImg" src="" style="width:100%;height:180px;object-fit:cover;display:block"></div>
+      <div style="padding:14px;text-align:center">
+        <div id="rmName" style="font-size:16px;font-weight:800;color:#111;margin-bottom:4px"></div>
+        <div id="rmPrice" style="font-size:18px;font-weight:800;color:#0bc5ea;margin-bottom:2px"></div>
         <div id="rmDep" style="font-size:12px;color:#666"></div>
       </div>
     </div>
-    <button class="btn-s" onclick="selectRentModel()">Да, этот!</button>
-    <button class="btn-o" onclick="nextRentModel()" id="nextModelBtn">Нет, следующий →</button>
+    <div class="step2-btns">
+      <button class="btn-s" onclick="selectRentModel()" style="width:auto;padding:10px 20px;display:inline-block">Да, этот!</button>
+      <button class="btn-o" onclick="nextRentModel()" id="nextModelBtn" style="width:auto;padding:10px 20px;display:inline-block">Нет, следующий →</button>
+    </div>
   </div>
 
   <div class="rent-step" id="step3">
@@ -297,23 +299,22 @@ updateCalendar();
 var rentModelIdx = 0;
 var selectedRentModel = null;
 var rentModels = [
-  {name:"TANK NEXT",img:"images/catalog/tank-next.jpg",price:2400,dep:15000,status:"б/у",spec:"150cc"},
-  {name:"TANK X",img:"images/catalog/tank-x.jpg",price:4300,dep:20000,status:"новый",spec:"175cc"},
-  {name:"N-MAX BAM-X",img:"images/catalog/n-max-bam-x-1.jpg",price:5600,dep:25000,status:"б/у",spec:"175cc"},
-  {name:"MAXI / GALAXY",img:"images/catalog/maxi-galaxy.jpg",price:2100,dep:12000,status:"б/у",spec:"150cc"},
-  {name:"HONDA SUNDERO",img:"images/catalog/honda-sundero-1.jpg",price:8300,dep:30000,status:"новая",spec:"150cc"},
-  {name:"TANK KUNHAO",img:"images/catalog/tank-kunhao-1.jpg",price:2800,dep:15000,status:"б/у",spec:"150cc"},
-  {name:"TANK KUNHAO 2",img:"images/catalog/tank-kunhao2-1.jpg",price:2400,dep:15000,status:"б/у",spec:"150cc"},
-  {name:"ADV BAM-X",img:"images/catalog/adv-bam-x-1.jpg",price:4900,dep:25000,status:"новый",spec:"175cc"},
-  {name:"GUSITE AGV-R",img:"images/catalog/gusite-agv-r-1.jpg",price:6500,dep:30000,status:"новый",spec:"200cc"}
+  {name:"TANK NEXT",img:"images/catalog/tank-next.jpg",price:2400,dep:10000},
+  {name:"TANK X",img:"images/catalog/tank-x.jpg",price:4300,dep:10000},
+  {name:"N-MAX BAM-X",img:"images/catalog/n-max-bam-x-1.jpg",price:5600,dep:10000},
+  {name:"MAXI / GALAXY",img:"images/catalog/maxi-galaxy.jpg",price:2100,dep:10000},
+  {name:"HONDA SUNDERO",img:"images/catalog/honda-sundero-1.jpg",price:8300,dep:10000},
+  {name:"TANK KUNHAO",img:"images/catalog/tank-kunhao-1.jpg",price:2800,dep:10000},
+  {name:"TANK KUNHAO 2",img:"images/catalog/tank-kunhao2-1.jpg",price:2400,dep:10000},
+  {name:"ADV BAM-X",img:"images/catalog/adv-bam-x-1.jpg",price:4900,dep:10000},
+  {name:"GUSITE AGV-R",img:"images/catalog/gusite-agv-r-1.jpg",price:6500,dep:10000}
 ];
 
 function showRentModel() {
   var m = rentModels[rentModelIdx];
   document.getElementById('rmImg').src = m.img;
   document.getElementById('rmName').textContent = m.name;
-  document.getElementById('rmSpec').textContent = m.status+' · '+m.spec+' · до '+Math.round(m.price*0.7)+' км/ч';
-  document.getElementById('rmPrice').innerHTML = m.price.toLocaleString('ru-RU')+' ₽/день';
+  document.getElementById('rmPrice').innerHTML = m.price.toLocaleString('ru-RU')+' ₽ / день';
   document.getElementById('rmDep').textContent = 'Залог: '+m.dep.toLocaleString('ru-RU')+' ₽';
   if (rentModelIdx >= rentModels.length - 1) {
     document.getElementById('nextModelBtn').style.display = 'none';
