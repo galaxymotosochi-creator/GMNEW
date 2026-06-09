@@ -66,12 +66,13 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .rent-step.active{display:block}
 .rent .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:12px;max-width:340px;margin:0 auto 12px;border:1px solid #ddd;border-radius:10px;padding:8px 6px}
 .rent .cal-grid .wd{font-size:12px;color:#888;text-align:center;padding:6px 0;font-weight:600}
-.rent .cal-grid .d{font-size:14px;text-align:center;padding:8px 0;border-radius:50%;color:#333;cursor:pointer}
+.rent .cal-grid .d{font-size:14px;text-align:center;padding:8px 0;border-radius:8px;color:#333;cursor:pointer}
 .rent .cal-grid .d:hover{background:#f0f0f0}
-.rent .cal-grid .d.sel{background:#0bc5ea;color:#fff}
+.rent .cal-grid .d.sel{background:#0bc5ea;color:#fff;border-radius:8px}
 .rent .cal-grid .d.today{font-weight:700;color:#111}
 .rent .cal-grid .d.booked{color:#ddd;text-decoration:line-through;pointer-events:none}
 .rent .cal-grid .d.dim{color:#ccc}
+.rent .cal-grid .d.in-range{background:rgba(11,197,234,.15);border-radius:0}
 .rent .form-group{margin-bottom:12px}
 .rent .form-group label{display:block;font-size:13px;font-weight:600;color:#111;margin-bottom:4px}
 .rent .form-group input,.rent .form-group select{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit}
@@ -131,15 +132,12 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 
   <div class="rent-step active" id="step1">
     <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px;text-align:center">Шаг 1 — Выберите даты</div>
-    <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:6px">Июнь 2026</div>
-    <div class="cal-grid">
-      <div class="wd">Пн</div><div class="wd">Вт</div><div class="wd">Ср</div><div class="wd">Чт</div><div class="wd">Пт</div><div class="wd">Сб</div><div class="wd">Вс</div>
-      <div class="d dim">1</div><div class="d dim">2</div><div class="d dim">3</div><div class="d">4</div><div class="d">5</div><div class="d">6</div><div class="d">7</div>
-      <div class="d">8</div><div class="d">9</div><div class="d today">10</div><div class="d">11</div><div class="d">12</div><div class="d">13</div><div class="d">14</div>
-      <div class="d">15</div><div class="d">16</div><div class="d">17</div><div class="d booked">18</div><div class="d booked">19</div><div class="d">20</div><div class="d">21</div>
-      <div class="d">22</div><div class="d">23</div><div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div><div class="d">28</div>
-      <div class="d">29</div><div class="d">30</div><div></div><div></div><div></div><div></div><div></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:8px">
+      <button onclick="prevMonth()" style="background:none;border:none;font-size:18px;cursor:pointer;color:#111;padding:4px">◀</button>
+      <span style="font-size:15px;font-weight:700;color:#111" id="rentMonth">Июнь 2026</span>
+      <button onclick="nextMonth()" style="background:none;border:none;font-size:18px;cursor:pointer;color:#111;padding:4px">▶</button>
     </div>
+    <div class="cal-grid" id="rentCalendar"></div>
     <button class="btn-s" onclick="nextStep()">Далее → выбор модели</button>
   </div>
 
@@ -233,6 +231,69 @@ document.getElementById('modal').onclick = function(e) { if (e.target === this) 
 
 /* RENT */
 var rentStep = 1;
+var rentDateStart = null;
+var rentDateEnd = null;
+var rentCurrentMonth = 5; // June 2026
+var rentCurrentYear = 2026;
+
+function prevMonth() {
+  rentCurrentMonth--;
+  if (rentCurrentMonth < 0) { rentCurrentMonth = 11; rentCurrentYear--; }
+  updateCalendar();
+}
+function nextMonth() {
+  rentCurrentMonth++;
+  if (rentCurrentMonth > 11) { rentCurrentMonth = 0; rentCurrentYear++; }
+  updateCalendar();
+}
+
+function updateCalendar() {
+  var months = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  document.getElementById('rentMonth').textContent = months[rentCurrentMonth]+' '+rentCurrentYear;
+  
+  // Rebuild calendar days
+  var grid = document.querySelector('.rent .cal-grid');
+  var html = '<div class="wd">Пн</div><div class="wd">Вт</div><div class="wd">Ср</div><div class="wd">Чт</div><div class="wd">Пт</div><div class="wd">Сб</div><div class="wd">Вс</div>';
+  var firstDay = new Date(rentCurrentYear, rentCurrentMonth, 1).getDay();
+  var daysInMonth = new Date(rentCurrentYear, rentCurrentMonth + 1, 0).getDate();
+  // Adjust for Monday start (1=Mon, 0=Sun)
+  var startOffset = firstDay === 0 ? 6 : firstDay - 1;
+  for (var i = 0; i < startOffset; i++) html += '<div></div>';
+  for (var d = 1; d <= daysInMonth; d++) {
+    var cls = 'd';
+    var today = new Date();
+    if (d === today.getDate() && rentCurrentMonth === today.getMonth() && rentCurrentYear === today.getFullYear()) cls += ' today';
+    // Check if in range (same month only)
+    if (rentDateStart && rentDateEnd && rentCurrentMonth === rentDateStart.month && rentCurrentYear === rentDateStart.year && rentDateStart.month === rentDateEnd.month) {
+      if (d > rentDateStart.day && d < rentDateEnd.day) cls += ' in-range';
+    }
+    if (rentDateStart && d === rentDateStart.day && rentCurrentMonth === rentDateStart.month && rentCurrentYear === rentDateStart.year) cls += ' sel';
+    if (rentDateEnd && d === rentDateEnd.day && rentCurrentMonth === rentDateEnd.month && rentCurrentYear === rentDateEnd.year) cls += ' sel';
+    html += '<div class="'+cls+'">'+d+'</div>';
+  }
+  grid.innerHTML = html;
+  
+  // Add click handlers
+  grid.querySelectorAll('.d:not(.dim):not(.booked)').forEach(function(el) {
+    el.onclick = function() {
+      var day = parseInt(this.textContent);
+      if (!rentDateStart || (rentDateStart && rentDateEnd)) {
+        rentDateStart = {day: day, month: rentCurrentMonth, year: rentCurrentYear};
+        rentDateEnd = null;
+      } else {
+        rentDateEnd = {day: day, month: rentCurrentMonth, year: rentCurrentYear};
+        if (rentDateEnd.day < rentDateStart.day) {
+          var tmp = rentDateStart;
+          rentDateStart = rentDateEnd;
+          rentDateEnd = tmp;
+        }
+      }
+      updateCalendar();
+    };
+  });
+}
+
+updateCalendar();
 var rentModelIdx = 0;
 var selectedRentModel = null;
 var rentModels = [
