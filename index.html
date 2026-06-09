@@ -53,6 +53,42 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .specs-table td:last-child{color:#111;font-weight:500}
 .btn-td{display:inline-block;padding:12px 20px;background:#111;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer}
 .btn-td:hover{background:#333}
+
+/* RENT */
+.rent{padding:40px 16px 60px;max-width:500px;margin:0 auto}
+.rent h2{font-size:24px;font-weight:800;color:#111;margin-bottom:4px;text-align:center;text-transform:uppercase}
+.rent .sub{font-size:14px;color:#888;text-align:center;margin-bottom:20px}
+.rent .steps{display:flex;gap:8px;justify-content:center;margin-bottom:20px}
+.rent .steps div{width:36px;height:36px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#888;transition:all .2s}
+.rent .steps .act{background:#0bc5ea;color:#fff}
+.rent .steps .done{background:#111;color:#fff}
+.rent-step{display:none}
+.rent-step.active{display:block}
+.rent .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:12px;max-width:340px;margin:0 auto 12px}
+.rent .cal-grid .wd{font-size:10px;color:#999;text-align:center;padding:6px 0}
+.rent .cal-grid .d{font-size:12px;text-align:center;padding:8px 0;border-radius:50%;color:#333;cursor:pointer}
+.rent .cal-grid .d:hover{background:#f0f0f0}
+.rent .cal-grid .d.sel{background:#0bc5ea;color:#fff}
+.rent .cal-grid .d.today{font-weight:700;color:#111}
+.rent .cal-grid .d.booked{color:#ddd;text-decoration:line-through;pointer-events:none}
+.rent .cal-grid .d.dim{color:#ccc}
+.rent .form-group{margin-bottom:12px}
+.rent .form-group label{display:block;font-size:13px;font-weight:600;color:#111;margin-bottom:4px}
+.rent .form-group input,.rent .form-group select{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit}
+.rent .rcard{border:1px solid #eee;border-radius:12px;overflow:hidden;margin-bottom:10px;cursor:pointer;transition:all .15s}
+.rent .rcard:hover{border-color:#0bc5ea}
+.rent .rcard.sel{border-color:#0bc5ea;background:#f0faff}
+.rent .rcard img{width:100%;height:100px;object-fit:cover}
+.rent .rcard .ci{padding:10px}
+.rent .rcard .ci .n{font-size:14px;font-weight:700;color:#111}
+.rent .rcard .ci .s{font-size:11px;color:#888;margin:2px 0}
+.rent .rcard .ci .pr{font-size:16px;font-weight:700;color:#0bc5ea}
+.rent .rcard .ci .dep{font-size:11px;color:#666}
+.rent .success-box{background:#f0faf0;border-radius:14px;padding:20px;text-align:center}
+.rent .success-box .icon{font-size:36px;margin-bottom:8px}
+.rent .success-box h3{font-size:18px;font-weight:800;color:#111}
+.rent .success-box .amt{font-size:20px;font-weight:800;color:#0bc5ea;margin:6px 0}
+.rent .success-box .det{font-size:12px;color:#666;line-height:1.8}
 </style>
 </head>
 <body>
@@ -82,6 +118,60 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 </div>
 <div class="grid" id="catalogGrid"></div>
 </section>
+
+<!-- RENT -->
+<section class="rent">
+  <h2>Аренда скутера</h2>
+  <p class="sub">4 шага до поездки</p>
+  <div class="steps" id="rentSteps">
+    <div class="act">1</div><div>2</div><div>3</div><div>4</div>
+  </div>
+
+  <div class="rent-step active" id="step1">
+    <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px;text-align:center">Шаг 1 — Выберите даты</div>
+    <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:6px">Июнь 2026</div>
+    <div class="cal-grid">
+      <div class="wd">Пн</div><div class="wd">Вт</div><div class="wd">Ср</div><div class="wd">Чт</div><div class="wd">Пт</div><div class="wd">Сб</div><div class="wd">Вс</div>
+      <div class="d dim">1</div><div class="d dim">2</div><div class="d dim">3</div><div class="d">4</div><div class="d">5</div><div class="d">6</div><div class="d">7</div>
+      <div class="d">8</div><div class="d">9</div><div class="d today">10</div><div class="d">11</div><div class="d">12</div><div class="d">13</div><div class="d">14</div>
+      <div class="d">15</div><div class="d">16</div><div class="d">17</div><div class="d booked">18</div><div class="d booked">19</div><div class="d">20</div><div class="d">21</div>
+      <div class="d">22</div><div class="d">23</div><div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div><div class="d">28</div>
+      <div class="d">29</div><div class="d">30</div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+    <button class="btn-s" onclick="nextStep()">Далее → выбор модели</button>
+  </div>
+
+  <div class="rent-step" id="step2">
+    <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px;text-align:center">Шаг 2 — Выберите модель</div>
+    <div id="rentModels"></div>
+    <button class="btn-s" onclick="nextStep()" id="step2Btn" disabled>Далее</button>
+  </div>
+
+  <div class="rent-step" id="step3">
+    <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px;text-align:center">Шаг 3 — Контакты</div>
+    <div class="form-group"><label>Имя</label><input id="rName" placeholder="Ваше имя" value=""></div>
+    <div class="form-group"><label>Телефон</label><input id="rPhone" placeholder="+7 (___) ___-__-__" value=""></div>
+    <div class="form-group"><label>Забрать скутер</label><input id="rTime" placeholder="Дата и время" value=""></div>
+    <button class="btn-s" onclick="nextStep()">Забронировать</button>
+  </div>
+
+  <div class="rent-step" id="step4">
+    <div class="success-box">
+      <div class="icon">🎉</div>
+      <h3>Скутер забронирован!</h3>
+      <div class="amt" id="rentTotal">Осталось: 6 700 ₽</div>
+      <div class="det">
+        💳 Задаток: <strong>1 500 ₽</strong><br>
+        (Альфа / Райффайзен по СПБ)<br>
+        Получатель: Юлия Валерьевна Ш.<br><br>
+        📄 С собой: права, паспорт<br>
+        📞 +7 (900) 001-80-23<br><br>
+        Если что-то поменяется —<br>сообщите о ваших планах!
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="modal" id="modal">
   <div class="modal-inner">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -129,6 +219,50 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 document.getElementById('modal').onclick = function(e) { if (e.target === this) closeModal(); };
+
+/* RENT */
+var rentStep = 1;
+var rentModels = [
+  {name:"TANK NEXT",img:"images/catalog/tank-next.jpg",price:2400,dep:15000,status:"б/у",spec:"150cc"},
+  {name:"TANK X",img:"images/catalog/tank-x.jpg",price:4300,dep:20000,status:"новый",spec:"175cc"},
+  {name:"N-MAX BAM-X",img:"images/catalog/n-max-bam-x-1.jpg",price:5600,dep:25000,status:"б/у",spec:"175cc"},
+  {name:"MAXI / GALAXY",img:"images/catalog/maxi-galaxy.jpg",price:2100,dep:12000,status:"б/у",spec:"150cc"},
+  {name:"HONDA SUNDERO",img:"images/catalog/honda-sundero-1.jpg",price:8300,dep:30000,status:"новая",spec:"150cc"},
+  {name:"TANK KUNHAO",img:"images/catalog/tank-kunhao-1.jpg",price:2800,dep:15000,status:"б/у",spec:"150cc"},
+  {name:"TANK KUNHAO 2",img:"images/catalog/tank-kunhao2-1.jpg",price:2400,dep:15000,status:"б/у",spec:"150cc"},
+  {name:"ADV BAM-X",img:"images/catalog/adv-bam-x-1.jpg",price:4900,dep:25000,status:"новый",spec:"175cc"},
+  {name:"GUSITE AGV-R",img:"images/catalog/gusite-agv-r-1.jpg",price:6500,dep:30000,status:"новый",spec:"200cc"}
+];
+
+function renderRentModels() {
+  var g = document.getElementById('rentModels');
+  g.innerHTML = '';
+  rentModels.forEach(function(m, i) {
+    var c = document.createElement('div');
+    c.className = 'rcard';
+    c.innerHTML = '<img src="'+m.img+'" loading="lazy"><div class="ci"><div class="n">'+m.name+'</div><div class="s">'+m.status+' · '+m.spec+'</div><div class="pr">'+m.price.toLocaleString('ru-RU')+' ₽/день</div><div class="dep">Залог: '+m.dep.toLocaleString('ru-RU')+' ₽</div></div>';
+    c.onclick = function() {
+      document.querySelectorAll('.rcard').forEach(function(x){x.classList.remove('sel')});
+      c.classList.add('sel');
+      document.getElementById('step2Btn').disabled = false;
+    };
+    g.appendChild(c);
+  });
+}
+
+function nextStep() {
+  if (rentStep < 4) {
+    document.getElementById('step'+rentStep).classList.remove('active');
+    document.querySelector('#rentSteps div:nth-child('+rentStep+')').classList.remove('act');
+    document.querySelector('#rentSteps div:nth-child('+rentStep+')').classList.add('done');
+    rentStep++;
+    document.getElementById('step'+rentStep).classList.add('active');
+    document.querySelector('#rentSteps div:nth-child('+rentStep+')').classList.add('act');
+    if (rentStep === 2) renderRentModels();
+  }
+}
+
+renderRentModels();
 </script>
 </body>
 </html>
