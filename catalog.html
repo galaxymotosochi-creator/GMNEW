@@ -2,174 +2,171 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<title>GALAXY MOTO — Каталог · 5 вариантов</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GALAXY MOTO — Каталог техники</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#e8e8ed;padding:28px 16px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;-webkit-font-smoothing:antialiased}
-h1{text-align:center;font-size:24px;font-weight:800;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
-.sub{text-align:center;font-size:13px;color:#666;margin-bottom:28px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;max-width:1800px;margin:0 auto}
-.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.cl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;text-align:center;margin-bottom:10px}
-.phone{max-width:340px;margin:0 auto;border-radius:36px;overflow:hidden;box-shadow:0 0 0 2px #3a3a3e,0 12px 40px rgba(0,0,0,.15);background:#fff;position:relative}
-.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:100px;height:20px;background:#0d0d0f;border-radius:0 0 9px 9px;z-index:10}
-.screen{width:100%;padding:40px 16px 16px;position:relative}
-.st{text-align:center;font-size:18px;font-weight:700;color:#111;margin-bottom:2px}
-.sst{text-align:center;font-size:12px;color:#888;margin-bottom:14px}
-.scroll-x{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px}
-.scroll-x::-webkit-scrollbar{display:none}
-.scroll-x > *{scroll-snap-align:start;flex-shrink:0}
-.oldp{font-size:11px;color:#aaa;text-decoration:line-through;margin-right:4px}
-.btn-td{padding:6px 12px;border-radius:8px;background:#111;color:#fff;font-size:11px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:6px;display:inline-block}
-.v1 .c{width:230px;border-radius:12px;overflow:hidden;background:#f8f8f8}
-.v1 .c img{width:100%;height:130px;object-fit:cover;display:block}
-.v1 .ci{padding:10px 12px 12px}
-.v1 .ci .n{font-size:14px;font-weight:700;color:#111;margin-bottom:4px}
-.v1 .ci .specs{font-size:10px;color:#888;line-height:1.6}
-.v1 .ci .price{font-size:15px;font-weight:700;color:#0bc5ea;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
-.v2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.v2 .c{border-radius:12px;overflow:hidden;background:#f8f8f8}
-.v2 .c img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
-.v2 .ci{padding:8px 10px 10px}
-.v2 .ci .n{font-size:12px;font-weight:700;color:#111;margin-bottom:2px}
-.v2 .ci .specs{font-size:9px;color:#888;line-height:1.5}
-.v2 .ci .price{font-size:13px;font-weight:700;color:#0bc5ea;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:3px}
-.v2 .btn-td{font-size:10px;padding:4px 8px}
-.v3 .tabs{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;padding:2px}
-.v3 .tabs > div{padding:6px 12px;border-radius:16px;font-size:11px;font-weight:600;background:#f0f0f0;color:#888;white-space:nowrap;flex-shrink:0}
-.v3 .tabs .act{background:#111;color:#fff}
-.v3 .c{width:200px;border-radius:12px;overflow:hidden;background:#f8f8f8}
-.v3 .c img{width:100%;height:120px;object-fit:cover;display:block}
-.v3 .ci{padding:8px 10px 10px}
-.v3 .ci .n{font-size:13px;font-weight:700;color:#111}
-.v3 .ci .specs{font-size:9px;color:#888;line-height:1.5}
-.v3 .ci .price{font-size:13px;font-weight:700;color:#0bc5ea;display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
-.v4 .c{width:240px;border-radius:14px;overflow:hidden;position:relative}
-.v4 .c img{width:100%;height:200px;object-fit:cover;display:block}
-.v4 .c .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85))}
-.v4 .c .ci{position:absolute;bottom:0;left:0;right:0;padding:12px;color:#fff}
-.v4 .c .ci .n{font-size:15px;font-weight:700}
-.v4 .c .ci .specs{font-size:9px;opacity:.8;line-height:1.5}
-.v4 .c .ci .price{font-size:13px;font-weight:600;opacity:.95;margin-top:2px;display:flex;gap:4px;flex-wrap:wrap}
-.v4 .btn-td{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff}
-.v5 .c{width:250px;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #eee;position:relative}
-.v5 .c .badge{position:absolute;top:8px;left:8px;z-index:2;padding:3px 8px;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);color:#fff;font-size:9px;font-weight:700;border-radius:4px}
-.v5 .c img{width:100%;height:140px;object-fit:cover;display:block}
-.v5 .ci{padding:10px 12px 14px}
-.v5 .ci .n{font-size:14px;font-weight:700;color:#111}
-.v5 .ci .specs{font-size:9px;color:#888;line-height:1.5}
-.v5 .ci .price{font-size:15px;font-weight:700;color:#0bc5ea;display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
-.desc{font-size:10px;color:#aaa;text-align:center;margin-top:8px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#f5f5f7;-webkit-font-smoothing:antialiased;padding:0 0 60px}
+
+/* Header */
+.ct-hd{text-align:center;padding:60px 20px 24px}
+.ct-hd h2{font-size:24px;font-weight:800;color:#111;margin-bottom:4px}
+.ct-hd p{font-size:14px;color:#888}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px;max-width:500px;margin:0 auto}
+.card{border-radius:12px;overflow:hidden;background:#fff;cursor:pointer;transition:all .15s;border:1px solid #eee}
+.card:active{transform:scale(.97)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.ci{padding:8px 10px 12px}
+.ci .n{font-size:13px;font-weight:700;color:#111;margin-bottom:2px}
+.ci .m{font-size:10px;color:#888;line-height:1.4;margin-bottom:4px}
+.ci .p{font-size:14px;font-weight:700;color:#0bc5ea}
+.ci .p .old{font-size:11px;color:#aaa;text-decoration:line-through;margin-right:4px}
+
+/* Modal */
+.modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);padding:0;overflow-y:auto;justify-content:center;align-items:flex-end}
+.modal.open{display:flex}
+.modal-inner{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;animation:slideUp .35s cubic-bezier(0.32,0.72,0,1);padding:0 0 24px}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:20px 20px 0 0}
+.modal-body{padding:20px 20px 0}
+.modal-body h3{font-size:20px;font-weight:800;color:#111;margin-bottom:12px}
+.modal-body .price{font-size:22px;font-weight:800;color:#0bc5ea;margin-bottom:16px}
+.modal-body .price .old{font-size:15px;color:#aaa;text-decoration:line-through;margin-right:8px;font-weight:500}
+.specs-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.specs-table td{padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+.specs-table td:first-child{color:#888;width:45%}
+.specs-table td:last-child{color:#111;font-weight:500}
+.btn-td{display:block;width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px}
+.btn-td:hover{background:#333}
+.modal-close{position:fixed;top:16px;right:16px;z-index:1001;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.5);border:none;color:#fff;font-size:22px;cursor:pointer;display:none;align-items:center;justify-content:center}
+.modal.open .modal-close{display:flex}
 </style>
 </head>
 <body>
-<h1>GALAXY MOTO</h1>
-<p class="sub">5 вариантов каталога техники — выбери лучший</p>
-<div class="grid">
 
-<!-- V1 -->
-<div class="card">
-<div class="cl">Вариант 1 · Классическая карусель</div>
-<div class="phone"><div class="notch"></div><div class="screen v1">
-<div class="st">Каталог техники</div>
-<div class="sst">Выбирай под свой характер</div>
-<div class="scroll-x">
-<div class="c"><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ci">
-<div class="n">Tank Next</div>
-<div class="specs">Состояние: б/у<br>Пластик: без трещин<br>Технически: отличное<br>Пробег: 12000 км<br>Мощность: 150/49сс<br>Тип подачи: карбюратор<br>Охлаждение: воздушное<br>Макс. скорость: 100 км/ч<br>Колёса: 12/12</div>
-<div class="price"><span class="oldp">89 900 ₽</span><strong>72 900 ₽</strong></div>
-<button class="btn-td">🚀 Тест-драйв</button>
-</div></div>
-<div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ci">
-<div class="n">Gusite AGV R2</div>
-<div class="specs">Состояние: новый<br>Мощность: 175cc<br>Подача: инжектор<br>Охл.: жидкостное<br>Макс: 120 км/ч</div>
-<div class="price"><span class="oldp">169 900 ₽</span><strong>139 900 ₽</strong></div>
-<button class="btn-td">🚀 Тест-драйв</button>
-</div></div>
-<div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ci">
-<div class="n">V3 Sport</div>
-<div class="specs">Состояние: б/у<br>Пробег: 8000 км<br>Мощность: 200cc<br>Макс: 140 км/ч</div>
-<div class="price"><strong>149 900 ₽</strong></div>
-<button class="btn-td">🚀 Тест-драйв</button>
-</div></div>
-<div class="c"><img src="images/catalog/t5-photo1.jpg"><div class="ci">
-<div class="n">T5 City</div>
-<div class="specs">Состояние: б/у<br>Пробег: 15000 км<br>Мощность: 125cc<br>Макс: 90 км/ч</div>
-<div class="price"><strong>99 900 ₽</strong></div>
-<button class="btn-td">🚀 Тест-драйв</button>
-</div></div>
-</div></div></div>
-<div class="desc">Горизонтальная карусель · характеристики · цены · тест-драйв</div>
+<div class="ct-hd">
+  <h2>Каталог техники</h2>
+  <p>Выбирай технику под свой характер и задачи</p>
 </div>
 
-<!-- V2 -->
-<div class="card">
-<div class="cl">Вариант 2 · Сетка 2×3</div>
-<div class="phone"><div class="notch"></div><div class="screen">
-<div class="st">Каталог техники</div>
-<div class="sst">Выбирай технику под свой характер</div>
-<div class="v2">
-<div class="c"><img src="images/catalog/maxi-galaxy.jpg"><div class="ci"><div class="n">Maxi Galaxy</div><div class="specs">новый · 150cc</div><div class="price">119 900 ₽</div><button class="btn-td">🚀</button></div></div>
-<div class="c"><img src="images/catalog/px3-photo1.jpg"><div class="ci"><div class="n">PX3</div><div class="specs">б/у · 125cc</div><div class="price">109 900 ₽</div><button class="btn-td">🚀</button></div></div>
-<div class="c"><img src="images/catalog/v2-photo1.jpg"><div class="ci"><div class="n">V2 Classic</div><div class="specs">новый · 150cc</div><div class="price">89 900 ₽</div><button class="btn-td">🚀</button></div></div>
-<div class="c"><img src="images/catalog/maxi-galaxy-2.jpg"><div class="ci"><div class="n">Maxi 2</div><div class="specs">б/у · 175cc</div><div class="price">129 900 ₽</div><button class="btn-td">🚀</button></div></div>
-<div class="c"><img src="images/catalog/gusite-agv-r-1.jpg"><div class="ci"><div class="n">Gusite AGV</div><div class="specs">новый · 200cc</div><div class="price">99 900 ₽</div><button class="btn-td">🚀</button></div></div>
-<div class="c"><img src="images/catalog/t7-photo1.jpg"><div class="ci"><div class="n">T7 Pro</div><div class="specs">новый · 250cc</div><div class="price">159 900 ₽</div><button class="btn-td">🚀</button></div></div>
-</div></div></div>
-<div class="desc">Сетка 2 колонки · компактно · сразу 6 моделей</div>
+<div class="grid" id="catalogGrid"></div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-inner" id="modalInner">
+    <img class="modal-img" id="modalImg" src="" alt="">
+    <div class="modal-body">
+      <h3 id="modalTitle"></h3>
+      <div class="price" id="modalPrice"></div>
+      <table class="specs-table" id="modalSpecs"></table>
+      <button class="btn-td" onclick="alert('🚀 Тест-драйв')">🚀 Записаться на тест-драйв</button>
+    </div>
+  </div>
 </div>
 
-</div>
-</body>
-</html>
+<script>
+const models = [
+  {
+    id:1, name:"Tank Next", img:"images/catalog/maxi-galaxy-3.jpg", price:72900, oldPrice:89900,
+    specs:[
+      ["Состояние","б/у"],
+      ["Пластик","без трещин"],
+      ["Технически","отличное"],
+      ["Пробег","12000 км"],
+      ["Мощность","150/49сс"],
+      ["Тип подачи","карбюратор"],
+      ["Охлаждение","воздушное"],
+      ["Макс. скорость","100 км/ч"],
+      ["Колёса","12/12"]
+    ]
+  },
+  {
+    id:2, name:"Gusite AGV R2", img:"images/catalog/gusite-agv-r-2.jpg", price:139900, oldPrice:169900,
+    specs:[
+      ["Состояние","новый"],
+      ["Мощность","175cc"],
+      ["Подача","инжектор"],
+      ["Охлаждение","жидкостное"],
+      ["Макс. скорость","120 км/ч"]
+    ]
+  },
+  {
+    id:3, name:"V3 Sport", img:"images/catalog/v3-photo1.jpg", price:149900,
+    specs:[
+      ["Состояние","б/у"],
+      ["Пробег","8000 км"],
+      ["Мощность","200cc"],
+      ["Макс. скорость","140 км/ч"]
+    ]
+  },
+  {
+    id:4, name:"T5 City", img:"images/catalog/t5-photo1.jpg", price:99900,
+    specs:[
+      ["Состояние","б/у"],
+      ["Пробег","15000 км"],
+      ["Мощность","125cc"],
+      ["Макс. скорость","90 км/ч"]
+    ]
+  },
+  {
+    id:5, name:"Maxi Galaxy", img:"images/catalog/maxi-galaxy.jpg", price:119900,
+    specs:[
+      ["Состояние","новый"],
+      ["Мощность","150cc"],
+      ["Макс. скорость","110 км/ч"]
+    ]
+  },
+  {
+    id:6, name:"PX3", img:"images/catalog/px3-photo1.jpg", price:109900,
+    specs:[
+      ["Состояние","б/у"],
+      ["Мощность","125cc"],
+      ["Макс. скорость","95 км/ч"]
+    ]
+  }
+];
 
-<!-- V3 -->
-<div class="card">
-<div class="cl">Вариант 3 · Вкладки + карусель</div>
-<div class="phone"><div class="notch"></div><div class="screen v3">
-<div class="st">Каталог техники</div>
-<div class="sst">Выбирай технику под свой характер</div>
-<div class="tabs"><div class="act">Все</div><div>Скутеры</div><div>Мотоциклы</div><div>Электро</div></div>
-<div class="scroll-x">
-<div class="c"><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ci"><div class="n">Tank Next</div><div class="specs">б/у · 150cc</div><div class="price">72 900 ₽</div><button class="btn-td">🚀</button></div></div>
-<div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ci"><div class="n">V3 Sport</div><div class="specs">б/у · 200cc</div><div class="price">149 900 ₽</div><button class="btn-td">🚀</button></div></div>
-<div class="c"><img src="images/catalog/t5-photo1.jpg"><div class="ci"><div class="n">T5 City</div><div class="specs">б/у · 125cc</div><div class="price">99 900 ₽</div><button class="btn-td">🚀</button></div></div>
-<div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ci"><div class="n">AGV R2</div><div class="specs">новый · 175cc</div><div class="price">139 900 ₽</div><button class="btn-td">🚀</button></div></div>
-</div></div></div>
-<div class="desc">Категории сверху · карусель снизу · фильтрация</div>
-</div>
+const grid = document.getElementById('catalogGrid');
+models.forEach(m => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = '<img src="'+m.img+'" loading="lazy"><div class="ci"><div class="n">'+m.name+'</div><div class="m">'+m.specs[0][1]+' · '+m.specs.filter((s,i)=>i>0&&i<3).map(s=>s[1]).join(' · ')+'</div><div class="p">'+(m.oldPrice?'<span class="old">'+m.oldPrice.toLocaleString('ru-RU')+' ₽</span>':'')+m.price.toLocaleString('ru-RU')+' ₽</div></div>';
+  card.onclick = () => openModal(m);
+  grid.appendChild(card);
+});
 
-<!-- V4 -->
-<div class="card">
-<div class="cl">Вариант 4 · Градиентные карточки</div>
-<div class="phone"><div class="notch"></div><div class="screen">
-<div class="st">Каталог техники</div>
-<div class="sst">Выбирай технику под свой характер</div>
-<div class="scroll-x v4">
-<div class="c"><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ov"></div><div class="ci"><div class="n">Tank Next</div><div class="specs">б/у · 150cc · 100 км/ч</div><div class="price"><strong>72 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-<div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ov"></div><div class="ci"><div class="n">AGV R2</div><div class="specs">новый · 175cc · 120 км/ч</div><div class="price"><strong>139 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-<div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ov"></div><div class="ci"><div class="n">V3 Sport</div><div class="specs">б/у · 200cc · 140 км/ч</div><div class="price"><strong>149 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-<div class="c"><img src="images/catalog/t5-photo1.jpg"><div class="ov"></div><div class="ci"><div class="n">T5 City</div><div class="specs">б/у · 125cc · 90 км/ч</div><div class="price"><strong>99 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-</div></div></div>
-<div class="desc">Фото во всю карточку · градиент · текст снизу</div>
-</div>
+function openModal(m) {
+  document.getElementById('modalImg').src = m.img;
+  document.getElementById('modalTitle').textContent = m.name;
+  const priceEl = document.getElementById('modalPrice');
+  priceEl.innerHTML = (m.oldPrice?'<span class="old">'+m.oldPrice.toLocaleString('ru-RU')+' ₽</span> ':'')+m.price.toLocaleString('ru-RU')+' ₽';
+  
+  const tbody = document.getElementById('modalSpecs');
+  tbody.innerHTML = '';
+  m.specs.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>'+s[0]+'</td><td>'+s[1]+'</td>';
+    tbody.appendChild(tr);
+  });
+  
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 
-<!-- V5 -->
-<div class="card">
-<div class="cl">Вариант 5 · Крупные с бейджами</div>
-<div class="phone"><div class="notch"></div><div class="screen">
-<div class="st">Каталог техники</div>
-<div class="sst">Выбирай технику под свой характер</div>
-<div class="scroll-x v5">
-<div class="c"><span class="badge">🔥 ХИТ</span><img src="images/catalog/maxi-galaxy-3.jpg"><div class="ci"><div class="n">Tank Next</div><div class="specs">б/у · 150cc · 100 км/ч</div><div class="price"><span class="oldp">89 900 ₽</span><strong>72 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-<div class="c"><img src="images/catalog/v3-photo1.jpg"><div class="ci"><div class="n">V3 Sport</div><div class="specs">б/у · 200cc · 140 км/ч</div><div class="price"><strong>149 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-<div class="c"><span class="badge">-15%</span><img src="images/catalog/t5-photo1.jpg"><div class="ci"><div class="n">T5 City</div><div class="specs">б/у · 125cc · 90 км/ч</div><div class="price"><span class="oldp">119 900 ₽</span><strong>99 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-<div class="c"><img src="images/catalog/gusite-agv-r-2.jpg"><div class="ci"><div class="n">AGV R2</div><div class="specs">новый · 175cc · 120 км/ч</div><div class="price"><strong>139 900 ₽</strong></div><button class="btn-td">🚀 Тест-драйв</button></div></div>
-</div></div></div>
-<div class="desc">Крупные карточки · бейджи · старая/новая цена</div>
-</div>
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
-</div>
+document.getElementById('modal').onclick = function(e) {
+  if (e.target === this) closeModal();
+};
+</script>
 </body>
 </html>
