@@ -107,15 +107,15 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
       <div class="ytxt"><div class="ylabel">Яндекс.Карты</div><div class="yvalue">оценка 5.0</div></div>
     </a>
     <div class="btns">
-      <button class="btn">Выбрать технику</button>
+      <button class="btn" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Выбрать технику</button>
       <div class="br">
-        <button class="btn">Взять в аренду</button>
-        <button class="btn">Записаться на сервис</button>
+        <button class="btn" onclick="document.getElementById('rentSection').scrollIntoView({behavior:'smooth'})">Взять в аренду</button>
+        <button class="btn" onclick="document.getElementById('rentSection').scrollIntoView({behavior:'smooth'})">Записаться на сервис</button>
       </div>
     </div>
   </div>
 </section>
-<section style="padding:0 0 40px">
+<section id="catalog" style="padding:0 0 40px">
 <div class="ct-hd">
   <h2>Каталог техники</h2>
   <p>Выбирай технику под свой характер и задачи</p>
@@ -124,7 +124,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 </section>
 
 <!-- RENT -->
-<section class="rent">
+<section id="rentSection" class="rent">
   <h2>Аренда скутера</h2>
   <p class="sub">4 шага до поездки</p>
   <div class="steps" id="rentSteps">
