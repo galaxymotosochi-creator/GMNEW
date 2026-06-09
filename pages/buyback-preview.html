@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>GALAXY MOTO — Скупка · 5 вариантов</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e8e8ed;padding:28px 16px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif}
+h1{text-align:center;font-size:24px;font-weight:800;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.sub{text-align:center;font-size:13px;color:#666;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;max-width:1800px;margin:0 auto}
+.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.cl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;text-align:center;margin-bottom:10px}
+.phone{max-width:340px;margin:0 auto;border-radius:36px;overflow:hidden;box-shadow:0 0 0 2px #3a3a3e,0 12px 40px rgba(0,0,0,.15);background:#fff;position:relative}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:100px;height:20px;background:#0d0d0f;border-radius:0 0 9px 9px;z-index:10}
+.screen{width:100%;padding:40px 14px 14px;position:relative;min-height:500px;font-family:'Inter',sans-serif}
+.st{text-align:center;font-size:18px;font-weight:700;color:#111;margin-bottom:2px}
+.sst{text-align:center;font-size:12px;color:#888;margin-bottom:14px}
+.btn-s{display:block;width:100%;padding:10px;border-radius:10px;background:#111;color:#fff;border:none;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px}
+.btn-o{display:block;width:100%;padding:10px;border-radius:10px;background:transparent;color:#111;border:1px solid #ddd;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:6px}
+.desc{font-size:10px;color:#aaa;text-align:center;margin-top:8px}
+
+/* Photo grid */
+.photo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+.photo-grid div{aspect-ratio:1;border:1.5px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#ccc;cursor:pointer;background:#fafafa}
+.photo-grid div.filled{border-style:solid;border-color:#0bc5ea;background:#f0faff}
+
+/* Scale */
+.scale-group{margin-bottom:12px}
+.scale-group .label{font-size:13px;font-weight:600;color:#111;margin-bottom:4px}
+.scale{display:flex;gap:4px}
+.scale div{flex:1;padding:6px 0;text-align:center;font-size:10px;border-radius:6px;background:#f0f0f0;color:#888;cursor:pointer;font-weight:500}
+.scale div.sel{background:#0bc5ea;color:#fff}
+
+/* V2 - photo grid 2 rows */
+.v2 .photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr}
+
+/* V3 - slider range */
+.v3 .range-wrap{margin-bottom:14px}
+.v3 .range-wrap .label{font-size:12px;color:#111;font-weight:600;margin-bottom:4px;display:flex;justify-content:space-between}
+.v3 .range-wrap input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:linear-gradient(90deg,#f44336,#ff9800,#4caf50);outline:none}
+.v3 .range-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid #0bc5ea;cursor:pointer}
+
+/* V4 - card style */
+.v4 .part-card{border:1px solid #eee;border-radius:10px;padding:10px;margin-bottom:8px}
+.v4 .part-card .name{font-size:12px;font-weight:600;color:#111;margin-bottom:4px}
+.v4 .smileys{display:flex;gap:6px;justify-content:center}
+.v4 .smileys span{font-size:20px;cursor:pointer;opacity:.3;transition:all .15s}
+.v4 .smileys span.sel{opacity:1;transform:scale(1.2)}
+</style>
+</head>
+<body>
+<h1>GALAXY MOTO</h1>
+<p class="sub">5 вариантов скупки мототехники — выбери лучший</p>
+<div class="grid">
+
+<!-- V1 -->
+<div class="card"><div class="cl">Вариант 1 · Классика</div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="st">Скупка мототехники</div>
+<div class="sst">Прикрепите 6 фото</div>
+<div class="photo-grid"><div>+</div><div>+</div><div>+</div><div>+</div><div>+</div><div>+</div></div>
+<div class="scale-group"><div class="label">Двигатель</div><div class="scale"><div class="sel">Отл</div><div>Хор</div><div>Сред</div><div>Плох</div></div></div>
+<div class="scale-group"><div class="label">Кузов / пластик</div><div class="scale"><div>Отл</div><div class="sel">Хор</div><div>Сред</div><div>Плох</div></div></div>
+<div class="scale-group"><div class="label">Ходовая</div><div class="scale"><div>Отл</div><div>Хор</div><div class="sel">Сред</div><div>Плох</div></div></div>
+<div class="scale-group"><div class="label">Электрика</div><div class="scale"><div>Отл</div><div>Хор</div><div>Сред</div><div class="sel">Плох</div></div></div>
+<div class="scale-group"><div class="label">Колёса</div><div class="scale"><div>Отл</div><div class="sel">Хор</div><div>Сред</div><div>Плох</div></div></div>
+<button class="btn-s">Получить оценку</button>
+</div></div><div class="desc">Сетка фото 3×2 · шкала по 4 уровня · кнопка</div></div>
+
+<!-- V2 -->
+<div class="card"><div class="cl">Вариант 2 · Две колонки фото</div>
+<div class="phone"><div class="notch"></div><div class="screen v2">
+<div class="st">Скупка мототехники</div>
+<div class="sst">Загрузите фото скутера</div>
+<div class="photo-grid"><div>+</div><div>+</div><div>+</div><div>+</div><div>+</div><div>+</div></div>
+<div style="font-size:13px;color:#888;text-align:center;margin-bottom:10px">Оцените состояние:</div>
+<div class="scale-group"><div class="label">Двигатель</div><div class="scale"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div></div>
+<div class="scale-group"><div class="label">Кузов</div><div class="scale"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div></div>
+<div class="scale-group"><div class="label">Ходовая</div><div class="scale"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div></div>
+<button class="btn-s">Оценить</button>
+</div></div><div class="desc">Фото 2×3 · шкала 1-5 баллов</div></div>
+
+<!-- V3 -->
+<div class="card"><div class="cl">Вариант 3 · Ползунки</div>
+<div class="phone"><div class="notch"></div><div class="screen v3">
+<div class="st">Скупка мототехники</div>
+<div class="sst">Фото и оценка состояния</div>
+<div class="photo-grid"><div>+</div><div>+</div><div>+</div><div>+</div><div>+</div><div>+</div></div>
+<div class="range-wrap"><div class="label"><span>Двигатель</span><span>🧡</span></div><input type="range" min="0" max="100" value="70"></div>
+<div class="range-wrap"><div class="label"><span>Кузов / пластик</span><span>💛</span></div><input type="range" min="0" max="100" value="50"></div>
+<div class="range-wrap"><div class="label"><span>Ходовая</span><span>💚</span></div><input type="range" min="0" max="100" value="80"></div>
+<div class="range-wrap"><div class="label"><span>Электрика</span><span>❤️</span></div><input type="range" min="0" max="100" value="30"></div>
+<button class="btn-s">Узнать цену</button>
+</div></div><div class="desc">Слайдеры · цветная шкала · наглядно</div></div>
+
+<!-- V4 -->
+<div class="card"><div class="cl">Вариант 4 · Смайлики</div>
+<div class="phone"><div class="notch"></div><div class="screen v4">
+<div class="st">Скупка мототехники</div>
+<div class="sst">Фото и оценка</div>
+<div class="photo-grid"><div>+</div><div>+</div><div>+</div><div>+</div><div>+</div><div>+</div></div>
+<div class="part-card"><div class="name">Двигатель</div><div class="smileys"><span class="sel">😍</span><span>🙂</span><span>😐</span><span>☹️</span></div></div>
+<div class="part-card"><div class="name">Кузов</div><div class="smileys"><span>😍</span><span class="sel">🙂</span><span>😐</span><span>☹️</span></div></div>
+<div class="part-card"><div class="name">Ходовая</div><div class="smileys"><span>😍</span><span>🙂</span><span class="sel">😐</span><span>☹️</span></div></div>
+<div class="part-card"><div class="name">Электрика</div><div class="smileys"><span>😍</span><span>🙂</span><span>😐</span><span class="sel">☹️</span></div></div>
+<button class="btn-s">Оценить стоимость</button>
+</div></div><div class="desc">Карточки · смайлики · friendly</div></div>
+
+<!-- V5 -->
+<div class="card"><div class="cl">Вариант 5 · Минимал</div>
+<div class="phone"><div class="notch"></div><div class="screen" style="background:#0d0d0f;color:#fff">
+<div style="text-align:center;padding:20px 0 10px">
+<div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Скупка</div>
+<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">Оценим ваш скутер за 2 шага</div></div>
+<div class="photo-grid"><div style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.2)">+</div><div style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.2)">+</div><div style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.2)">+</div><div style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.2)">+</div><div style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.2)">+</div><div style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.2)">+</div></div>
+<div style="margin-top:10px"><div class="scale-group" style="margin-bottom:10px"><div class="label" style="color:rgba(255,255,255,.7)">Двигатель</div><div class="scale"><div style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)">Отл</div><div style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)">Хор</div><div style="background:rgba(255,255,255,.15);color:#fff">Сред</div><div style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)">Плох</div></div></div></div>
+<button class="btn-s" style="background:linear-gradient(135deg,#0bc5ea,#8b5cf6);margin-top:4px">Оценить</button>
+</div></div><div class="desc">Тёмная тема · градиент · премиум</div></div>
+
+</div>
+</body>
+</html>
