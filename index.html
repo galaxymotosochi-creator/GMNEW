@@ -80,8 +80,9 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-fon
   font-size:12px;
   flex-shrink:0
 }
-.ymap .ytxt{text-align:left;font-size:clamp(14px,2.5vw,16px);color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.04em}
-.ymap .ytxt strong{display:block;font-size:clamp(14px,2.5vw,16px);color:#fff;text-transform:none;letter-spacing:0;font-weight:700}
+.ymap .ytxt{text-align:center}
+.ymap .ylabel{font-size:clamp(11px,2vw,13px);color:rgba(255,255,255,.6);letter-spacing:.04em}
+.ymap .yvalue{font-size:clamp(14px,2.5vw,16px);color:#fff;font-weight:700}
 .btns{display:flex;flex-direction:column;gap:6px;width:100%;max-width:300px}
 .br{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .btn{
@@ -118,7 +119,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-fon
     <p class="dsc">Покупка, аренда, честный сервис и оригинальные запчасти для мототехники.<br>Берем все заботы на себя</p>
     <a class="ymap" href="https://yandex.ru/maps/org/galaxy_moto_service/172501949586" target="_blank">
       <div class="star">⭐</div>
-      <div class="ytxt">Яндекс.Карты<strong>оценка 5.0</strong></div>
+      <div class="ytxt"><div class="ylabel">Яндекс.Карты</div><div class="yvalue">оценка 5.0</div></div>
     </a>
     <div class="btns">
       <button class="btn b1">Выбрать технику</button>
