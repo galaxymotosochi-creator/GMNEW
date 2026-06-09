@@ -163,7 +163,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
     <div class="form-group"><label>Имя</label><input id="rName" placeholder="Ваше имя" value=""></div>
     <div class="form-group"><label>Телефон</label><input id="rPhone" placeholder="+7 (___) ___-__-__" value=""></div>
     <div class="form-group"><label>В какое время Вас ожидать? (с 11:00 до 20:00)</label><input id="rTime" placeholder="Укажите время" value=""></div>
-    <div style="text-align:center"><button class="btn-s" onclick="nextStep()" style="width:auto;padding:10px 24px;display:inline-block">Забронировать</button></div>
+    <div style="text-align:center"><button class="btn-s" onclick="submitRent()" style="width:auto;padding:10px 24px;display:inline-block">Забронировать</button></div>
   </div>
 
   <div class="rent-step" id="step4">
@@ -333,6 +333,14 @@ function nextRentModel() {
     rentModelIdx++;
     showRentModel();
   }
+}
+
+function submitRent() {
+  var name = document.getElementById('rName').value.trim();
+  var phone = document.getElementById('rPhone').value.trim();
+  if (!name) { alert('Введите имя'); return; }
+  if (!phone) { alert('Введите номер телефона'); return; }
+  nextStep();
 }
 
 function nextStep() {
