@@ -143,8 +143,17 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 
   <div class="rent-step" id="step2">
     <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px;text-align:center">Шаг 2 — Выберите модель</div>
-    <div id="rentModels"></div>
-    <button class="btn-s" onclick="nextStep()" id="step2Btn" disabled>Далее</button>
+    <div id="rentModelCard" style="border:1.5px solid #0bc5ea;border-radius:14px;overflow:hidden;margin-bottom:10px">
+      <div style="text-align:center"><img id="rmImg" src="" style="width:100%;height:120px;object-fit:cover;display:block"></div>
+      <div style="padding:12px;text-align:center">
+        <div id="rmName" style="font-size:15px;font-weight:700;color:#111"></div>
+        <div id="rmSpec" style="font-size:12px;color:#888;margin:2px 0"></div>
+        <div id="rmPrice" style="font-size:20px;font-weight:800;color:#0bc5ea;margin:6px 0"></div>
+        <div id="rmDep" style="font-size:12px;color:#666"></div>
+      </div>
+    </div>
+    <button class="btn-s" onclick="selectRentModel()">Да, этот!</button>
+    <button class="btn-o" onclick="nextRentModel()" id="nextModelBtn">Нет, следующий →</button>
   </div>
 
   <div class="rent-step" id="step3">
@@ -222,6 +231,8 @@ document.getElementById('modal').onclick = function(e) { if (e.target === this) 
 
 /* RENT */
 var rentStep = 1;
+var rentModelIdx = 0;
+var selectedRentModel = null;
 var rentModels = [
   {name:"TANK NEXT",img:"images/catalog/tank-next.jpg",price:2400,dep:15000,status:"б/у",spec:"150cc"},
   {name:"TANK X",img:"images/catalog/tank-x.jpg",price:4300,dep:20000,status:"новый",spec:"175cc"},
@@ -234,20 +245,30 @@ var rentModels = [
   {name:"GUSITE AGV-R",img:"images/catalog/gusite-agv-r-1.jpg",price:6500,dep:30000,status:"новый",spec:"200cc"}
 ];
 
-function renderRentModels() {
-  var g = document.getElementById('rentModels');
-  g.innerHTML = '';
-  rentModels.forEach(function(m, i) {
-    var c = document.createElement('div');
-    c.className = 'rcard';
-    c.innerHTML = '<img src="'+m.img+'" loading="lazy"><div class="ci"><div class="n">'+m.name+'</div><div class="s">'+m.status+' · '+m.spec+'</div><div class="pr">'+m.price.toLocaleString('ru-RU')+' ₽/день</div><div class="dep">Залог: '+m.dep.toLocaleString('ru-RU')+' ₽</div></div>';
-    c.onclick = function() {
-      document.querySelectorAll('.rcard').forEach(function(x){x.classList.remove('sel')});
-      c.classList.add('sel');
-      document.getElementById('step2Btn').disabled = false;
-    };
-    g.appendChild(c);
-  });
+function showRentModel() {
+  var m = rentModels[rentModelIdx];
+  document.getElementById('rmImg').src = m.img;
+  document.getElementById('rmName').textContent = m.name;
+  document.getElementById('rmSpec').textContent = m.status+' · '+m.spec+' · до '+Math.round(m.price*0.7)+' км/ч';
+  document.getElementById('rmPrice').innerHTML = m.price.toLocaleString('ru-RU')+' ₽/день';
+  document.getElementById('rmDep').textContent = 'Залог: '+m.dep.toLocaleString('ru-RU')+' ₽';
+  if (rentModelIdx >= rentModels.length - 1) {
+    document.getElementById('nextModelBtn').style.display = 'none';
+  } else {
+    document.getElementById('nextModelBtn').style.display = '';
+  }
+}
+
+function selectRentModel() {
+  selectedRentModel = rentModels[rentModelIdx];
+  nextStep();
+}
+
+function nextRentModel() {
+  if (rentModelIdx < rentModels.length - 1) {
+    rentModelIdx++;
+    showRentModel();
+  }
 }
 
 function nextStep() {
@@ -258,11 +279,9 @@ function nextStep() {
     rentStep++;
     document.getElementById('step'+rentStep).classList.add('active');
     document.querySelector('#rentSteps div:nth-child('+rentStep+')').classList.add('act');
-    if (rentStep === 2) renderRentModels();
+    if (rentStep === 2) showRentModel();
   }
 }
-
-renderRentModels();
 </script>
 </body>
 </html>
