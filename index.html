@@ -760,6 +760,8 @@ function bbSubmit() {
   var phone = document.getElementById('bbPhone').value.trim();
   if (!name) { alert('Введите имя'); return; }
   if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
+  var pc = (typeof bbPhotos !== 'undefined') ? bbPhotos.length : 0;
+  if (pc < 3) { alert('Загрузите минимум 3 фотографии'); return; }
   
   // Build message
   var msg = '📋 НОВАЯ ЗАЯВКА НА СКУПКУ!\n\n';
