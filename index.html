@@ -690,6 +690,8 @@ function serviceSubmit() {
   if (!serviceSelectedTime) { alert('Выберите время'); return; }
   alert('Вы записаны на ' + serviceSelectedDate.day + '.' + (serviceSelectedDate.month+1) + '.' + serviceSelectedDate.year + ' в ' + serviceSelectedTime);
 }
+
+updateServiceCalendar();
 </script>
 </body>
 </html>
