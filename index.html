@@ -145,6 +145,27 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .btn-s{display:block;width:100%;padding:10px;border-radius:10px;background:#111;color:#fff;border:none;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px}
 .btn-o{display:block;width:100%;padding:10px;border-radius:10px;background:transparent;color:#111;border:1px solid #ddd;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:6px}
 .rent .step2-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* BOTTOM NAV */
+@media(max-width:768px){
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e8e8e8;display:flex;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));z-index:99999;box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+  .bottom-nav .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer;border:none;background:none;font-family:Inter,sans-serif;transition:all .15s;-webkit-tap-highlight-color:transparent}
+  .bottom-nav .bn-item .bn-icon{font-size:20px;line-height:1;filter:grayscale(1) opacity(.4);transition:all .2s}
+  .bottom-nav .bn-item .bn-label{font-size:10px;font-weight:500;color:#aaa;letter-spacing:.02em;transition:all .2s}
+  .bottom-nav .bn-item.active .bn-icon{filter:none}
+  .bottom-nav .bn-item.active .bn-label{color:#1983dd;font-weight:600}
+  body{padding-bottom:56px}
+}
+@media(min-width:769px){
+  .bottom-nav{display:none}
+}
+
+.cm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);z-index:999999;align-items:center;justify-content:center;padding:20px}
+.cm-overlay.s{display:flex}
+.cm-modal{background:#fff;max-width:380px;width:100%;border-radius:20px;padding:36px 24px 24px;position:relative;max-height:90vh;overflow-y:auto}
+.cm-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:none;background:#f0f0f0;color:#999;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.cm-link{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;text-decoration:none;font-size:13px;color:inherit}
+.cm-link:hover{background:#f8f8f8}
 </style>
 </head>
 <body>
@@ -176,7 +197,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 </section>
 
 <!-- RENT -->
-<section id="rentSection" class="rent">
+<section id="rent" class="rent">
   <h2>Аренда скутера</h2>
   <p class="sub">4 шага до поездки</p>
   <div class="steps" id="rentSteps">
@@ -248,7 +269,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 </section>
 
 <!-- BUYBACK -->
-<section class="buyback" id="buybackSection">
+<section class="buyback" id="skupka">
   <h2>Скупка мототехники</h2>
   <p class="sub">Загрузите фото и отметьте состояние деталей для быстрой оценки</p>
 
@@ -324,7 +345,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 </section>
 
 <!-- SERVICE -->
-<section class="service" id="serviceSection">
+<section class="service" id="service">
   <h2>Запись на сервис</h2>
   <p class="sub">Выберите дату и время</p>
 
@@ -848,6 +869,65 @@ function consultSubmit() {
     document.getElementById('consultModal').classList.remove('show');
   }, 2000);
 }
+
+/* BOTTOM NAV */
+function scrollToSection(id, el) {
+  var items = document.querySelectorAll('.bn-item');
+  for (var i = 0; i < items.length; i++) items[i].classList.remove('active');
+  if (el) el.classList.add('active');
+  var target = document.getElementById(id);
+  if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function openContactsModal(){
+  document.getElementById('cmOverlay').classList.add('s');
+}
+function closeContactsModal(){
+  document.getElementById('cmOverlay').classList.remove('s');
+}
 </script>
+
+<!-- ===== Нижняя навигация (мобильная) ===== -->
+<nav class="bottom-nav" id="bottomNav">
+  <div class="bn-item active" data-target="catalog" onclick="scrollToSection('catalog',this)">
+    <span class="bn-icon">🛵</span>
+    <span class="bn-label">Каталог</span>
+  </div>
+  <div class="bn-item" data-target="skupka" onclick="scrollToSection('skupka',this)">
+    <span class="bn-icon">💰</span>
+    <span class="bn-label">Скупка</span>
+  </div>
+  <div class="bn-item" data-target="rent" onclick="scrollToSection('rent',this)">
+    <span class="bn-icon">🛴</span>
+    <span class="bn-label">Аренда</span>
+  </div>
+  <div class="bn-item" data-target="service" onclick="scrollToSection('service',this)">
+    <span class="bn-icon">🔧</span>
+    <span class="bn-label">Сервис</span>
+  </div>
+  <div class="bn-item" data-target="contacts" onclick="openContactsModal()">
+    <span class="bn-icon">📞</span>
+    <span class="bn-label">Контакты</span>
+  </div>
+</nav>
+
+<!-- ===== Модалка контактов ===== -->
+<div class="cm-overlay" id="cmOverlay" onclick="if(event.target===this)closeContactsModal()">
+  <div class="cm-modal">
+    <button class="cm-close" onclick="closeContactsModal()">&#x2715;</button>
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-size:22px;font-weight:800;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">GALAXY MOTO</div>
+      <div style="font-size:12px;color:#888;margin-top:4px">Наши контакты:</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <a href="tel:+79000008023" class="cm-link" style="border:1px solid #f0f0f0"><span style="font-size:16px;color:#1983dd">📞</span><span style="color:#111"><strong>Продажи:</strong> +7 900 000-80-23</span></a>
+      <a href="tel:+79000018023" class="cm-link" style="border:1px solid #f0f0f0"><span style="font-size:16px;color:#1983dd">🔧</span><span style="color:#111"><strong>Сервис:</strong> +7 900 001-80-23</span></a>
+      <div class="cm-link" style="border:1px solid #f0f0f0"><span style="font-size:16px;color:#888">📍</span><div><div style="color:#111;font-weight:500">Сочи, Пластунская 52з/2</div><div style="font-size:11px;color:#888;margin-top:2px">Ежедневно 10:00–19:00</div></div></div>
+      <a href="mailto:galaxymoto@mail.ru" class="cm-link" style="border:1px solid #f0f0f0"><span style="font-size:16px;color:#888">✉️</span><span style="color:#111">galaxymoto@mail.ru</span></a>
+    </div>
+    <a href="https://yandex.ru/maps/org/galaxy_moto_service/172501949586" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;padding:12px;border-radius:12px;background:#f5f5f5;color:#111;font-size:13px;font-weight:500;text-decoration:none">🗺️ Открыть на Яндекс.Картах</a>
+  </div>
+</div>
+
 </body>
 </html>
