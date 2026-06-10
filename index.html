@@ -533,14 +533,27 @@ models.forEach(m => {
   grid.appendChild(c);
 });
 function openModal(m) {
-  document.getElementById('modalImg').src = m.img;
+  window._gIdx = 0;
+  window._gModel = m;
   document.getElementById('modalTitle').textContent = m.name;
   document.getElementById('modalPrice').innerHTML = (m.oldPrice?'<span class="old">'+m.oldPrice.toLocaleString('ru-RU')+' ₽</span> ':'')+m.price.toLocaleString('ru-RU')+' ₽';
   const tb = document.getElementById('modalSpecs');
   tb.innerHTML = '';
   m.specs.forEach(s => { const tr = document.createElement('tr'); tr.innerHTML = '<td>'+s[0]+'</td><td>'+s[1]+'</td>'; tb.appendChild(tr); });
+  gShowPhoto(0);
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+function gShowPhoto(i){
+  var m = window._gModel;
+  if (!m) return;
+  var imgs = m.images || [m.img];
+  if (i < 0) i = imgs.length - 1;
+  if (i >= imgs.length) i = 0;
+  window._gIdx = i;
+  document.getElementById('modalImg').src = imgs[i];
+  var nav = document.getElementById('modalNav');
+  if (nav) nav.textContent = (i+1) + ' / ' + imgs.length;
 }
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
