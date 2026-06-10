@@ -245,29 +245,32 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 
   <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px">Оцените состояние:</div>
 
+  <div style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px">Пластик:</div>
   <div class="bb-tip">
-    <div class="tip-title">Пластик</div>
     <div class="tip-desc">Наличие трещин, сколов, глубоких царапин и потертостей (особенно после падений)</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(0, this.value)">
     </div>
   </div>
+
+  <div style="font-size:14px;font-weight:700;color:#111;margin:14px 0 4px">Резина (колёса):</div>
   <div class="bb-tip">
-    <div class="tip-title">Резина (колёса)</div>
     <div class="tip-desc">Остаток протектора (в мм) и равномерность его износа</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(1, this.value)">
     </div>
   </div>
+
+  <div style="font-size:14px;font-weight:700;color:#111;margin:14px 0 4px">Возраст резины:</div>
   <div class="bb-tip">
-    <div class="tip-title">Возраст резины</div>
     <div class="tip-desc">Старая «дубовая» резина с микротрещинами на боковинах подлежит замене, даже если протектор цел</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(2, this.value)">
     </div>
   </div>
+
+  <div style="font-size:14px;font-weight:700;color:#111;margin:14px 0 4px">Состояние дисков:</div>
   <div class="bb-tip">
-    <div class="tip-title">Состояние дисков</div>
     <div class="tip-desc">Наличие вмятин, геометрия (бьет ли колесо при вращении)</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(3, this.value)">
