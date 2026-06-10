@@ -109,6 +109,9 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .sc-wrap{max-width:500px;margin:0 auto}
 .sc-btn-pulse{animation:scPulse 2s ease-in-out infinite}
 @keyframes scPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.7}}
+.sc-card{cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.sc-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+.sc-card.sc-card-active{border-color:#111!important;transform:translateY(-5px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
 
 /* RENT */
 .rent{padding:20px 12px 20px;max-width:500px;margin:0 auto}
@@ -404,7 +407,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 
   <div style="display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px" class="sc-cards-inline">
 
-    <div style="flex:0 0 calc(33.333% - 10px);min-width:250px;scroll-snap-align:start;background:#fff;border-radius:14px;padding:1.25rem 1.25rem 1.25rem;border:1.5px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;display:flex;flex-direction:column">
+    <div class="sc-card" style="flex:0 0 calc(33.333% - 10px);min-width:250px;scroll-snap-align:start;background:#fff;border-radius:14px;padding:1.25rem 1.25rem 1.25rem;border:1.5px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;display:flex;flex-direction:column"
       <div style="font-size:1.05rem;font-weight:700;color:#111;margin:0 0 2px">Базовый</div>
       <div style="font-size:.8rem;color:#999;margin:0 0 5px">3 месяца</div>
       <div style="font-size:1.35rem;font-weight:700;color:#111;margin:0 0 2px;line-height:1.2">6 500 ₽</div>
@@ -414,7 +417,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
       <div style="font-size:.72rem;color:#999;line-height:1.5;margin-top:8px">Для начинающих райдеров</div>
     </div>
 
-    <div style="flex:0 0 calc(33.333% - 10px);min-width:250px;scroll-snap-align:start;background:#fff;border-radius:14px;padding:1.25rem 1.25rem 1.25rem;border:1.5px solid #111;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;display:flex;flex-direction:column">
+    <div class="sc-card sc-card-active" style="flex:0 0 calc(33.333% - 10px);min-width:250px;scroll-snap-align:start;background:#fff;border-radius:14px;padding:1.25rem 1.25rem 1.25rem;border:1.5px solid #111;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;display:flex;flex-direction:column"
       <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);padding:3px 14px;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;border-radius:0 0 8px 8px;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);color:#fff">Рекомендуем</div>
       <div style="font-size:1.05rem;font-weight:700;color:#111;margin:0 0 2px">Оптимальный</div>
       <div style="font-size:.8rem;color:#999;margin:0 0 5px">6 месяцев</div>
@@ -425,7 +428,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
       <div style="font-size:.72rem;color:#999;line-height:1.5;margin-top:8px">Для активных райдеров</div>
     </div>
 
-    <div style="flex:0 0 calc(33.333% - 10px);min-width:250px;scroll-snap-align:start;background:#fff;border-radius:14px;padding:1.25rem 1.25rem 1.25rem;border:1.5px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;display:flex;flex-direction:column">
+    <div class="sc-card" style="flex:0 0 calc(33.333% - 10px);min-width:250px;scroll-snap-align:start;background:#fff;border-radius:14px;padding:1.25rem 1.25rem 1.25rem;border:1.5px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;display:flex;flex-direction:column">
       <div style="font-size:1.05rem;font-weight:700;color:#111;margin:0 0 2px">Премиум</div>
       <div style="font-size:.8rem;color:#999;margin:0 0 5px">12 месяцев</div>
       <div style="font-size:1.35rem;font-weight:700;color:#111;margin:0 0 2px;line-height:1.2">26 500 ₽</div>
@@ -955,6 +958,7 @@ function serviceSendForm() {
 updateServiceCalendar();
 
 /* SERVICE CARDS */
+document.addEventListener('click',function(e){var c=e.target.closest('.sc-card');if(c){document.querySelectorAll('.sc-card').forEach(function(x){x.classList.remove('sc-card-active')});c.classList.add('sc-card-active')}});
 function scScroll(dir) {
   var el = document.querySelector('.sc-cards-inline');
   if (!el) return;
