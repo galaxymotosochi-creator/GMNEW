@@ -324,11 +324,20 @@ function saveMoveBooking(){
   var newDate = document.getElementById('moveDate').value;
   var newTime = document.getElementById('moveTime').value;
   if(!newDate){alert('Выберите дату');return}
+  var b=BK.find(function(x){return x.id===id});
   try{
     var d = firebase.firestore();
     var upd = {date: newDate, time: newTime, updatedAt: new Date().toISOString()};
     d.collection('leads').doc(id).update(upd).catch(function(){});
-    d.collection('galaxymoto_bookings').doc(id).update(upd).catch(function(){});
+    d.collection('galaxymoto_bookings').doc(id).update(upd).catch(function(){
+      if(b){
+        var mN=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],dN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+        var odd=new Date(b.date),ond=new Date(newDate);
+        var oldDtf=odd.getDate()+' '+mN[odd.getMonth()]+' ('+dN[odd.getDay()]+') '+(b.time||'');
+        var newDtf=ond.getDate()+' '+mN[ond.getMonth()]+' ('+dN[ond.getDay()]+') '+(newTime||'');
+        var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ПЕРЕНЕСЕНА С '+oldDtf+' НА '+newDtf+' ✅\n\n👤 '+b.name+'\n📞 Телефон: '+b.phone+'\n🛵 Модель: '+(b.model||'-');tgBroadcast(msg)
+      }
+    });
   }catch(e){}
   document.getElementById('moveModal').classList.remove('active');
   closeDet();
