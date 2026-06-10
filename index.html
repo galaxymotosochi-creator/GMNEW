@@ -877,7 +877,7 @@ function serviceSendForm() {
             if(pd2.date&&pd2.date!==data.date&&pd2.createdAt&&pd2.createdAt>lastDate){lastDate=pd2.createdAt;lastVisit=pd2.date;}
           });
           // Send Telegram
-          var msg = '🛵 НОВАЯ ЗАПИСЬ №' + num + ' НА СЕРВИС!\n\n📅 Дата: ' + dateStr + '\n⏰ Время: ' + serviceSelectedTime + '\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🛵 Модель: ' + (document.getElementById('sDesc').placeholder||'') + '\n📝 Комментарий: ' + (notes||'-') + '\n\n(далее последнее посещение: ' + lastVisit + ')';
+          var msg = '🛵 НОВАЯ ЗАПИСЬ №' + num + ' НА СЕРВИС!\n\n📅 Дата: ' + dateStr + '\n⏰ Время: ' + serviceSelectedTime + '\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n📝 Комментарий: ' + (notes||'-') + '\n\n(далее последнее посещение: ' + lastVisit + ')';
           var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
           fetch('https://api.telegram.org/bot' + token + '/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:5368408796,text:msg})}).catch(function(){});
         }).catch(function(){});
