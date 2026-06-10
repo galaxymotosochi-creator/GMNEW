@@ -698,7 +698,7 @@ function selectServiceDate(day) {
     for (var m = 0; m < 60; m += 30) {
       if (h === 18 && m >= 30) break;
       var time = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
-      html += '<div class="slot" onclick="selectServiceTime(this,\'" + time + "\')">' + time + '</div>';
+      html += '<div class="slot" data-time="' + time + '" onclick="selectServiceTime(this,this.dataset.time)">' + time + '</div>';
     }
   }
   slots.innerHTML = html;
