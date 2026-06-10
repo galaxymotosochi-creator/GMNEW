@@ -779,12 +779,16 @@ function bbSubmit() {
   var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
   fetch('https://api.telegram.org/bot' + token + '/sendMessage', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({chat_id:'5368408796',text:msg}) }).catch(function(){});
   if (typeof bbPhotos !== 'undefined' && bbPhotos.length > 0) {
-    for (var pi = 0; pi < bbPhotos.length; pi++) {
-      var fdp = new FormData();
-      fdp.append('chat_id', '5368408796');
-      fdp.append('photo', bbPhotos[pi], 'bb_' + pi + '.jpg');
-      fetch('https://api.telegram.org/bot' + token + '/sendPhoto', { method: 'POST', body: fdp }).catch(function(){});
+    var mediaList = [];
+    var fdMg = new FormData();
+    fdMg.append('chat_id', '5368408796');
+    for (var pi2 = 0; pi2 < bbPhotos.length; pi2++) {
+      var an = 'f' + pi2;
+      mediaList.push({type:'photo', media:'attach://' + an});
+      fdMg.append(an, bbPhotos[pi2], 'bb_' + pi2 + '.jpg');
     }
+    fdMg.append('media', JSON.stringify(mediaList));
+    fetch('https://api.telegram.org/bot' + token + '/sendMediaGroup', { method: 'POST', body: fdMg }).catch(function(){});
   }
   
   document.querySelector('.bb-modal-form').style.display = 'none';
