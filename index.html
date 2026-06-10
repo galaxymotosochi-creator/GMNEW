@@ -371,6 +371,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
       </div>
     </div>
     <div class="service-modal-success" style="display:none;padding:10px 0 0">
+      <div style="text-align:center;font-size:16px;font-weight:700;color:#111;margin-bottom:4px">Вы успешно записаны на</div>
       <div id="serviceSuccessDate" style="text-align:center;font-size:16px;font-weight:700;color:#111;margin-bottom:14px"></div>
       <div style="font-size:14px;color:#111;line-height:1.8">
         <div style="margin-bottom:12px">Наш адрес:<br><strong>г. Сочи, Пластунская 52&quot;з&quot;/2</strong></div>
@@ -731,7 +732,7 @@ function serviceSendForm() {
   if (!name) { alert('Введите имя'); return; }
   if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
   var dateStr = String(serviceSelectedDate.day).padStart(2,'0') + '.' + String(serviceSelectedDate.month+1).padStart(2,'0') + '.' + serviceSelectedDate.year;
-  document.getElementById('serviceSuccessDate').textContent = 'Вы успешно записаны на ' + dateStr + ' ' + serviceSelectedTime;
+  document.getElementById('serviceSuccessDate').textContent = dateStr + ' ' + serviceSelectedTime;
   document.querySelector('.service-modal-form').style.display = 'none';
   document.querySelector('.service-modal-success').style.display = 'block';
 }
