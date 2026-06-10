@@ -41,7 +41,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;-webkit-t
 .modal.open{display:flex}
 .modal-inner{position:relative;background:#fff;border-radius:20px;max-width:480px;width:calc(100% - 32px);max-height:90vh;overflow-y:auto;animation:slideUp .35s cubic-bezier(0.32,0.72,0,1);padding:0 0 24px}
 @keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;font-size:18px;cursor:pointer}
+.modal-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;font-size:18px;cursor:pointer;z-index:10}
 .modal-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:20px 20px 0 0}
 .modal-body{padding:20px;text-align:center}
 .modal-body h3{font-size:20px;font-weight:800;color:#111}
