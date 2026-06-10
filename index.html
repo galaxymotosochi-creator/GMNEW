@@ -54,6 +54,20 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .btn-td{display:inline-block;padding:12px 20px;background:#111;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer}
 .btn-td:hover{background:#333}
 
+/* BUYBACK */
+.buyback{padding:40px 12px 60px;max-width:500px;margin:0 auto}
+.buyback h2{font-size:24px;font-weight:800;color:#111;margin-bottom:4px;text-align:center;text-transform:uppercase}
+.buyback .sub{font-size:14px;color:#888;text-align:center;margin-bottom:20px}
+.bb-photo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:20px}
+.bb-photo-grid div{aspect-ratio:1;border:1.5px dashed #ddd;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ccc;cursor:pointer;background:#fafafa;transition:all .15s}
+.bb-photo-grid div:active{background:#f0faff;border-color:#0bc5ea}
+.bb-range-wrap{margin-bottom:16px}
+.bb-range-wrap .label{font-size:13px;color:#111;font-weight:600;margin-bottom:4px;display:flex;justify-content:space-between}
+.bb-range-wrap .label .val{font-size:13px;color:#0bc5ea;font-weight:700}
+.bb-range-wrap input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:linear-gradient(90deg,#f44336,#ff9800,#4caf50);outline:none}
+.bb-range-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #0bc5ea;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.bb-range-wrap input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #0bc5ea;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+
 /* RENT */
 .rent{padding:40px 12px 60px;max-width:500px;margin:0 auto}
 .rent h2{font-size:24px;font-weight:800;color:#111;margin-bottom:4px;text-align:center;text-transform:uppercase}
@@ -193,6 +207,46 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
       </div>
     </div>
   </div>
+</section>
+
+<!-- BUYBACK -->
+<section class="buyback" id="buybackSection">
+  <h2>Скупка мототехники</h2>
+  <p class="sub">Загрузите фото и отметьте состояние деталей для быстрой оценки</p>
+
+  <div class="bb-photo-grid">
+    <div>+</div>
+    <div>+</div>
+    <div>+</div>
+    <div>+</div>
+    <div>+</div>
+    <div>+</div>
+  </div>
+
+  <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px">Оцените состояние:</div>
+
+  <div class="bb-range-wrap">
+    <div class="label"><span>Двигатель</span><span class="val" id="bbVal0">50%</span></div>
+    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(0, this.value)">
+  </div>
+  <div class="bb-range-wrap">
+    <div class="label"><span>Кузов / пластик</span><span class="val" id="bbVal1">50%</span></div>
+    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(1, this.value)">
+  </div>
+  <div class="bb-range-wrap">
+    <div class="label"><span>Ходовая</span><span class="val" id="bbVal2">50%</span></div>
+    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(2, this.value)">
+  </div>
+  <div class="bb-range-wrap">
+    <div class="label"><span>Электрика</span><span class="val" id="bbVal3">50%</span></div>
+    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(3, this.value)">
+  </div>
+  <div class="bb-range-wrap">
+    <div class="label"><span>Колёса</span><span class="val" id="bbVal4">50%</span></div>
+    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(4, this.value)">
+  </div>
+
+  <button class="btn-s" onclick="alert('Спасибо! Заявка отправлена. Мы свяжемся с вами для оценки.')" style="margin-top:12px">Получить оценку</button>
 </section>
 
 <div class="modal" id="modal">
@@ -380,6 +434,11 @@ function calcRentTotal() {
   document.getElementById('rentTotalPay').textContent = total.toLocaleString('ru-RU')+' ₽';
   document.getElementById('rentDepPay').textContent = m.dep.toLocaleString('ru-RU')+' ₽';
   document.getElementById('rentTotalAll').textContent = (total + m.dep).toLocaleString('ru-RU')+' ₽';
+}
+
+/* BUYBACK */
+function bbUpdate(idx, val) {
+  document.getElementById('bbVal'+idx).textContent = val+'%';
 }
 </script>
 </body>
