@@ -359,7 +359,8 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 
 <!-- SERVICE MODAL -->
 <div class="bb-modal-overlay" id="serviceModal" onclick="if(event.target===this)serviceCloseModal()">
-  <div class="bb-modal">
+  <div class="bb-modal" style="position:relative">
+    <button onclick="serviceCloseModal()" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;font-size:16px;cursor:pointer;line-height:1">✕</button>
     <div class="service-modal-form">
       <div style="text-align:center;font-size:16px;font-weight:700;color:#0bc5ea;margin-bottom:16px" id="serviceModalDate"></div>
       <div class="form-group"><label>Ваше имя</label><input id="sName" placeholder="Имя"></div>
@@ -369,8 +370,14 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
         <button class="btn-s" onclick="serviceSendForm()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
       </div>
     </div>
-    <div class="service-modal-success" style="display:none;text-align:center;padding:20px 0">
-      <div style="font-size:15px;font-weight:600;color:#111;line-height:1.5">Вы записаны!<br>Мы свяжемся с вами для подтверждения</div>
+    <div class="service-modal-success" style="display:none;padding:10px 0 0">
+      <div id="serviceSuccessDate" style="text-align:center;font-size:16px;font-weight:700;color:#0bc5ea;margin-bottom:14px"></div>
+      <div style="font-size:14px;color:#111;line-height:1.8">
+        <div style="margin-bottom:12px">Наш адрес:<br><strong>г. Сочи, Пластунская 52&quot;з&quot;/2</strong></div>
+        <div style="margin-bottom:12px">Поднимайтесь к нам по Промышленному переулку</div>
+        <div style="margin-bottom:12px"><strong>Телефон: <a href="tel:+79000018023" style="color:#1983dd;text-decoration:none">+7 900 001-80-23</a></strong></div>
+        <div style="font-size:13px;color:#888;margin-top:16px">Если ваши планы изменились, пожалуйста сообщите нам!</div>
+      </div>
     </div>
   </div>
 </div>
@@ -723,11 +730,10 @@ function serviceSendForm() {
   var phone = document.getElementById('sPhone').value.trim();
   if (!name) { alert('Введите имя'); return; }
   if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
+  var dateStr = String(serviceSelectedDate.day).padStart(2,'0') + '.' + String(serviceSelectedDate.month+1).padStart(2,'0') + '.' + serviceSelectedDate.year;
+  document.getElementById('serviceSuccessDate').textContent = 'Вы успешно записаны на ' + dateStr + ' ' + serviceSelectedTime;
   document.querySelector('.service-modal-form').style.display = 'none';
   document.querySelector('.service-modal-success').style.display = 'block';
-  setTimeout(function(){
-    document.getElementById('serviceModal').classList.remove('show');
-  }, 2000);
 }
 
 updateServiceCalendar();
