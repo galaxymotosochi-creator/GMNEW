@@ -459,12 +459,14 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 <div class="bb-modal-overlay" id="consultModal" onclick="if(event.target===this)consultCloseModal()">
   <div class="bb-modal">
     <div class="consult-modal-form">
-      <div style="text-align:center;font-size:17px;font-weight:700;color:#111;margin-bottom:16px">Запись на консультацию</div>
+      <div style="text-align:center;font-size:17px;font-weight:700;color:#111;margin-bottom:16px">Консультация по сервисным картам</div>
       <div class="form-group"><input id="consName" placeholder="Имя"></div>
       <div class="form-group"><input id="consPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
+      <div class="form-group"><input id="consTime" placeholder="Удобное время для звонка"></div>
       <div style="text-align:center;margin-top:18px">
-        <button class="btn-s" onclick="consultSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Отправить</button>
+        <button class="btn-s" onclick="consultSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
       </div>
+      <div style="text-align:center;font-size:11px;color:#999;margin-top:12px">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</div>
     </div>
     <div class="consult-modal-success" style="display:none;text-align:center;padding:20px 0">
       <div style="font-size:15px;font-weight:600;color:#111;line-height:1.5">Спасибо! Мы свяжемся с вами в ближайшее время</div>
@@ -827,6 +829,7 @@ function scScroll(dir) {
 function openConsult() {
   document.getElementById('consName').value = '';
   document.getElementById('consPhone').value = '+7';
+  document.getElementById('consTime').value = '';
   document.querySelector('.consult-modal-form').style.display = 'block';
   document.querySelector('.consult-modal-success').style.display = 'none';
   document.getElementById('consultModal').classList.add('show');
