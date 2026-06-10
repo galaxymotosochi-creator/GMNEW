@@ -357,6 +357,24 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   </div>
 </div>
 
+<!-- SERVICE MODAL -->
+<div class="bb-modal-overlay" id="serviceModal" onclick="if(event.target===this)serviceCloseModal()">
+  <div class="bb-modal">
+    <div class="service-modal-form">
+      <div style="text-align:center;font-size:16px;font-weight:700;color:#0bc5ea;margin-bottom:16px" id="serviceModalDate"></div>
+      <div class="form-group"><label>Ваше имя</label><input id="sName" placeholder="Имя"></div>
+      <div class="form-group"><label>Номер телефона</label><input id="sPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
+      <div class="form-group"><label>Краткое описание проблемы</label><textarea id="sDesc" placeholder="Опишите проблему..." style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit;resize:none;height:80px;outline:none"></textarea></div>
+      <div style="text-align:center;margin-top:6px">
+        <button class="btn-s" onclick="serviceSendForm()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
+      </div>
+    </div>
+    <div class="service-modal-success" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:15px;font-weight:600;color:#111;line-height:1.5">Вы записаны!<br>Мы свяжемся с вами для подтверждения</div>
+    </div>
+  </div>
+</div>
+
 <div class="modal" id="modal">
   <div class="modal-inner">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -688,7 +706,28 @@ function selectServiceTime(el, time) {
 function serviceSubmit() {
   if (!serviceSelectedDate) { alert('Выберите дату'); return; }
   if (!serviceSelectedTime) { alert('Выберите время'); return; }
-  alert('Вы записаны на ' + serviceSelectedDate.day + '.' + (serviceSelectedDate.month+1) + '.' + serviceSelectedDate.year + ' в ' + serviceSelectedTime);
+  var dateStr = String(serviceSelectedDate.day).padStart(2,'0') + '.' + String(serviceSelectedDate.month+1).padStart(2,'0') + '.' + serviceSelectedDate.year;
+  document.getElementById('serviceModalDate').textContent = dateStr + ' ' + serviceSelectedTime;
+  document.getElementById('sName').value = '';
+  document.getElementById('sPhone').value = '+7';
+  document.getElementById('sDesc').value = '';
+  document.querySelector('.service-modal-form').style.display = 'block';
+  document.querySelector('.service-modal-success').style.display = 'none';
+  document.getElementById('serviceModal').classList.add('show');
+}
+function serviceCloseModal() {
+  document.getElementById('serviceModal').classList.remove('show');
+}
+function serviceSendForm() {
+  var name = document.getElementById('sName').value.trim();
+  var phone = document.getElementById('sPhone').value.trim();
+  if (!name) { alert('Введите имя'); return; }
+  if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
+  document.querySelector('.service-modal-form').style.display = 'none';
+  document.querySelector('.service-modal-success').style.display = 'block';
+  setTimeout(function(){
+    document.getElementById('serviceModal').classList.remove('show');
+  }, 2000);
 }
 
 updateServiceCalendar();
