@@ -245,7 +245,41 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 
   <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px">Оцените состояние:</div>
 
-  <div style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px">Пластик:</div>
+  <div style="font-size:14px;font-weight:700;color:#111;margin:0 0 4px">Двигатель:</div>
+
+  <div style="font-size:13px;font-weight:600;color:#333;margin-bottom:4px;margin-left:4px">▸ Запуск</div>
+  <div class="bb-tip">
+    <div class="tip-desc">Как заводится (на холодную и на горячую), стабильность холостых оборотов</div>
+    <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
+      <input type="range" min="0" max="100" value="50" oninput="bbUpdate(3, this.value)">
+    </div>
+  </div>
+
+  <div style="font-size:13px;font-weight:600;color:#333;margin:12px 0 4px;margin-left:4px">▸ Звук работы</div>
+  <div class="bb-tip">
+    <div class="tip-desc">Отсутствие посторонних шумов, стуков, звона поршневых колец</div>
+    <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
+      <input type="range" min="0" max="100" value="50" oninput="bbUpdate(4, this.value)">
+    </div>
+  </div>
+
+  <div style="font-size:13px;font-weight:600;color:#333;margin:12px 0 4px;margin-left:4px">▸ Динамика</div>
+  <div class="bb-tip">
+    <div class="tip-desc">Как откликается на ручку газа, есть ли провалы при разгоне</div>
+    <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
+      <input type="range" min="0" max="100" value="50" oninput="bbUpdate(5, this.value)">
+    </div>
+  </div>
+
+  <div style="font-size:13px;font-weight:600;color:#333;margin:12px 0 4px;margin-left:4px">▸ Герметичность</div>
+  <div class="bb-tip">
+    <div class="tip-desc">Наличие подтеков масла или антифриза (для жидкостного охлаждения)</div>
+    <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
+      <input type="range" min="0" max="100" value="50" oninput="bbUpdate(6, this.value)">
+    </div>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;color:#111;margin:14px 0 4px">Пластик:</div>
   <div class="bb-tip">
     <div class="tip-desc">Наличие трещин, сколов, глубоких царапин и потертостей (особенно после падений)</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
