@@ -89,7 +89,9 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .service{padding:20px 12px 20px;max-width:500px;margin:0 auto}
 .service h2{font-size:1.15rem;font-weight:700;color:#111;margin-bottom:4px;text-align:center;text-transform:uppercase}
 .service .sub{font-size:14px;color:#888;text-align:center;margin-bottom:20px}
-.service .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;width:100%;border:1px solid #ddd;border-radius:10px;padding:14px 12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.service .cal-wrapper{border:1px solid #ddd;border-radius:10px;padding:14px 12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.service .cal-wrapper .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;width:100%}
+.service .cal-wrapper .cal-sep{height:1px;background:#eee;margin:12px 0}
 .service .cal-grid .wd{font-size:12px;color:#999;text-align:center;padding:6px 0;font-weight:600;text-transform:uppercase}
 .service .cal-grid .d{font-size:14px;text-align:center;padding:8px 0;border-radius:8px;color:#333;cursor:pointer}
 .service .cal-grid .d:hover{background:#f0f0f0}
@@ -357,15 +359,17 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
     <button onclick="nextServiceMonth()" style="background:none;border:1px solid #ddd;border-radius:8px;font-size:16px;cursor:pointer;color:#aaa;padding:4px 10px;line-height:1;font-weight:300">›</button>
   </div>
 
-  <div class="cal-grid" id="serviceCalendar"></div>
-
-  <div id="serviceTimeSection" style="display:none;margin-top:18px">
+  <div class="cal-wrapper">
+    <div class="cal-grid" id="serviceCalendar"></div>
+    <div id="serviceTimeSection" style="display:none">
+    <div class="cal-sep"></div>
     <div style="text-align:center;font-size:13px;color:#999;margin-bottom:12px">Режим работы: 11:00 — 19:00</div>
     <div class="time-slots" id="serviceTimeSlots"></div>
     <div style="text-align:center;margin-top:18px">
       <button class="btn-s" onclick="serviceSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
     </div>
   </div>
+</div>
 </section>
 
 <!-- BUYBACK MODAL -->
