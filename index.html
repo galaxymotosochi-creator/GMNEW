@@ -850,16 +850,40 @@ function serviceSendForm() {
   var day = String(serviceSelectedDate.day).padStart(2,'0');
   var mon = String(serviceSelectedDate.month+1).padStart(2,'0');
   var docId = serviceSelectedDate.year + '-' + mon + '-' + day + '_' + serviceSelectedTime.replace(':','-');
+  var notes = document.getElementById('sDesc').value.trim();
   var data = {
     date: serviceSelectedDate.year + '-' + mon + '-' + day,
     time: serviceSelectedTime,
     name: name,
     phone: phone,
-    notes: document.getElementById('sDesc').value.trim(),
+    notes: notes,
     status: 'new',
     createdAt: new Date().toISOString()
   };
-  try { window.fb.collection('galaxymoto_bookings').doc(docId).set(data).catch(function(){}); } catch(e){}
+  try {
+    window.fb.collection('galaxymoto_bookings').doc(docId).set(data).then(function(){
+      // Get order number
+      window.fb.collection('galaxymoto_bookings').get().then(function(snap){
+        var maxNum = 0;
+        snap.forEach(function(d){var d2=d.data();if(d2.orderNumber&&d2.orderNumber>maxNum)maxNum=d2.orderNumber});
+        var num = maxNum + 1;
+        window.fb.collection('galaxymoto_bookings').doc(docId).update({orderNumber:num}).catch(function(){});
+        // Check previous visit
+        window.fb.collection('galaxymoto_bookings').where('phone','==',phone).get().then(function(psnap){
+          var lastVisit = 'не найдено';
+          var lastDate = '';
+          psnap.forEach(function(pd){
+            var pd2=pd.data();
+            if(pd2.date&&pd2.date!==data.date&&pd2.createdAt&&pd2.createdAt>lastDate){lastDate=pd2.createdAt;lastVisit=pd2.date;}
+          });
+          // Send Telegram
+          var msg = '🛵 НОВАЯ ЗАПИСЬ №' + num + ' НА СЕРВИС!\n\n📅 Дата: ' + dateStr + '\n⏰ Время: ' + serviceSelectedTime + '\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🛵 Модель: ' + (document.getElementById('sDesc').placeholder||'') + '\n📝 Комментарий: ' + (notes||'-') + '\n\n(далее последнее посещение: ' + lastVisit + ')';
+          var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
+          fetch('https://api.telegram.org/bot' + token + '/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:5368408796,text:msg})}).catch(function(){});
+        }).catch(function(){});
+      }).catch(function(){});
+    }).catch(function(){});
+  } catch(e){}
   document.getElementById('serviceSuccessDate').textContent = dateStr + ' ' + serviceSelectedTime;
   document.querySelector('.service-modal-form').style.display = 'none';
   document.querySelector('.service-modal-success').style.display = 'block';
