@@ -671,7 +671,7 @@ function selectServiceDate(day) {
   var html = '';
   for (var h = 11; h <= 18; h++) {
     for (var m = 0; m < 60; m += 30) {
-      if (h === 18 && m > 0) break;
+      if (h === 18 && m >= 30) break;
       var time = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
       html += '<div class="slot" onclick="selectServiceTime(this,\'" + time + "\')">' + time + '</div>';
     }
