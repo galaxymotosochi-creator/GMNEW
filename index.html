@@ -107,6 +107,8 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .sc-cards-inline{scrollbar-width:none}
 .sc-cards-inline::-webkit-scrollbar{display:none}
 .sc-wrap{max-width:500px;margin:0 auto}
+.sc-btn-pulse{animation:scPulse 2s ease-in-out infinite}
+@keyframes scPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.7}}
 
 /* RENT */
 .rent{padding:20px 12px 20px;max-width:500px;margin:0 auto}
@@ -436,8 +438,8 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   </div>
 
   <div style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:.8rem">
-    <button style="width:34px;height:34px;border-radius:50%;border:1.5px solid #ddd;background:#fff;color:#333;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="scScroll(-1)">‹</button>
-    <button style="width:34px;height:34px;border-radius:50%;border:1.5px solid #ddd;background:#fff;color:#333;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="scScroll(1)">›</button>
+    <button class="sc-btn-pulse" style="width:34px;height:34px;border-radius:50%;border:1.5px solid #ddd;background:#fff;color:#333;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="scScroll(-1)">‹</button>
+    <button class="sc-btn-pulse" style="width:34px;height:34px;border-radius:50%;border:1.5px solid #ddd;background:#fff;color:#333;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="scScroll(1)">›</button>
   </div>
 
   <div style="text-align:center;margin-top:.8rem;font-size:.75rem;color:#999">
