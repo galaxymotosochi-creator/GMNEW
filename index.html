@@ -518,6 +518,7 @@ const models = [
   {id:8,name:"ADV BAM-X",img:"images/catalog/adv-bam-x-1.jpg",price:149900,oldPrice:0,status:"новый",specs:[["Состояние","новый"],["Пластик","новый"],["Пробег","0 км"],["Мощность","175/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","14/14"]]},
   {id:9,name:"GUSITE AGV-R",img:"images/catalog/gusite-agv-r-1.jpg",price:194900,oldPrice:0,status:"новый",specs:[["Состояние","новый"],["Пластик","новый"],["Пробег","0 км"],["Мощность","200/49сс"],["Подача","инжектор"],["Охлаждение","воздушное"],["Макс.скорость","110 км/ч"],["Колёса","13/14"]]}
 ];
+models.sort(function(a,b){return a.price - b.price});
 const grid = document.getElementById('catalogGrid');
 models.forEach(m => {
   const c = document.createElement('div');
