@@ -60,7 +60,10 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .buyback .sub{font-size:14px;color:#888;text-align:center;margin-bottom:20px}
 .bb-photo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:20px}
 .bb-photo-grid div{aspect-ratio:1;border:1.5px dashed #ddd;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ccc;cursor:pointer;background:#fafafa;transition:all .15s}
+.bb-photo-grid div{aspect-ratio:1;border:1.5px dashed #ddd;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ccc;cursor:pointer;background:#fafafa;transition:all .15s;overflow:hidden}
 .bb-photo-grid div:active{background:#f0faff;border-color:#0bc5ea}
+.bb-photo-grid div img{width:100%;height:100%;object-fit:cover;display:block}
+.bb-photo-grid div.filled{border-style:solid;border-color:#0bc5ea;background:#f0faff}
 .bb-range-wrap{margin-bottom:16px}
 .bb-range-wrap .label{font-size:13px;color:#111;font-weight:600;margin-bottom:4px;display:flex;justify-content:space-between}
 .bb-range-wrap .label .val{font-size:13px;color:#0bc5ea;font-weight:700}
@@ -214,13 +217,14 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <h2>Скупка мототехники</h2>
   <p class="sub">Загрузите фото и отметьте состояние деталей для быстрой оценки</p>
 
-  <div class="bb-photo-grid">
-    <div>+</div>
-    <div>+</div>
-    <div>+</div>
-    <div>+</div>
-    <div>+</div>
-    <div>+</div>
+  <input type="file" accept="image/*" capture="environment" multiple id="bbFileInput" style="display:none" onchange="bbHandleFiles(this.files)">
+  <div class="bb-photo-grid" id="bbPhotoGrid">
+    <div onclick="bbPickPhoto(this)" id="bbPhoto0">+</div>
+    <div onclick="bbPickPhoto(this)" id="bbPhoto1">+</div>
+    <div onclick="bbPickPhoto(this)" id="bbPhoto2">+</div>
+    <div onclick="bbPickPhoto(this)" id="bbPhoto3">+</div>
+    <div onclick="bbPickPhoto(this)" id="bbPhoto4">+</div>
+    <div onclick="bbPickPhoto(this)" id="bbPhoto5">+</div>
   </div>
 
   <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px">Оцените состояние:</div>
@@ -246,7 +250,9 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
     <input type="range" min="0" max="100" value="50" oninput="bbUpdate(4, this.value)">
   </div>
 
-  <button class="btn-s" onclick="alert('Спасибо! Заявка отправлена. Мы свяжемся с вами для оценки.')" style="margin-top:12px">Получить оценку</button>
+  <div style="text-align:center">
+    <button class="btn-s" onclick="alert('Спасибо! Заявка отправлена. Мы свяжемся с вами для оценки.')" style="width:auto;display:inline-block;padding:12px 28px">Получить оценку</button>
+  </div>
 </section>
 
 <div class="modal" id="modal">
@@ -437,8 +443,36 @@ function calcRentTotal() {
 }
 
 /* BUYBACK */
+var bbPhotos = [];
+
 function bbUpdate(idx, val) {
   document.getElementById('bbVal'+idx).textContent = val+'%';
+}
+
+function bbPickPhoto(el) {
+  var input = document.getElementById('bbFileInput');
+  input.value = '';
+  input.click();
+}
+
+function bbHandleFiles(files) {
+  var cells = document.querySelectorAll('#bbPhotoGrid > div');
+  var idx = 0;
+  for (var i = 0; i < files.length && idx < cells.length; i++) {
+    // find next empty cell
+    while (idx < cells.length && cells[idx].classList.contains('filled')) idx++;
+    if (idx >= cells.length) break;
+    (function(cell, file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        cell.innerHTML = '<img src="'+e.target.result+'">';
+        cell.classList.add('filled');
+      };
+      reader.readAsDataURL(file);
+      bbPhotos.push(file);
+    })(cells[idx], files[i]);
+    idx++;
+  }
 }
 </script>
 </body>
