@@ -455,7 +455,6 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
       <div class="form-group"><input id="sName" placeholder="Имя"></div>
       <div class="form-group"><input id="sPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
       <div class="form-group"><input id="sModel" placeholder="Модель скутера"></div>
-      <div class="form-group"><label>Краткое описание проблемы</label><textarea id="sDesc" placeholder="Опишите проблему..." style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit;resize:none;height:80px;outline:none"></textarea></div>
       <div style="text-align:center;margin-top:6px">
         <button class="btn-s" onclick="serviceSendForm()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
       </div>
@@ -890,7 +889,6 @@ function serviceSubmit() {
   document.getElementById('sName').value = '';
   document.getElementById('sPhone').value = '+7';
   document.getElementById('sModel').value = '';
-  document.getElementById('sDesc').value = '';
   document.querySelector('.service-modal-form').style.display = 'block';
   document.querySelector('.service-modal-success').style.display = 'none';
   document.getElementById('serviceModal').classList.add('show');
@@ -907,7 +905,7 @@ function serviceSendForm() {
   var day = String(serviceSelectedDate.day).padStart(2,'0');
   var mon = String(serviceSelectedDate.month+1).padStart(2,'0');
   var docId = serviceSelectedDate.year + '-' + mon + '-' + day + '_' + serviceSelectedTime.replace(':','-');
-  var notes = document.getElementById('sDesc').value.trim();
+  var notes = '';
   var data = {
     date: serviceSelectedDate.year + '-' + mon + '-' + day,
     time: serviceSelectedTime,
