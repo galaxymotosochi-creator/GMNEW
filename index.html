@@ -71,6 +71,11 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .bb-range-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #0bc5ea;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}
 .bb-range-wrap input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #0bc5ea;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}
 
+/* BUYBACK TIPS */
+.bb-tip{border:1px solid #eee;border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#fafafa}
+.bb-tip .tip-title{font-size:14px;font-weight:700;color:#111;margin-bottom:3px}
+.bb-tip .tip-desc{font-size:12px;color:#888;line-height:1.5}
+
 /* BUYBACK FORM */
 .bb-step{display:none}
 .bb-step.open{display:block;animation:slideUp .3s ease}
@@ -240,25 +245,21 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 
   <div style="font-size:14px;font-weight:600;color:#111;margin-bottom:12px">Оцените состояние:</div>
 
-  <div class="bb-range-wrap">
-    <div class="label"><span>Двигатель</span><span class="val" id="bbVal0">50%</span></div>
-    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(0, this.value)">
+  <div class="bb-tip">
+    <div class="tip-title">Пластик</div>
+    <div class="tip-desc">Наличие трещин, сколов, глубоких царапин и потертостей (особенно после падений)</div>
   </div>
-  <div class="bb-range-wrap">
-    <div class="label"><span>Кузов / пластик</span><span class="val" id="bbVal1">50%</span></div>
-    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(1, this.value)">
+  <div class="bb-tip">
+    <div class="tip-title">Резина (колёса)</div>
+    <div class="tip-desc">Остаток протектора (в мм) и равномерность его износа</div>
   </div>
-  <div class="bb-range-wrap">
-    <div class="label"><span>Ходовая</span><span class="val" id="bbVal2">50%</span></div>
-    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(2, this.value)">
+  <div class="bb-tip">
+    <div class="tip-title">Возраст резины</div>
+    <div class="tip-desc">Старая «дубовая» резина с микротрещинами на боковинах подлежит замене, даже если протектор цел</div>
   </div>
-  <div class="bb-range-wrap">
-    <div class="label"><span>Электрика</span><span class="val" id="bbVal3">50%</span></div>
-    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(3, this.value)">
-  </div>
-  <div class="bb-range-wrap">
-    <div class="label"><span>Колёса</span><span class="val" id="bbVal4">50%</span></div>
-    <input type="range" min="0" max="100" value="50" oninput="bbUpdate(4, this.value)">
+  <div class="bb-tip">
+    <div class="tip-title">Состояние дисков</div>
+    <div class="tip-desc">Наличие вмятин, геометрия (бьет ли колесо при вращении)</div>
   </div>
 
   <div class="bb-step open" id="bbStep1">
@@ -537,11 +538,7 @@ function bbSubmit() {
     document.getElementById('bbStep1').classList.add('open');
     document.getElementById('bbName').value = '';
     document.getElementById('bbPhone').value = '+7';
-    var ranges = document.querySelectorAll('.bb-range-wrap input[type=range]');
-    for (var i = 0; i < ranges.length; i++) {
-      ranges[i].value = 50;
-      bbUpdate(i, 50);
-    }
+
     var cells = document.querySelectorAll('#bbPhotoGrid > div');
     for (var i = 0; i < cells.length; i++) {
       cells[i].innerHTML = '+';
