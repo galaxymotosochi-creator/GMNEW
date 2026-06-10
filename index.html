@@ -350,8 +350,8 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-modal" id="bbModalContent">
     <div class="bb-modal-form">
       <div style="text-align:center;font-size:17px;font-weight:700;color:#111;margin-bottom:16px">Оставьте контакты</div>
-      <div class="form-group"><label>Ваше имя</label><input id="bbName" placeholder="Имя" value=""></div>
-      <div class="form-group"><label>Номер телефона</label><input id="bbPhone" type="tel" placeholder="+7 (___) ___-__-__" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
+      <div class="form-group"><input id="bbName" placeholder="Имя" value=""></div>
+      <div class="form-group"><input id="bbPhone" type="tel" placeholder="+7 (___) ___-__-__" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
       <div style="text-align:center;margin-top:18px">
         <button class="btn-s" onclick="bbSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Отправить</button>
       </div>
@@ -422,8 +422,8 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
     <button onclick="serviceCloseModal()" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;font-size:16px;cursor:pointer;line-height:1">✕</button>
     <div class="service-modal-form">
       <div style="text-align:center;font-size:16px;font-weight:700;color:#111;margin-bottom:16px" id="serviceModalDate"></div>
-      <div class="form-group"><label>Ваше имя</label><input id="sName" placeholder="Имя"></div>
-      <div class="form-group"><label>Номер телефона</label><input id="sPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
+      <div class="form-group"><input id="sName" placeholder="Имя"></div>
+      <div class="form-group"><input id="sPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
       <div class="form-group"><label>Краткое описание проблемы</label><textarea id="sDesc" placeholder="Опишите проблему..." style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit;resize:none;height:80px;outline:none"></textarea></div>
       <div style="text-align:center;margin-top:6px">
         <button class="btn-s" onclick="serviceSendForm()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
@@ -460,8 +460,8 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-modal">
     <div class="consult-modal-form">
       <div style="text-align:center;font-size:17px;font-weight:700;color:#111;margin-bottom:16px">Запись на консультацию</div>
-      <div class="form-group"><label>Ваше имя</label><input id="consName" placeholder="Имя"></div>
-      <div class="form-group"><label>Номер телефона</label><input id="consPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
+      <div class="form-group"><input id="consName" placeholder="Имя"></div>
+      <div class="form-group"><input id="consPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
       <div style="text-align:center;margin-top:18px">
         <button class="btn-s" onclick="consultSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Отправить</button>
       </div>
