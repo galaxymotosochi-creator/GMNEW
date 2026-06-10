@@ -747,10 +747,40 @@ function bbPhoneMask(inp) {
 }
 
 function bbSubmit() {
+  var model = document.getElementById('bbModel').value.trim();
+  var year = document.getElementById('bbYear').value.trim();
+  var mileage = document.getElementById('bbMileage').value.trim();
   var name = document.getElementById('bbName').value.trim();
   var phone = document.getElementById('bbPhone').value.trim();
   if (!name) { alert('Введите имя'); return; }
   if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
+  
+  // Build message
+  var msg = '📋 НОВАЯ ЗАЯВКА НА СКУПКУ!\n\n';
+  if (model) msg += '🏍 Модель: ' + model + '\n';
+  if (year) msg += '📅 Год: ' + year + '\n';
+  if (mileage) msg += '📏 Пробег: ' + mileage + ' км\n';
+  msg += '👤 Имя: ' + name + '\n';
+  msg += '📞 Телефон: ' + phone + '\n\n📊 Оценка состояния:\n';
+  var sliders = document.querySelectorAll('.bb-tip .bb-range-wrap input[type=range]');
+  var sNames = ['Двигатель','Пластик','Резина','Диски','Глушитель','Электрика и электроника'];
+  var sIdx = [3,0,1,2,4,5];
+  for (var si = 0; si < sIdx.length; si++) {
+    if (sliders[sIdx[si]]) msg += '🟢 ' + sNames[si] + ': ' + sliders[sIdx[si]].value + '%\n';
+  }
+  var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
+  if (typeof bbPhotos !== 'undefined' && bbPhotos.length > 0) {
+    for (var pi = 0; pi < bbPhotos.length; pi++) {
+      var fd = new FormData();
+      fd.append('chat_id', '5368408796');
+      fd.append('photo', bbPhotos[pi], 'bb_' + pi + '.jpg');
+      if (pi === 0) fd.append('caption', msg);
+      fetch('https://api.telegram.org/bot' + token + '/sendPhoto', { method: 'POST', body: fd }).catch(function(){});
+    }
+  } else {
+    fetch('https://api.telegram.org/bot' + token + '/sendMessage', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({chat_id:'5368408796',text:msg}) }).catch(function(){});
+  }
+  
   document.querySelector('.bb-modal-form').style.display = 'none';
   document.getElementById('bbModalSuccess').style.display = 'block';
   setTimeout(function(){
