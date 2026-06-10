@@ -71,6 +71,17 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .bb-range-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #0bc5ea;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}
 .bb-range-wrap input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #0bc5ea;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}
 
+/* BUYBACK FORM */
+.bb-step{display:none}
+.bb-step.open{display:block;animation:slideUp .3s ease}
+.bb-form{border:1px solid #ddd;border-radius:14px;padding:20px;background:#fff;margin-top:12px}
+.bb-form .form-group{margin-bottom:14px}
+.bb-form .form-group label{display:block;font-size:13px;font-weight:600;color:#111;margin-bottom:4px}
+.bb-form .form-group input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit;outline:none}
+.bb-form .form-group input:focus{border-color:#0bc5ea}
+.bb-success{display:none;text-align:center;padding:20px;font-size:14px;font-weight:600;color:#34c759;background:#f0faf0;border-radius:14px;margin-top:12px}
+.bb-success.show{display:block;animation:slideUp .3s ease}
+
 /* RENT */
 .rent{padding:40px 12px 60px;max-width:500px;margin:0 auto}
 .rent h2{font-size:24px;font-weight:800;color:#111;margin-bottom:4px;text-align:center;text-transform:uppercase}
@@ -250,9 +261,24 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
     <input type="range" min="0" max="100" value="50" oninput="bbUpdate(4, this.value)">
   </div>
 
-  <div style="text-align:center">
-    <button class="btn-s" onclick="alert('Спасибо! Заявка отправлена. Мы свяжемся с вами для оценки.')" style="width:auto;display:inline-block;padding:12px 28px">Получить оценку</button>
+  <div class="bb-step open" id="bbStep1">
+    <div style="text-align:center">
+      <button class="btn-s" onclick="bbShowForm()" style="width:auto;display:inline-block;padding:12px 28px">Получить оценку</button>
+    </div>
   </div>
+
+  <div class="bb-step" id="bbStep2">
+    <div class="bb-form">
+      <div style="text-align:center;font-size:15px;font-weight:700;color:#111;margin-bottom:14px">Оставьте контакты</div>
+      <div class="form-group"><label>Ваше имя</label><input id="bbName" placeholder="Имя" value=""></div>
+      <div class="form-group"><label>Номер телефона</label><input id="bbPhone" type="tel" placeholder="+7 (___) ___-__-__" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
+      <div style="text-align:center">
+        <button class="btn-s" onclick="bbSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Отправить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bb-success" id="bbSuccess">Ожидайте, мы свяжемся с Вами как только рассмотрим заявку</div>
 </section>
 
 <div class="modal" id="modal">
@@ -459,7 +485,6 @@ function bbHandleFiles(files) {
   var cells = document.querySelectorAll('#bbPhotoGrid > div');
   var idx = 0;
   for (var i = 0; i < files.length && idx < cells.length; i++) {
-    // find next empty cell
     while (idx < cells.length && cells[idx].classList.contains('filled')) idx++;
     if (idx >= cells.length) break;
     (function(cell, file) {
@@ -473,6 +498,57 @@ function bbHandleFiles(files) {
     })(cells[idx], files[i]);
     idx++;
   }
+}
+
+function bbShowForm() {
+  document.getElementById('bbStep1').classList.remove('open');
+  document.getElementById('bbStep2').classList.add('open');
+  document.getElementById('buybackSection').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function bbPhoneFocus() {
+  var inp = document.getElementById('bbPhone');
+  if (inp.value === '' || inp.value === '+7' || inp.value === '+') inp.value = '+7';
+}
+
+function bbPhoneMask(inp) {
+  var x = inp.value.replace(/\D/g,'');
+  if (x.length === 0) { inp.value = '+7'; return; }
+  if (x.length === 1 && x !== '7') { inp.value = '+7' + x; return; }
+  var s = '+';
+  if (x[0] === '7' || x[0] === '8') s += '7'; else { inp.value = '+7'; return; }
+  var rest = x.substring(1);
+  if (rest.length > 0) s += ' (' + rest.substring(0,3);
+  if (rest.length > 3) s += ') ' + rest.substring(3,6);
+  if (rest.length > 6) s += '-' + rest.substring(6,8);
+  if (rest.length > 8) s += '-' + rest.substring(8,10);
+  inp.value = s;
+}
+
+function bbSubmit() {
+  var name = document.getElementById('bbName').value.trim();
+  var phone = document.getElementById('bbPhone').value.trim();
+  if (!name) { alert('Введите имя'); return; }
+  if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
+  document.getElementById('bbStep2').classList.remove('open');
+  document.getElementById('bbSuccess').classList.add('show');
+  setTimeout(function(){
+    document.getElementById('bbSuccess').classList.remove('show');
+    document.getElementById('bbStep1').classList.add('open');
+    document.getElementById('bbName').value = '';
+    document.getElementById('bbPhone').value = '+7';
+    var ranges = document.querySelectorAll('.bb-range-wrap input[type=range]');
+    for (var i = 0; i < ranges.length; i++) {
+      ranges[i].value = 50;
+      bbUpdate(i, 50);
+    }
+    var cells = document.querySelectorAll('#bbPhotoGrid > div');
+    for (var i = 0; i < cells.length; i++) {
+      cells[i].innerHTML = '+';
+      cells[i].classList.remove('filled');
+    }
+    bbPhotos = [];
+  }, 2000);
 }
 </script>
 </body>
