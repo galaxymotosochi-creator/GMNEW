@@ -511,6 +511,26 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;-webkit-t
   </div>
 </div>
 
+<!-- TEST DRIVE MODAL -->
+<div class="bb-modal-overlay" id="tdModal">
+  <div class="bb-modal" style="position:relative">
+    <button onclick="tdCloseModal()" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;font-size:16px;cursor:pointer;line-height:1">✕</button>
+    <div class="td-modal-form">
+      <div style="text-align:center;font-size:17px;font-weight:700;color:#111;margin-bottom:16px">Тест-драйв</div>
+      <div class="form-group"><input id="tdName" placeholder="Имя"></div>
+      <div class="form-group"><input id="tdPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
+      <div class="form-group"><input id="tdDate" type="date" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit"></div>
+      <div class="form-group"><input id="tdTime" placeholder="Время (например 14:00)"></div>
+      <div style="text-align:center;margin-top:6px">
+        <button class="btn-s" onclick="tdSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
+      </div>
+    </div>
+    <div class="td-modal-success" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:15px;font-weight:600;color:#111;line-height:1.5">Записано! Мы свяжемся с вами</div>
+    </div>
+  </div>
+</div>
+
 <script>
 const models = [
   {id:1,name:"TANK NEXT",img:"images/catalog/tank-next.jpg",images:["images/catalog/tank-next.jpg","images/catalog/tank-next-IMG_20260528_002802_235.jpg"],price:72900,oldPrice:89900,status:"б/у",specs:[["Состояние","б/у"],["Пластик","без трещин"],["Технически","отличное"],["Пробег","12000 км"],["Мощность","150/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","12/12"]]},
