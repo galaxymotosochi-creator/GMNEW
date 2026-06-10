@@ -377,6 +377,9 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-modal" id="bbModalContent">
     <div class="bb-modal-form">
       <div style="text-align:center;font-size:17px;font-weight:700;color:#111;margin-bottom:16px">Оставьте контакты</div>
+      <div class="form-group"><input id="bbModel" placeholder="Название модели"></div>
+      <div class="form-group"><input id="bbYear" placeholder="Год выпуска"></div>
+      <div class="form-group"><input id="bbMileage" placeholder="Пробег (км)"></div>
       <div class="form-group"><input id="bbName" placeholder="Имя" value=""></div>
       <div class="form-group"><input id="bbPhone" type="tel" placeholder="+7 (___) ___-__-__" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
       <div style="text-align:center;margin-top:18px">
@@ -710,6 +713,11 @@ function bbHandleFiles(files) {
 }
 
 function bbShowForm() {
+  document.getElementById('bbModel').value = '';
+  document.getElementById('bbYear').value = '';
+  document.getElementById('bbMileage').value = '';
+  document.getElementById('bbName').value = '';
+  document.getElementById('bbPhone').value = '+7';
   document.getElementById('bbModal').classList.add('show');
   document.getElementById('bbModalSuccess').style.display = 'none';
   document.querySelector('.bb-modal-form').style.display = 'block';
@@ -747,6 +755,9 @@ function bbSubmit() {
   document.getElementById('bbModalSuccess').style.display = 'block';
   setTimeout(function(){
     document.getElementById('bbModal').classList.remove('show');
+    document.getElementById('bbModel').value = '';
+    document.getElementById('bbYear').value = '';
+    document.getElementById('bbMileage').value = '';
     document.getElementById('bbName').value = '';
     document.getElementById('bbPhone').value = '+7';
 
