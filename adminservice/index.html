@@ -333,7 +333,7 @@ function saveMoveBooking(){
   document.getElementById('moveModal').classList.remove('active');
   closeDet();
 }
-function setStat(id,st,master){try{var d=firebase.firestore();var upd={status:st,updatedAt:new Date().toISOString()};if(master)upd.master=master;d.collection('leads').doc(id).update(upd).catch(function(){});d.collection('galaxymoto_bookings').doc(id).update(upd).catch(function(){})}catch(e){}}
+function setStat(id,st,master){try{var d=firebase.firestore();var upd={status:st,updatedAt:new Date().toISOString()};if(master)upd.master=master;d.collection('leads').doc(id).update(upd).catch(function(){});d.collection('galaxymoto_bookings').doc(id).update(upd).catch(function(){if(st==='in_progress'){var b=BK.find(function(x){return x.id===id});if(b){var dd=new Date(b.date),mN=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],dN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];var dtf=dd.getDate()+' '+mN[dd.getMonth()]+' ('+dN[dd.getDay()]+') '+b.time;var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ПРИНЯТА В РАБОТУ!\n\n📅 '+dtf+'\n👤 '+b.name+'\n📞 Телефон: '+b.phone+'\n🛵 Модель: '+(b.model||'-')+'\n👨‍🔧 Мастер: '+(master||'-');tgBroadcast(msg)}}}})}}catch(e){}}
 function delRec(id){try{var d=firebase.firestore();d.collection('leads').doc(id).delete().catch(function(){});d.collection('galaxymoto_bookings').doc(id).delete().catch(function(){})}catch(e){}}
 
 
