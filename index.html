@@ -1024,6 +1024,43 @@ function openContactsModal(){
 function closeContactsModal(){
   document.getElementById('cmOverlay').classList.remove('s');
 }
+
+/* TEST DRIVE */
+function tdOpenModal(){
+  var m = window._gModel;
+  document.getElementById('tdName').value = '';
+  document.getElementById('tdPhone').value = '+7';
+  document.getElementById('tdDate').value = '';
+  document.getElementById('tdTime').value = '';
+  document.querySelector('.td-modal-form').style.display = 'block';
+  document.querySelector('.td-modal-success').style.display = 'none';
+  document.getElementById('tdModal').classList.add('show');
+  window._tdModel = m ? m.name : '';
+}
+function tdCloseModal(){
+  document.getElementById('tdModal').classList.remove('show');
+}
+function tdSubmit(){
+  var name = document.getElementById('tdName').value.trim();
+  var phone = document.getElementById('tdPhone').value.trim();
+  var date = document.getElementById('tdDate').value;
+  var time = document.getElementById('tdTime').value.trim();
+  if (!name) { alert('Введите имя'); return; }
+  if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
+  if (!date) { alert('Выберите дату'); return; }
+  if (!time) { alert('Введите время'); return; }
+  var dd = new Date(date + 'T12:00:00');
+  var mN=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],dN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+  var dtf = dd.getDate() + ' ' + mN[dd.getMonth()] + ' (' + dN[dd.getDay()] + ')';
+  var msg = '✅ НОВЫЙ ТЕСТ-ДРАЙВ!\n\nМодель: ' + (window._tdModel||'-') + '\nДата: ' + dtf + '\nВремя: ' + time + '\nИмя: ' + name + '\nТелефон: ' + phone;
+  var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
+  fetch('https://api.telegram.org/bot' + token + '/sendMessage', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5368408796',text:msg})}).catch(function(){});
+  document.querySelector('.td-modal-form').style.display = 'none';
+  document.querySelector('.td-modal-success').style.display = 'block';
+  setTimeout(function(){
+    document.getElementById('tdModal').classList.remove('show');
+  }, 2000);
+}
 </script>
 
 <!-- ===== Нижняя навигация (мобильная) ===== -->
