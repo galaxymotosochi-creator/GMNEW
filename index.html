@@ -293,7 +293,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-tip">
     <div class="tip-desc">Как заводится (на холодную и на горячую); стабильность холостых оборотов; отсутствие посторонних шумов, стуков; есть ли провалы при разгоне</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span></span><span id="bbVal3">50%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span class="bb-dot" id="bbDot3" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px;background:#ff9800"></span><span id="bbVal3">50%</span></div>
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(3, this.value)">
     </div>
   </div>
@@ -302,7 +302,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-tip">
     <div class="tip-desc">Наличие трещин, сколов, глубоких царапин и потертостей (особенно после падений)</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span></span><span id="bbVal0">50%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span class="bb-dot" id="bbDot0" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px;background:#ff9800"></span><span id="bbVal0">50%</span></div>
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(0, this.value)">
     </div>
   </div>
@@ -311,7 +311,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-tip">
     <div class="tip-desc">Старая «дубовая» резина с микротрещинами на боковинах подлежит замене, даже если протектор цел</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span></span><span id="bbVal1">50%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span class="bb-dot" id="bbDot1" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px;background:#ff9800"></span><span id="bbVal1">50%</span></div>
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(1, this.value)">
     </div>
   </div>
@@ -320,7 +320,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-tip">
     <div class="tip-desc">Наличие вмятин, геометрия (бьет ли колесо при вращении)</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span></span><span id="bbVal2">50%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span class="bb-dot" id="bbDot2" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px;background:#ff9800"></span><span id="bbVal2">50%</span></div>
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(2, this.value)">
     </div>
   </div>
@@ -329,7 +329,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-tip">
     <div class="tip-desc">Наличие прогаров, дыр, ржавчины; звук выхлопа; дымность</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span></span><span id="bbVal4">50%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span class="bb-dot" id="bbDot4" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px;background:#ff9800"></span><span id="bbVal4">50%</span></div>
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(4, this.value)">
     </div>
   </div>
@@ -338,7 +338,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <div class="bb-tip">
     <div class="tip-desc">Держит ли заряд аккумулятор; работа фар (ближний/дальний), поворотников, стоп-сигнала; корректность работы спидометра</div>
     <div class="bb-range-wrap" style="margin-bottom:0;margin-top:8px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span></span><span id="bbVal5">50%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:2px"><span class="bb-dot" id="bbDot5" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px;background:#ff9800"></span><span id="bbVal5">50%</span></div>
       <input type="range" min="0" max="100" value="50" oninput="bbUpdate(5, this.value)">
     </div>
   </div>
@@ -685,6 +685,12 @@ var bbPhotos = [];
 
 function bbUpdate(idx, val) {
   document.getElementById('bbVal'+idx).textContent = val+'%';
+  var dot = document.getElementById('bbDot'+idx);
+  if (dot) {
+    if (val < 34) dot.style.background = '#f44336';
+    else if (val < 67) dot.style.background = '#ff9800';
+    else dot.style.background = '#4caf50';
+  }
 }
 
 function bbPickPhoto(el) {
@@ -770,13 +776,17 @@ function bbSubmit() {
   }
   var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
   if (typeof bbPhotos !== 'undefined' && bbPhotos.length > 0) {
+    var media = [];
+    var fd = new FormData();
+    fd.append('chat_id', '5368408796');
     for (var pi = 0; pi < bbPhotos.length; pi++) {
-      var fd = new FormData();
-      fd.append('chat_id', '5368408796');
-      fd.append('photo', bbPhotos[pi], 'bb_' + pi + '.jpg');
-      if (pi === 0) fd.append('caption', msg);
-      fetch('https://api.telegram.org/bot' + token + '/sendPhoto', { method: 'POST', body: fd }).catch(function(){});
+      var an = 'p' + pi;
+      if (pi === 0) media.push({type:'photo', media:'attach://' + an, caption: msg});
+      else media.push({type:'photo', media:'attach://' + an});
+      fd.append(an, bbPhotos[pi], 'bb_' + pi + '.jpg');
     }
+    fd.append('media', JSON.stringify(media));
+    fetch('https://api.telegram.org/bot' + token + '/sendMediaGroup', { method: 'POST', body: fd }).catch(function(){});
   } else {
     fetch('https://api.telegram.org/bot' + token + '/sendMessage', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({chat_id:'5368408796',text:msg}) }).catch(function(){});
   }
