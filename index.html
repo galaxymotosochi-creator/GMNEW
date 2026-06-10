@@ -454,6 +454,24 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
     </div>
   </div>
 </div>
+
+<!-- CONSULT MODAL -->
+<div class="bb-modal-overlay" id="consultModal" onclick="if(event.target===this)consultCloseModal()">
+  <div class="bb-modal">
+    <div class="consult-modal-form">
+      <div style="text-align:center;font-size:17px;font-weight:700;color:#111;margin-bottom:16px">Запись на консультацию</div>
+      <div class="form-group"><label>Ваше имя</label><input id="consName" placeholder="Имя"></div>
+      <div class="form-group"><label>Номер телефона</label><input id="consPhone" type="tel" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
+      <div style="text-align:center;margin-top:18px">
+        <button class="btn-s" onclick="consultSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Отправить</button>
+      </div>
+    </div>
+    <div class="consult-modal-success" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:15px;font-weight:600;color:#111;line-height:1.5">Спасибо! Мы свяжемся с вами в ближайшее время</div>
+    </div>
+  </div>
+</div>
+
 <script>
 const models = [
   {id:1,name:"TANK NEXT",img:"images/catalog/tank-next.jpg",price:72900,oldPrice:89900,status:"б/у",specs:[["Состояние","б/у"],["Пластик","без трещин"],["Технически","отличное"],["Пробег","12000 км"],["Мощность","150/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","12/12"]]},
@@ -807,10 +825,25 @@ function scScroll(dir) {
   el.scrollBy({ left: dir * sw, behavior: 'smooth' });
 }
 function openConsult() {
-  document.getElementById('serviceSection').scrollIntoView({behavior:'smooth'});
+  document.getElementById('consName').value = '';
+  document.getElementById('consPhone').value = '+7';
+  document.querySelector('.consult-modal-form').style.display = 'block';
+  document.querySelector('.consult-modal-success').style.display = 'none';
+  document.getElementById('consultModal').classList.add('show');
+}
+function consultCloseModal() {
+  document.getElementById('consultModal').classList.remove('show');
+}
+function consultSubmit() {
+  var name = document.getElementById('consName').value.trim();
+  var phone = document.getElementById('consPhone').value.trim();
+  if (!name) { alert('Введите имя'); return; }
+  if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
+  document.querySelector('.consult-modal-form').style.display = 'none';
+  document.querySelector('.consult-modal-success').style.display = 'block';
   setTimeout(function(){
-    document.querySelector('.service .btn-s').click();
-  }, 600);
+    document.getElementById('consultModal').classList.remove('show');
+  }, 2000);
 }
 </script>
 </body>
