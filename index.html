@@ -477,7 +477,12 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;-webkit-t
 <div class="modal" id="modal">
   <div class="modal-inner">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <img class="modal-img" id="modalImg" src="" alt="">
+    <div style="position:relative">
+      <img class="modal-img" id="modalImg" src="" alt="" onclick="gShowPhoto(window._gIdx+1)" style="cursor:pointer">
+      <div id="modalNav" style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#fff;font-size:12px;padding:3px 10px;border-radius:10px"></div>
+      <button onclick="gShowPhoto(window._gIdx-1)" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1">‹</button>
+      <button onclick="gShowPhoto(window._gIdx+1)" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1">›</button>
+    </div>
     <div class="modal-body">
       <h3 id="modalTitle"></h3>
       <div class="price" id="modalPrice"></div>
