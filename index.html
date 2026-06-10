@@ -77,15 +77,13 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 .bb-tip .tip-desc{font-size:12px;color:#888;line-height:1.5}
 
 /* BUYBACK FORM */
-.bb-step{display:none}
-.bb-step.open{display:block;animation:slideUp .3s ease}
-.bb-form{border:1px solid #ddd;border-radius:14px;padding:20px;background:#fff;margin-top:12px}
-.bb-form .form-group{margin-bottom:14px}
-.bb-form .form-group label{display:block;font-size:13px;font-weight:600;color:#111;margin-bottom:4px}
-.bb-form .form-group input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit;outline:none}
-.bb-form .form-group input:focus{border-color:#0bc5ea}
-.bb-success{display:none;text-align:center;padding:20px;font-size:14px;font-weight:600;color:#34c759;background:#f0faf0;border-radius:14px;margin-top:12px}
-.bb-success.show{display:block;animation:slideUp .3s ease}
+.bb-modal-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.5);align-items:center;justify-content:center}
+.bb-modal-overlay.show{display:flex}
+.bb-modal{background:#fff;border-radius:20px;padding:28px 24px;width:calc(100% - 32px);max-width:380px;animation:slideUp .3s ease;max-height:90vh;overflow-y:auto}
+.bb-modal .form-group{margin-bottom:14px}
+.bb-modal .form-group label{display:block;font-size:13px;font-weight:600;color:#111;margin-bottom:4px}
+.bb-modal .form-group input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit;outline:none}
+.bb-modal .form-group input:focus{border-color:#0bc5ea}
 
 /* RENT */
 .rent{padding:40px 12px 60px;max-width:500px;margin:0 auto}
@@ -299,25 +297,28 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
     </div>
   </div>
 
-  <div class="bb-step open" id="bbStep1">
-    <div style="text-align:center">
-      <button class="btn-s" onclick="bbShowForm()" style="width:auto;display:inline-block;padding:12px 28px">Получить оценку</button>
-    </div>
+  <div style="text-align:center">
+    <button class="btn-s" onclick="bbShowForm()" style="width:auto;display:inline-block;padding:12px 28px">Получить оценку</button>
   </div>
+</section>
 
-  <div class="bb-step" id="bbStep2">
-    <div class="bb-form">
-      <div style="text-align:center;font-size:15px;font-weight:700;color:#111;margin-bottom:14px">Оставьте контакты</div>
+<!-- BUYBACK MODAL -->
+<div class="bb-modal-overlay" id="bbModal" onclick="if(event.target===this)bbCloseModal()">
+  <div class="bb-modal" id="bbModalContent">
+    <div class="bb-modal-form">
+      <div style="text-align:center;font-size:17px;font-weight:700;color:#111;margin-bottom:16px">Оставьте контакты</div>
       <div class="form-group"><label>Ваше имя</label><input id="bbName" placeholder="Имя" value=""></div>
       <div class="form-group"><label>Номер телефона</label><input id="bbPhone" type="tel" placeholder="+7 (___) ___-__-__" value="+7" onfocus="bbPhoneFocus()" oninput="bbPhoneMask(this)"></div>
-      <div style="text-align:center">
+      <div style="text-align:center;margin-top:18px">
         <button class="btn-s" onclick="bbSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Отправить</button>
       </div>
     </div>
+    <div class="bb-modal-success" id="bbModalSuccess" style="display:none;text-align:center">
+      <div style="font-size:36px;margin-bottom:12px">✅</div>
+      <div style="font-size:15px;font-weight:600;color:#111">Ожидайте, мы свяжемся с Вами как только рассмотрим заявку</div>
+    </div>
   </div>
-
-  <div class="bb-success" id="bbSuccess">Ожидайте, мы свяжемся с Вами как только рассмотрим заявку</div>
-</section>
+</div>
 
 <div class="modal" id="modal">
   <div class="modal-inner">
@@ -539,9 +540,13 @@ function bbHandleFiles(files) {
 }
 
 function bbShowForm() {
-  document.getElementById('bbStep1').classList.remove('open');
-  document.getElementById('bbStep2').classList.add('open');
-  document.getElementById('buybackSection').scrollIntoView({behavior:'smooth',block:'center'});
+  document.getElementById('bbModal').classList.add('show');
+  document.getElementById('bbModalSuccess').style.display = 'none';
+  document.querySelector('.bb-modal-form').style.display = 'block';
+}
+
+function bbCloseModal() {
+  document.getElementById('bbModal').classList.remove('show');
 }
 
 function bbPhoneFocus() {
@@ -568,11 +573,10 @@ function bbSubmit() {
   var phone = document.getElementById('bbPhone').value.trim();
   if (!name) { alert('Введите имя'); return; }
   if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
-  document.getElementById('bbStep2').classList.remove('open');
-  document.getElementById('bbSuccess').classList.add('show');
+  document.querySelector('.bb-modal-form').style.display = 'none';
+  document.getElementById('bbModalSuccess').style.display = 'block';
   setTimeout(function(){
-    document.getElementById('bbSuccess').classList.remove('show');
-    document.getElementById('bbStep1').classList.add('open');
+    document.getElementById('bbModal').classList.remove('show');
     document.getElementById('bbName').value = '';
     document.getElementById('bbPhone').value = '+7';
 
