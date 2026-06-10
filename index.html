@@ -217,7 +217,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
   <h2>Скупка мототехники</h2>
   <p class="sub">Загрузите фото и отметьте состояние деталей для быстрой оценки</p>
 
-  <input type="file" accept="image/*" capture="environment" multiple id="bbFileInput" style="display:none" onchange="bbHandleFiles(this.files)">
+  <input type="file" accept="image/*" multiple id="bbFileInput" style="position:fixed;left:-9999px;top:0;opacity:0;width:0;height:0" onchange="bbHandleFiles(this.files)">
   <div class="bb-photo-grid" id="bbPhotoGrid">
     <div onclick="bbPickPhoto(this)" id="bbPhoto0">+</div>
     <div onclick="bbPickPhoto(this)" id="bbPhoto1">+</div>
