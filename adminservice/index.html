@@ -335,17 +335,17 @@ function saveMoveBooking(){
         var odd=new Date(b.date),ond=new Date(newDate);
         var oldDtf=odd.getDate()+' '+mN[odd.getMonth()]+' ('+dN[odd.getDay()]+') '+(b.time||'');
         var newDtf=ond.getDate()+' '+mN[ond.getMonth()]+' ('+dN[ond.getDay()]+') '+(newTime||'');
-        var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ПЕРЕНЕСЕНА С '+oldDtf+' НА '+newDtf+' ✅\n\n👤 '+b.name+'\n📞 Телефон: '+b.phone+'\n🛵 Модель: '+(b.model||'-');tgBroadcast(msg)
+        var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ПЕРЕНЕСЕНА С '+oldDtf+' НА '+newDtf+' ✅\n\n👤 Имя: '+b.name+'\n📞 Телефон: '+b.phone+'\n🛵 Модель: '+(b.model||'-');tgBroadcast(msg)
       }
     });
   }catch(e){}
   document.getElementById('moveModal').classList.remove('active');
   closeDet();
 }
-function setStat(id,st,master){try{var d=firebase.firestore();var upd={status:st,updatedAt:new Date().toISOString()};if(master)upd.master=master;d.collection('leads').doc(id).update(upd).catch(function(){});d.collection('galaxymoto_bookings').doc(id).update(upd).catch(function(){var b=BK.find(function(x){return x.id===id});if(!b)return;var dd=new Date(b.date),mN=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],dN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];var dtf=dd.getDate()+' '+mN[dd.getMonth()]+' ('+dN[dd.getDay()]+') '+b.time;if(st==='in_progress'){var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ПРИНЯТА В РАБОТУ!\n\n📅 '+dtf+'\n👤 '+b.name+'\n📞 Телефон: '+b.phone+'\n🛵 Модель: '+(b.model||'-')+'\n👨‍🔧 Мастер: '+(master||'-');tgBroadcast(msg)}else if(st==='completed'){var wd=b.workDone;var total=wd&&wd.total?wd.total:0;var mileage=wd&&wd.mileage?wd.mileage:'-';var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ВЫПОЛНЕНА! ✅\n\n📅 '+dtf+'\n👤 '+b.name+'\n📞 Телефон: '+b.phone+'\n🛵 Модель: '+(b.model||'-')+'\n👨‍🔧 Мастер: '+(master||'-')+'\n💰 Сумма: '+total+' ₽\n📏 Пробег: '+mileage+' км';tgBroadcast(msg)}})}}catch(e){}else if(st==='cancelled'){var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ОТМЕНЕНА ❌
+function setStat(id,st,master){try{var d=firebase.firestore();var upd={status:st,updatedAt:new Date().toISOString()};if(master)upd.master=master;d.collection('leads').doc(id).update(upd).catch(function(){});d.collection('galaxymoto_bookings').doc(id).update(upd).catch(function(){var b=BK.find(function(x){return x.id===id});if(!b)return;var dd=new Date(b.date),mN=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],dN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];var dtf=dd.getDate()+' '+mN[dd.getMonth()]+' ('+dN[dd.getDay()]+') '+b.time;if(st==='in_progress'){var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ПРИНЯТА В РАБОТУ!\n\n📅 '+dtf+'\n👤 Имя: '+b.name+'\n📞 Телефон: '+b.phone+'\n🛵 Модель: '+(b.model||'-')+'\n👨‍🔧 Мастер: '+(master||'-');tgBroadcast(msg)}else if(st==='completed'){var wd=b.workDone;var total=wd&&wd.total?wd.total:0;var mileage=wd&&wd.mileage?wd.mileage:'-';var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ВЫПОЛНЕНА! ✅\n\n📅 '+dtf+'\n👤 Имя: '+b.name+'\n📞 Телефон: '+b.phone+'\n🛵 Модель: '+(b.model||'-')+'\n👨‍🔧 Мастер: '+(master||'-')+'\n💰 Сумма: '+total+' ₽\n📏 Пробег: '+mileage+' км';tgBroadcast(msg)}})}}catch(e){}else if(st==='cancelled'){var msg='🛵 ЗАПИСЬ №'+(b.orderNumber||'')+' ОТМЕНЕНА ❌
 
 📅 '+dtf+'
-👤 '+b.name+'
+👤 Имя: '+b.name+'
 📞 Телефон: '+b.phone+'
 🛵 Модель: '+(b.model||'-');tgBroadcast(msg)}}
 function delRec(id){try{var d=firebase.firestore();d.collection('leads').doc(id).delete().catch(function(){});d.collection('galaxymoto_bookings').doc(id).delete().catch(function(){})}catch(e){}}
