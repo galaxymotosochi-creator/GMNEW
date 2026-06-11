@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>GALAXY MOTO — Bottom Nav · 5 вариантов</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e8e8ed;padding:24px 14px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;padding-bottom:40px}
+h1{font-size:22px;font-weight:800;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px;text-align:center}
+.sub{font-size:13px;color:#666;text-align:center;margin-bottom:20px;line-height:1.5}
+.v-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:420px;margin:0 auto}
+.phone{width:100%;border-radius:28px;overflow:hidden;box-shadow:0 0 0 2px #3a3a3e,0 12px 40px rgba(0,0,0,.15);background:#000;position:relative}
+.phone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:90px;height:18px;background:#0d0d0f;border-radius:0 0 8px 8px;z-index:10}
+.phone .screen{width:100%;aspect-ratio:9/19;background:#111;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.hero-mock{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-mock::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(11,197,234,.08),transparent 70%)}
+.hero-mock .badge{font-size:9px;font-weight:600;color:#888;background:rgba(255,255,255,.06);padding:4px 10px;border-radius:12px;margin-bottom:8px;border:1px solid rgba(255,255,255,.06)}
+.hero-mock .logo{font-size:18px;font-weight:800;background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.hero-mock .tag{font-size:9px;color:rgba(255,255,255,.3);text-align:center;padding:0 20px;line-height:1.4}
+.hero-mock .cta{font-size:10px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.08);padding:6px 16px;border-radius:20px;margin-top:10px}
+.v1-bnav{position:absolute;bottom:8px;left:6px;right:6px;background:#fff;border-radius:18px;padding:4px 2px;display:flex;box-shadow:0 4px 24px rgba(0,0,0,.4);align-items:center}
+.v1-bnav .item{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 0;border:none;background:none;cursor:pointer;border-radius:14px;transition:all .2s}
+.v1-bnav .item .ico{font-size:18px;line-height:1;filter:grayscale(1) opacity(.3);transition:all .2s}
+.v1-bnav .item .lbl{font-size:8px;font-weight:500;color:#bbb;letter-spacing:.02em;transition:all .2s}
+.v1-bnav .item.active{background:rgba(11,197,234,.1)}
+.v1-bnav .item.active .ico{filter:none}
+.v1-bnav .item.active .lbl{color:#0bc5ea;font-weight:600}
+.v2-bnav{position:absolute;bottom:10px;left:8px;right:8px;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:22px;padding:5px 4px;display:flex;box-shadow:0 8px 32px rgba(0,0,0,.35);align-items:center}
+.v2-bnav .item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 0;border:none;background:none;cursor:pointer;border-radius:16px;position:relative;transition:all .2s}
+.v2-bnav .item .ico{font-size:20px;line-height:1;transition:all .2s}
+.v2-bnav .item .lbl{font-size:9px;font-weight:500;color:#999;letter-spacing:.01em;transition:all .2s}
+.v2-bnav .item.active .lbl{background:linear-gradient(135deg,#0bc5ea,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
+.v2-bnav .item.active .ico{transform:translateY(-3px) scale(1.1)}
+.v3-bnav{position:absolute;bottom:6px;left:4px;right:4px;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:16px;padding:3px 3px;display:flex;box-shadow:0 6px 28px rgba(0,0,0,.3);align-items:center}
+.v3-bnav .item{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 0;border:none;background:none;cursor:pointer;border-radius:13px;transition:all .25s}
+.v3-bnav .item .ico{font-size:18px;line-height:1;filter:grayscale(1) opacity(.35);transition:all .25s}
+.v3-bnav .item .lbl{font-size:8px;font-weight:500;color:#aaa;transition:all .25s}
+.v3-bnav .item.active{background:linear-gradient(135deg,#0bc5ea,#8b5cf6);box-shadow:0 2px 12px rgba(11,197,234,.3)}
+.v3-bnav .item.active .ico{filter:none}
+.v3-bnav .item.active .lbl{color:#fff;font-weight:600}
+.v4-bnav{position:absolute;bottom:12px;left:10px;right:10px;background:#fff;border-radius:20px;padding:4px 6px;display:flex;box-shadow:0 6px 32px rgba(0,0,0,.35);align-items:center;justify-content:space-between}
+.v4-bnav .item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;border:none;background:none;cursor:pointer;border-radius:14px;transition:all .2s;min-width:40px}
+.v4-bnav .item .ico{font-size:17px;line-height:1;filter:grayscale(1) opacity(.3);transition:all .2s}
+.v4-bnav .item .lbl{font-size:7px;font-weight:500;color:#ccc;transition:all .2s;opacity:0;height:0;overflow:hidden;transition:all .25s}
+.v4-bnav .item.active{background:rgba(11,197,234,.08);padding:6px 10px;min-width:auto}
+.v4-bnav .item.active .ico{filter:none;font-size:19px}
+.v4-bnav .item.active .lbl{opacity:1;height:auto;font-size:9px;color:#0bc5ea;font-weight:600}
+.v5-bnav{position:absolute;bottom:10px;left:8px;right:8px;background:rgba(20,20,22,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:22px;padding:5px 4px;display:flex;box-shadow:0 8px 40px rgba(0,0,0,.5);align-items:center;border:1px solid rgba(255,255,255,.06)}
+.v5-bnav .item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 0;border:none;background:none;cursor:pointer;border-radius:16px;transition:all .2s}
+.v5-bnav .item .ico{font-size:19px;line-height:1;filter:grayscale(1) opacity(.35);transition:all .2s}
+.v5-bnav .item .lbl{font-size:8px;font-weight:500;color:rgba(255,255,255,.3);letter-spacing:.02em;transition:all .2s}
+.v5-bnav .item.active{background:rgba(255,255,255,.08)}
+.v5-bnav .item.active .ico{filter:none}
+.v5-bnav .item.active .lbl{color:#0bc5ea;font-weight:600}
+.card>div:last-child{margin-top:8px;text-align:center;font-size:10px;color:#999;padding:0 4px;line-height:1.4}
+</style>
+</head>
+<body>
+<h1>GALAXY MOTO</h1>
+<p class="sub">5 вариантов нижнего меню — выбери лучший</p>
+<div class="v-grid">
+
+<div class="phone">
+<div class="notch"></div>
+<div class="screen">
+<div class="hero-mock">
+  <div class="badge">⚡ Работаем ежедневно</div>
+  <div class="logo">GALAXY MOTO</div>
+  <div class="tag">Покупка, аренда, честный сервис и запчасти</div>
+  <div class="cta">Выбрать технику</div>
+</div>
+<div class="v1-bnav">
+  <div class="item active"><span class="ico">🛵</span><span class="lbl">Каталог</span></div>
+  <div class="item"><span class="ico">💰</span><span class="lbl">Скупка</span></div>
+  <div class="item"><span class="ico">🛴</span><span class="lbl">Аренда</span></div>
+  <div class="item"><span class="ico">🔧</span><span class="lbl">Сервис</span></div>
+  <div class="item"><span class="ico">⭐</span><span class="lbl">Отзывы</span></div>
+</div>
+</div>
+</div>
+<div>Вариант 1 · Белая плашка, скруглённые края, активный пункт с циановым фоном</div>
+
+<div class="phone">
+<div class="notch"></div>
+<div class="screen">
+<div class="hero-mock">
+  <div class="badge">⚡ Работаем ежедневно</div>
+  <div class="logo">GALAXY MOTO</div>
+  <div class="tag">Покупка, аренда, честный сервис и запчасти</div>
+  <div class="cta">Выбрать технику</div>
+</div>
+<div class="v2-bnav">
+  <div class="item active"><span class="ico">🛵</span><span class="lbl">Каталог</span></div>
+  <div class="item"><span class="ico">💰</span><span class="lbl">Скупка</span></div>
+  <div class="item"><span class="ico">🛴</span><span class="lbl">Аренда</span></div>
+  <div class="item"><span class="ico">🔧</span><span class="lbl">Сервис</span></div>
+  <div class="item"><span class="ico">⭐</span><span class="lbl">Отзывы</span></div>
+</div>
+</div>
+</div>
+<div>Вариант 2 · Плашка с блюром (стекло), иконка активного подпрыгивает, текст градиентом</div>
+
+<div class="phone">
+<div class="notch"></div>
+<div class="screen">
+<div class="hero-mock">
+  <div class="badge">⚡ Работаем ежедневно</div>
+  <div class="logo">GALAXY MOTO</div>
+  <div class="tag">Покупка, аренда, честный сервис и запчасти</div>
+  <div class="cta">Выбрать технику</div>
+</div>
+<div class="v3-bnav">
+  <div class="item active"><span class="ico">🛵</span><span class="lbl">Каталог</span></div>
+  <div class="item"><span class="ico">💰</span><span class="lbl">Скупка</span></div>
+  <div class="item"><span class="ico">🛴</span><span class="lbl">Аренда</span></div>
+  <div class="item"><span class="ico">🔧</span><span class="lbl">Сервис</span></div>
+  <div class="item"><span class="ico">⭐</span><span class="lbl">Отзывы</span></div>
+</div>
+</div>
+</div>
+<div>Вариант 3 · Цветная таблетка активного пункта (циан→фиолет), тень, белый текст</div>
+
+<div class="phone">
+<div class="notch"></div>
+<div class="screen">
+<div class="hero-mock">
+  <div class="badge">⚡ Работаем ежедневно</div>
+  <div class="logo">GALAXY MOTO</div>
+  <div class="tag">Покупка, аренда, честный сервис и запчасти</div>
+  <div class="cta">Выбрать технику</div>
+</div>
+<div class="v4-bnav">
+  <div class="item active"><span class="ico">🛵</span><span class="lbl">Каталог</span></div>
+  <div class="item"><span class="ico">💰</span><span class="lbl">Скупка</span></div>
+  <div class="item"><span class="ico">🛴</span><span class="lbl">Аренда</span></div>
+  <div class="item"><span class="ico">🔧</span><span class="lbl">Сервис</span></div>
+  <div class="item"><span class="ico">⭐</span><span class="lbl">Отзывы</span></div>
+</div>
+</div>
+</div>
+<div>Вариант 4 · Минимал: неактивные пункты свернуты (текст скрыт), активный разворачивается</div>
+
+<div class="phone">
+<div class="notch"></div>
+<div class="screen">
+<div class="hero-mock">
+  <div class="badge">⚡ Работаем ежедневно</div>
+  <div class="logo">GALAXY MOTO</div>
+  <div class="tag">Покупка, аренда, честный сервис и запчасти</div>
+  <div class="cta">Выбрать технику</div>
+</div>
+<div class="v5-bnav">
+  <div class="item active"><span class="ico">🛵</span><span class="lbl">Каталог</span></div>
+  <div class="item"><span class="ico">💰</span><span class="lbl">Скупка</span></div>
+  <div class="item"><span class="ico">🛴</span><span class="lbl">Аренда</span></div>
+  <div class="  <div class="item"><span class="ico">🛴</span><span class="lbl">Аренда</span></div>
+  <div class="item"><span class="ico">🔧</span><span class="lbl">Сервис</span></div>
+  <div class="item"><span class="ico">⭐</span><span class="lbl">Отзывы</span></div>
+</div>
+</div>
+</div>
+<div>Вариант 5 · Тёмная стеклянная плашка, границы, премиум-стиль</div>
+
+</div>
+</body>
+</html>
