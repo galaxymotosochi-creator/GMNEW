@@ -726,11 +726,7 @@ function showRentModel() {
   document.getElementById('rmPrice').innerHTML = 'от '+m.fromPrice.toLocaleString('ru-RU')+' ₽ / день';
   document.getElementById('rmDep').textContent = '';
   document.getElementById('rentHint').style.display = 'none';
-  if (rentModelIdx >= rentModels.length - 1) {
-    document.getElementById('nextModelBtn').style.display = 'none';
-  } else {
-    document.getElementById('nextModelBtn').style.display = '';
-  }
+  document.getElementById('nextModelBtn').style.display = '';
 }
 
 function selectRentModel() {
@@ -739,10 +735,9 @@ function selectRentModel() {
 }
 
 function nextRentModel() {
-  if (rentModelIdx < rentModels.length - 1) {
-    rentModelIdx++;
-    showRentModel();
-  }
+  rentModelIdx++;
+  if (rentModelIdx >= rentModels.length) rentModelIdx = 0;
+  showRentModel();
 }
 
 function calcRentDays() {
