@@ -944,6 +944,9 @@ function bbSubmit() {
   var mileage = document.getElementById('bbMileage').value.trim();
   var name = document.getElementById('bbName').value.trim();
   var phone = document.getElementById('bbPhone').value.trim();
+  if (!model) { alert('Укажите модель скутера'); return; }
+  if (!year) { alert('Укажите год выпуска'); return; }
+  if (!mileage) { alert('Укажите пробег'); return; }
   if (!name) { alert('Введите имя'); return; }
   if (!phone || phone.length < 10) { alert('Введите номер телефона'); return; }
   var pc = (typeof bbPhotos !== 'undefined') ? bbPhotos.length : 0;
