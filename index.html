@@ -191,15 +191,15 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;-webkit-t
 
 /* BOTTOM NAV */
 @media(max-width:768px){
-  .bottom-nav{position:fixed;bottom:8px;left:8px;right:8px;background:#fff;border-radius:18px;display:flex;padding:10px 2px calc(10px + env(safe-area-inset-bottom,0px));z-index:99999;box-shadow:0 4px 24px rgba(0,0,0,.12);align-items:center}
-  .bottom-nav .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0;border:none;background:none;cursor:pointer;border-radius:14px;font-family:Inter,sans-serif;transition:all .2s;-webkit-tap-highlight-color:transparent}
-  .bottom-nav .bn-item .bn-icon{font-size:23px;line-height:1;filter:grayscale(1) opacity(.35);transition:all .2s}
-  .bottom-nav .bn-item .bn-label{font-size:11px;font-weight:500;color:#bbb;letter-spacing:.02em;transition:all .2s}
-  .bottom-nav .bn-item.active{background:rgba(11,197,234,.1)}
-  .bottom-nav .bn-item.active .bn-icon{filter:none}
-  .bottom-nav .bn-item.active .bn-label{color:#000;font-weight:600}
-  body{padding-bottom:70px}
 }
+.bottom-nav{position:fixed;bottom:8px;left:8px;right:8px;background:#fff;border-radius:18px;display:flex;padding:10px 2px calc(10px + env(safe-area-inset-bottom,0px));z-index:99999;box-shadow:0 4px 24px rgba(0,0,0,.12);align-items:center}
+.bottom-nav .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0;border:none;background:none;cursor:pointer;border-radius:14px;font-family:Inter,sans-serif;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.bottom-nav .bn-item .bn-icon{font-size:23px;line-height:1;filter:grayscale(1) opacity(.35);transition:all .2s}
+.bottom-nav .bn-item .bn-label{font-size:11px;font-weight:500;color:#bbb;letter-spacing:.02em;transition:all .2s}
+.bottom-nav .bn-item.active{background:rgba(11,197,234,.1)}
+.bottom-nav .bn-item.active .bn-icon{filter:none}
+.bottom-nav .bn-item.active .bn-label{color:#000;font-weight:600}
+body{padding-bottom:70px}
 @media(min-width:769px){
   .bottom-nav{max-width:600px;margin-left:auto;margin-right:auto;left:0;right:0;padding:14px 4px calc(14px + env(safe-area-inset-bottom,0px))}
   .bottom-nav .bn-item .bn-icon{font-size:26px}
