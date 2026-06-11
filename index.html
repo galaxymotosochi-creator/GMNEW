@@ -903,6 +903,9 @@ function bbHandleFiles(files) {
 }
 
 function bbShowForm() {
+  try {
+    window.fb.collection('galaxymoto_buybacks_log').add({action:'bbShowForm_click', time:new Date().toISOString()}).catch(function(){});
+  } catch(e) {}
   if (typeof bbPhotos === 'undefined' || bbPhotos.length < 3) {
     alert('Загрузите минимум 3 фотографии');
     return;
@@ -941,6 +944,9 @@ function bbPhoneMask(inp) {
 }
 
 function bbSubmit() {
+  try {
+    window.fb.collection('galaxymoto_buybacks_log').add({action:'bbSubmit_start', time:new Date().toISOString()}).catch(function(){});
+  } catch(e) {}
   var model = document.getElementById('bbModel').value.trim();
   var year = document.getElementById('bbYear').value.trim();
   var mileage = document.getElementById('bbMileage').value.trim();
@@ -968,56 +974,7 @@ function bbSubmit() {
     if (sliders[sIdx[si]]) msg += '🟢 ' + sNames[si] + ': ' + sliders[sIdx[si]].value + '%\n';
   }
   
-  // Upload photos to Firebase Storage + Save to Firestore
-  try {
-    var sVals = [];
-    for (var si2 = 0; si2 < sliders.length; si2++) {
-      sVals.push(parseInt(sliders[si2].value));
-    }
-    var bbId = 'bb_' + Date.now().toString(36) + Math.random().toString(36).substr(2,5);
-    
-    // Upload photos
-    var storage = firebase.storage();
-    var uploadPromises = [];
-    if (typeof bbPhotos !== 'undefined') {
-      for (var pi = 0; pi < bbPhotos.length; pi++) {
-        (function(idx, file) {
-          var ref = storage.ref('buybacks/' + bbId + '/photo_' + idx + '.jpg');
-          var task = ref.put(file);
-          uploadPromises.push(task.then(function(snap) {
-            return snap.ref.getDownloadURL();
-          }));
-        })(pi, bbPhotos[pi]);
-      }
-    }
-    
-    Promise.all(uploadPromises).then(function(urls) {
-      window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
-        model: model,
-        year: year,
-        mileage: mileage,
-        name: name,
-        phone: phone,
-        ratings: sVals,
-        photoUrls: urls,
-        status: 'new',
-        createdAt: new Date().toISOString()
-      }).catch(function(e){console.error('[bb] Firestore error:',e)});
-    }).catch(function(e){console.error('[bb] Upload error:',e);
-      // Fallback: save without photos
-      window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
-        model: model,
-        year: year,
-        mileage: mileage,
-        name: name,
-        phone: phone,
-        ratings: sVals,
-        status: 'new',
-        createdAt: new Date().toISOString()
-      }).catch(function(){});
-    });
-  } catch(e) {console.error('[bb] Save error:',e)}
-  
+  // Send Telegram FIRST (чтобы дошло сразу, без ожидания загрузки фото)
   var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
   if (typeof bbPhotos !== 'undefined' && bbPhotos.length > 0) {
     var mediaList = [];
@@ -1031,10 +988,47 @@ function bbSubmit() {
       fdMg.append(an, bbPhotos[pi2], 'bb_' + pi2 + '.jpg');
     }
     fdMg.append('media', JSON.stringify(mediaList));
-    fetch('https://api.telegram.org/bot' + token + '/sendMediaGroup', { method: 'POST', body: fdMg }).catch(function(){});
+    fetch('https://api.telegram.org/bot' + token + '/sendMediaGroup', { method: 'POST', body: fdMg }).catch(function(e){console.error('[bb] sendMediaGroup error:',e)});
   } else {
-    fetch('https://api.telegram.org/bot' + token + '/sendMessage', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({chat_id:'5368408796',text:msg}) }).catch(function(){});
+    fetch('https://api.telegram.org/bot' + token + '/sendMessage', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({chat_id:'5368408796',text:msg}) }).catch(function(e){console.error('[bb] sendMessage error:',e)});
   }
+  
+  // Upload photos to Firebase Storage + Save to Firestore (асинхронно)
+  try {
+    var sVals = [];
+    for (var si2 = 0; si2 < sliders.length; si2++) {
+      sVals.push(parseInt(sliders[si2].value));
+    }
+    var bbId = 'bb_' + Date.now().toString(36) + Math.random().toString(36).substr(2,5);
+    try {
+      var storage = firebase.storage();
+      var uploadPromises = [];
+      if (typeof bbPhotos !== 'undefined') {
+        for (var pi = 0; pi < bbPhotos.length; pi++) {
+          (function(idx, file) {
+            var ref = storage.ref('buybacks/' + bbId + '/photo_' + idx + '.jpg');
+            uploadPromises.push(ref.put(file).then(function(snap){return snap.ref.getDownloadURL()}));
+          })(pi, bbPhotos[pi]);
+        }
+      }
+      Promise.all(uploadPromises).then(function(urls) {
+        window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
+          model:model, year:year, mileage:mileage, name:name, phone:phone,
+          ratings:sVals, photoUrls:urls, status:'new', createdAt:new Date().toISOString()
+        }).catch(function(e){console.error('[bb] FS error:',e)});
+      }).catch(function(e){console.error('[bb] Upload error:',e);
+        window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
+          model:model, year:year, mileage:mileage, name:name, phone:phone,
+          ratings:sVals, status:'new', createdAt:new Date().toISOString()
+        }).catch(function(){});
+      });
+    } catch(e2) {
+      window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
+        model:model, year:year, mileage:mileage, name:name, phone:phone,
+        ratings:sVals, status:'new', createdAt:new Date().toISOString()
+      }).catch(function(){});
+    }
+  } catch(e3) {}
   
   document.querySelector('.bb-modal-form').style.display = 'none';
   document.getElementById('bbModalSuccess').style.display = 'block';
