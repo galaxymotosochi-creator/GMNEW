@@ -850,6 +850,25 @@ function submitRent() {
     '👤 ' + name + '\n' +
     '📞 ' + phone + '\n' +
     '⏰ Время: ' + time;
+  // Save to Firestore
+  try {
+    var sVals = [];
+    for (var si2 = 0; si2 < sliders.length; si2++) {
+      sVals.push(parseInt(sliders[si2].value));
+    }
+    var bbId = 'bb_' + Date.now().toString(36) + Math.random().toString(36).substr(2,5);
+    window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
+      model: model,
+      year: year,
+      mileage: mileage,
+      name: name,
+      phone: phone,
+      ratings: sVals,
+      status: 'new',
+      createdAt: new Date().toISOString()
+    }).catch(function(){});
+  } catch(e) {}
+  
   var token = '747147…lSMM';
   fetch('https://api.telegram.org/bot' + token + '/sendMessage', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5368408796',text:msg})}).catch(function(){});
   
