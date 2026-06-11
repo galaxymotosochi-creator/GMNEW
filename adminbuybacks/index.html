@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>GALAXY MOTO — Заявки на скупку</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;background:#f5f5f5;color:#111;min-height:100vh}
+.fin-header{background:#111;color:#fff;padding:8px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:8px;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);border-radius:12px;margin:8px 12px;width:auto}
+.fin-header h1{font-size:16px;font-weight:700;letter-spacing:.3px;display:flex;align-items:center;gap:8px}
+.fin-header h1 span{font-size:12px;font-weight:500;color:#999;margin-left:4px}
+.fin-header a{color:#999;text-decoration:none;font-size:13px;font-weight:600;cursor:pointer}
+.fin-header a:hover{color:#fff}
+.admin-container{max-width:900px;margin:0 auto;padding:20px 16px 40px}
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#111}
+.login-box{background:#fff;border-radius:16px;padding:2rem;max-width:360px;width:100%;text-align:center}
+.login-box h2{font-size:20px;font-weight:700;margin-bottom:4px;letter-spacing:1px}
+.login-box p{font-size:13px;color:#888;margin-bottom:20px}
+.login-box input{width:100%;padding:12px 14px;font-size:16px;font-family:Inter,sans-serif;border:1.5px solid #ddd;border-radius:10px;text-align:center;letter-spacing:8px;outline:none}
+.login-box input:focus{border-color:#111}
+.login-box .error{color:#e53935;font-size:13px;margin-top:8px;display:none}
+.login-btn{width:100%;padding:12px;margin-top:14px;font-size:15px;font-weight:600;font-family:Inter,sans-serif;color:#fff;background:#111;border:none;border-radius:10px;cursor:pointer}
+.login-btn:hover{background:#333}
+.stats{display:flex;gap:10px;margin-bottom:20px}
+.stat-card{flex:1;background:#fff;border-radius:12px;padding:14px;text-align:center;border:1.5px solid #eee}
+.stat-card__value{font-size:24px;font-weight:800}
+.stat-card__label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.bookings-table{background:#fff;border-radius:12px;border:1.5px solid #eee;overflow:hidden;margin-bottom:16px}
+.bookings-table table{width:100%;border-collapse:collapse;font-size:13px}
+.bookings-table td{padding:8px 10px;border-bottom:1px solid #f0f0f0}
+.bookings-table thead td{font-weight:600;color:#888;text-transform:uppercase;font-size:10px;letter-spacing:.5px;background:#fafafa}
+.bookings-table tbody tr{cursor:pointer;transition:background .1s}
+.bookings-table tbody tr:hover{background:#f0f0f0!important}
+.booking-status{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.status-new{background:linear-gradient(135deg,#0bc5ea,#8b5cf6);color:#fff}
+.status-contacted{background:#e8f5e9;color:#2e7d32}
+.status-completed{background:#f5f5f5;color:#888}
+.status-cancelled{background:#ffebee;color:#e53935}
+.empty-state{text-align:center;padding:30px 20px;color:#888;font-size:13px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;justify-content:center;align-items:center;padding:1rem;backdrop-filter:blur(4px)}
+.modal-overlay.active{display:flex}
+.modal-box{background:#fff;max-width:520px;width:100%;border-radius:14px;padding:1.5rem;position:relative;max-height:80vh;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+.modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.modal-close:hover{background:#f0f0f0}
+.btn-grad{background:linear-gradient(135deg,#0bc5ea,#8b5cf6);color:#fff;padding:5px 12px;font-size:11px;font-weight:600;font-family:Inter,sans-serif;border:none;border-radius:6px;cursor:pointer;transition:opacity .15s}.btn-grad:hover{opacity:.85}
+.hidden{display:none!important}
+.f-h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.f-h input,.f-h select{padding:8px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:13px;font-family:Inter,sans-serif;outline:none;flex:1;min-width:120px}
+@media(max-width:640px){
+.admin-container{padding:12px 10px 30px}.stats{gap:6px}.stat-card{padding:10px}.stat-card__value{font-size:20px}.bookings-table td{padding:6px;font-size:12px}.f-h{flex-direction:column}.f-h input,.f-h select{width:100%}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <h2>BUYBACKS</h2>
+    <p>Заявки на скупку</p>
+    <input type="password" id="pinInput" placeholder="****" maxlength="4" inputmode="numeric" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="error" id="loginError">Ошибка</div>
+    <button class="login-btn" onclick="doLogin()">Войти</button>
+  </div>
+</div>
+<div id="adminApp" class="hidden">
+  <div class="fin-header">
+    <h1>GALAXY MOTO <span>BUYBACKS</span></h1>
+    <a onclick="doLogout()">Выйти</a>
+  </div>
+  <div class="admin-container">
+    <div class="stats" id="statsRow"></div>
+    <div class="f-h">
+      <input type="text" id="filterPhone" placeholder="🔍 Телефон" oninput="renderList()">
+      <select id="filterStatus" onchange="renderList()">
+        <option value="all">Все</option>
+        <option value="new">Новые</option>
+        <option value="contacted">Связались</option>
+      </select>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="detailModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeDet()">&times;</button>
+    <h3 style="margin-bottom:12px">Заявка на скупку</h3>
+    <div id="detBody"></div>
+    <div id="detActions" style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap"></div>
+  </div>
+</div>
+<script>
+var PIN='8888', BK=[], US=null;
+var SL={'new':'НОВАЯ','contacted':'СВЯЗАЛИСЬ','completed':'ЗАВЕРШЕНА','cancelled':'ОТМЕНЕНА'};
+var SC={'new':'status-new','contacted':'status-contacted','completed':'status-completed','cancelled':'status-cancelled'};
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function doLogin(){var p=document.getElementById('pinInput').value;if(p===PIN){localStorage.setItem('ga','1');document.getElementById('loginScreen').classList.add('hidden');document.getElementById('adminApp').classList.remove('hidden');try{initFB()}catch(e){}}else{document.getElementById('loginError').style.display='block'}}
+function doLogout(){localStorage.removeItem('ga');if(US){US();US=null}document.getElementById('adminApp').classList.add('hidden');document.getElementById('loginScreen').classList.remove('hidden');document.getElementById('loginError').style.display='none'}
+function initFB(){try{try{firebase.initializeApp({apiKey:'AIzaSyDOZnESPJRJlEf3HTYqNyv1O0mYUZoPJzc',authDomain:'capsulehouse-1c0c9.firebaseapp.com',projectId:'capsulehouse-1c0c9',storageBucket:'capsulehouse-1c0c9.firebasestorage.app',messagingSenderId:'640070206939',appId:'1:640070206939:web:e7ba997ec68457be2893fe'})}catch(e){}var db=firebase.firestore();US=db.collection('galaxymoto_buybacks').onSnapshot(function(s){s.docChanges().forEach(function(c){var x=c.doc.data(),id=c.doc.id;if(c.type==='removed'){BK=BK.filter(function(b){return b.id!==id});render();return}if(x.name){var i=BK.findIndex(function(b){return b.id===id});var b={id:id,model:x.model||'',year:x.year||'',mileage:x.mileage||'',name:x.name,phone:x.phone||'',ratings:x.ratings||[],photoUrls:x.photoUrls||[],status:x.status||'new',createdAt:x.createdAt||''};if(i>=0)BK[i]=b;else BK.push(b);render()}})});setTimeout(render,200)}catch(e){}}
+function render(){var n=BK.length,newc=BK.filter(function(b){return b.status==='new'}).length;document.getElementById('statsRow').innerHTML='<div class="stat-card"><div class="stat-card__value">'+n+'</div><div class="stat-card__label">Всего</div></div><div class="stat-card"><div class="stat-card__value">'+newc+'</div><div class="stat-card__label">Новые</div></div>';var phoneF=document.getElementById('filterPhone').value.trim().toLowerCase();var statusF=document.getElementById('filterStatus').value;var f=BK.filter(function(b){if(statusF!=='all'&&b.status!==statusF)return false;if(phoneF&&b.phone.toLowerCase().indexOf(phoneF)===-1)return false;return true});f.sort(function(a,b){return(b.createdAt||'').localeCompare(a.createdAt||'')});var h='';if(f.length===0){h='<div class="empty-state">Нет заявок</div>'}else{h='<div class="bookings-table"><table><thead><tr><td>Дата</td><td>Модель</td><td>Имя</td><td>Телефон</td><td style="text-align:center">Статус</td></tr></thead><tbody>';for(var i=0;i<f.length;i++){var b=f[i];var bg=i%2===0?'#fff':'#fafafa';var d=b.createdAt?b.createdAt.slice(8,10)+'.'+b.createdAt.slice(5,7)+'.'+b.createdAt.slice(2,4):'-';h+='<tr style="background:'+bg+'" onclick="openDet(\''+b.id+'\')"><td>'+d+'</td><td>'+(b.model||'-')+'</td><td>'+esc(b.name)+'</td><td>'+(b.phone||'-')+'</td><td style="text-align:center"><span class="booking-status '+SC[b.status||'new']+'">'+SL[b.status||'new']+'</span></td></tr>'}h+='</tbody></table></div>'}document.getElementById('list').innerHTML=h}
+function openDet(id){var b=BK.find(function(x){return x.id===id});if(!b)return;var d=b.createdAt?b.createdAt.slice(8,10)+'.'+b.createdAt.slice(5,7)+'.'+b.createdAt.slice(0,4):'-';var t=b.createdAt?b.createdAt.slice(11,16):'';var h='';h+='<div style="display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-bottom:12px">';h+='<div><label style="font-size:11px;color:#888">Модель</label><div style="padding:8px 10px;background:#f9f9f9;border-radius:8px;font-size:13px">'+esc(b.model||'-')+'</div></div>';h+='<div><label style="font-size:11px;color:#888">Год / Пробег</label><div style="padding:8px 10px;background:#f9f9f9;border-radius:8px;font-size:13px">'+(b.year||'-')+' / '+(b.mileage||'-')+' км</div></div>';h+='<div><label style="font-size:11px;color:#888">Имя</label><div style="padding:8px 10px;background:#f9f9f9;border-radius:8px;font-size:13px">'+esc(b.name)+'</div></div>';h+='<div><label style="font-size:11px;color:#888">Телефон</label><div style="padding:8px 10px;background:#f9f9f9;border-radius:8px;font-size:13px">'+(b.phone||'-')+'</div></div>';h+='<div><label style="font-size:11px;color:#888">Дата</label><div style="padding:8px 10px;background:#f9f9f9;border-radius:8px;font-size:13px">'+d+' '+t+'</div></div>';h+='<div><label style="font-size:11px;color:#888">Статус</label><div style="padding:8px 10px;background:#f9f9f9;border-radius:8px"><span class="booking-status '+SC[b.status||'new']+'">'+SL[b.status||'new']+'</span></div></div>';if(b.ratings&&b.ratings.length){h+='<div style="grid-column:1/-1"><label style="font-size:11px;color:#888;display:block;margin-bottom:4px">Оценки</label>';var rn=['Двигатель','Пластик','Резина','Диски','Глушитель','Электрика'];for(var ri=0;ri<b.ratings.length&&ri<rn.length;ri++){h+='<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f0f0"><span style="color:#666">'+rn[ri]+'</span><span>'+b.ratings[ri]+'%</span>
+  }
+  h += '</div>'
+  document.getElementById('detBody').innerHTML = h
+
+  var a = ''
+  if (b.status === 'new') {
+    a += '<button class="btn-grad" style="flex:1;padding:10px;font-size:13px" onclick="setStatus(\''+b.id+'\',\'contacted\')">СВЯЗАЛИСЬ</button>'
+    a += '<button class="btn-grad" style="flex:1;padding:10px;font-size:13px;background:#111;color:#fff" onclick="setStatus(\''+b.id+'\',\'cancelled\')">ОТМЕНИТЬ</button>'
+  }
+  a += '<button class="btn-grad" style="flex:1;padding:10px;font-size:13px;background:linear-gradient(135deg,#0bc5ea,#8b5cf6)" onclick="setStatus(\''+b.id+'\',\'completed\')">ЗАВЕРШИТЬ</button>'
+  document.getElementById('detActions').innerHTML = a
+  document.getElementById('detailModal').classList.add('active')
+}
+
+function closeDet() {
+  document.getElementById('detailModal').classList.remove('active')
+}
+
+function setStatus(id, st) {
+  try {
+    window.db.collection('galaxymoto_buybacks').doc(id).update({ status: st, updatedAt: new Date().toISOString() }).catch(function() {})
+  } catch (e) {}
+}
+
+if (localStorage.getItem('ga') === '1') {
+  document.getElementById('loginScreen').classList.add('hidden')
+  document.getElementById('adminApp').classList.remove('hidden')
+  try { initFB() } catch(e) {}
+}
+</script>
+</body>
+</html>
