@@ -212,6 +212,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;-webkit-t
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
 </head>
 <body>
 <section class="hero">
@@ -966,24 +967,55 @@ function bbSubmit() {
     if (sliders[sIdx[si]]) msg += '🟢 ' + sNames[si] + ': ' + sliders[sIdx[si]].value + '%\n';
   }
   
-  // Save to Firestore
+  // Upload photos to Firebase Storage + Save to Firestore
   try {
     var sVals = [];
     for (var si2 = 0; si2 < sliders.length; si2++) {
       sVals.push(parseInt(sliders[si2].value));
     }
     var bbId = 'bb_' + Date.now().toString(36) + Math.random().toString(36).substr(2,5);
-    window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
-      model: model,
-      year: year,
-      mileage: mileage,
-      name: name,
-      phone: phone,
-      ratings: sVals,
-      status: 'new',
-      createdAt: new Date().toISOString()
-    }).catch(function(e){console.error('[bb] Firestore error:',e)});
-  } catch(e) {console.error('[bb] Firestore save error:',e)}
+    
+    // Upload photos
+    var storage = firebase.storage();
+    var uploadPromises = [];
+    if (typeof bbPhotos !== 'undefined') {
+      for (var pi = 0; pi < bbPhotos.length; pi++) {
+        (function(idx, file) {
+          var ref = storage.ref('buybacks/' + bbId + '/photo_' + idx + '.jpg');
+          var task = ref.put(file);
+          uploadPromises.push(task.then(function(snap) {
+            return snap.ref.getDownloadURL();
+          }));
+        })(pi, bbPhotos[pi]);
+      }
+    }
+    
+    Promise.all(uploadPromises).then(function(urls) {
+      window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
+        model: model,
+        year: year,
+        mileage: mileage,
+        name: name,
+        phone: phone,
+        ratings: sVals,
+        photoUrls: urls,
+        status: 'new',
+        createdAt: new Date().toISOString()
+      }).catch(function(e){console.error('[bb] Firestore error:',e)});
+    }).catch(function(e){console.error('[bb] Upload error:',e);
+      // Fallback: save without photos
+      window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
+        model: model,
+        year: year,
+        mileage: mileage,
+        name: name,
+        phone: phone,
+        ratings: sVals,
+        status: 'new',
+        createdAt: new Date().toISOString()
+      }).catch(function(){});
+    });
+  } catch(e) {console.error('[bb] Save error:',e)}
   
   var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
   if (typeof bbPhotos !== 'undefined' && bbPhotos.length > 0) {
