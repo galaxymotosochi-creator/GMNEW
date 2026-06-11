@@ -901,6 +901,10 @@ function bbHandleFiles(files) {
 }
 
 function bbShowForm() {
+  if (typeof bbPhotos === 'undefined' || bbPhotos.length < 3) {
+    alert('Загрузите минимум 3 фотографии');
+    return;
+  }
   document.getElementById('bbModel').value = '';
   document.getElementById('bbYear').value = '';
   document.getElementById('bbMileage').value = '';
