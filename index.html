@@ -1145,21 +1145,7 @@ function bbSubmit() {
   // Send Telegram: текст всегда, фото — если получится
   var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
   fetch('https://api.telegram.org/bot' + token + '/sendMessage', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({chat_id:'5368408796',text:msg}) }).catch(function(e){console.error('[bb] sendMessage error:',e)});
-  if (typeof bbPhotos !== 'undefined' && bbPhotos.length > 0) {
-    try {
-      var mediaList = [];
-      var fdMg = new FormData();
-      fdMg.append('chat_id', '5368408796');
-      for (var pi2 = 0; pi2 < bbPhotos.length; pi2++) {
-        var an = 'f' + pi2;
-        var item = {type:'photo', media:'attach://' + an};
-        mediaList.push(item);
-        fdMg.append(an, bbPhotos[pi2], 'bb_' + pi2 + '.jpg');
-      }
-      fdMg.append('media', JSON.stringify(mediaList));
-      fetch('https://api.telegram.org/bot' + token + '/sendMediaGroup', { method: 'POST', body: fdMg }).catch(function(){});
-    } catch(e) {}
-  }
+  // Фото отправим после загрузки в Firebase (см. ниже)
   
   // Upload photos to Firebase Storage + Save to Firestore (асинхронно)
   try {
@@ -1180,6 +1166,14 @@ function bbSubmit() {
         }
       }
       Promise.all(uploadPromises).then(function(urls) {
+        // Отправляем фото в Telegram после загрузки в Firebase
+        var tgToken = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
+        urls.forEach(function(url) {
+          fetch('https://api.telegram.org/bot' + tgToken + '/sendPhoto', {
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({chat_id:'5368408796',photo:url,has_spoiler:true})
+          }).catch(function(){});
+        });
         window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
           model:model, year:year, mileage:mileage, name:name, phone:phone,
           ratings:sVals, photoUrls:urls, status:'new', createdAt:new Date().toISOString()
