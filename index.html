@@ -201,6 +201,8 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;-webkit-t
 .rent .success-box .det{font-size:12px;color:#666;line-height:1.8}
 .btn-s{display:block;width:100%;padding:10px;border-radius:10px;background:#111;color:#fff;border:none;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px;transition:transform var(--fast) var(--ease-out),background var(--fast) var(--ease-out)}
 .btn-s:active{transform:scale(.97)}.btn-s:hover{background:#333}
+.btn-s.pulse{animation:pulse-glow 2s ease-in-out infinite}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(11,197,234,.4)}50%{box-shadow:0 0 0 8px rgba(11,197,234,0)}}
 .btn-o{display:block;width:100%;padding:10px;border-radius:10px;background:transparent;color:#111;border:1px solid #ddd;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:6px}
 .rent .step2-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
@@ -275,7 +277,7 @@ body{padding-bottom:60px}
       <button onclick="nextMonth()" style="background:none;border:1px solid #ddd;border-radius:8px;font-size:16px;cursor:pointer;color:#aaa;padding:4px 10px;line-height:1;font-weight:300">›</button>
     </div>
     <div class="cal-grid" id="rentCalendar"></div>
-    <div style="text-align:center"><button class="btn-s" onclick="nextRentStep()" style="width:auto;padding:10px 24px;display:inline-block">Далее → выбор модели</button></div>
+    <div style="text-align:center"><button class="btn-s pulse" onclick="nextRentStep()" style="width:auto;padding:10px 24px;display:inline-block">Далее → выбор модели</button></div>
   </div>
 
   <div class="rent-step" id="step2">
@@ -404,7 +406,7 @@ body{padding-bottom:60px}
   </div>
 
   <div style="text-align:center">
-    <button class="btn-s" onclick="bbShowForm()" style="width:auto;display:inline-block;padding:12px 28px">Получить оценку</button>
+    <button class="btn-s pulse" onclick="bbShowForm()" style="width:auto;display:inline-block;padding:12px 28px">Получить оценку</button>
   </div>
 </section>
 
@@ -426,7 +428,7 @@ body{padding-bottom:60px}
     <div style="text-align:center;font-size:13px;color:#999;margin-bottom:12px">Режим работы: 11:00 — 19:00</div>
     <div class="time-slots" id="serviceTimeSlots"></div>
     <div style="text-align:center;margin-top:18px">
-      <button class="btn-s" onclick="serviceSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
+      <button class="btn-s pulse" onclick="serviceSubmit()" style="width:auto;display:inline-block;padding:12px 28px">Записаться</button>
     </div>
   </div>
 </div>
