@@ -80,6 +80,7 @@ body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;-webkit-t
   .service .cal-grid .d{font-size:15px;padding:10px 0}
   .sc-wrap{max-width:100%}
   .sc-cards-inline > div{min-width:0!important;flex:0 0 calc(33.333% - 10px)!important}
+  .sc-nav{display:none!important}
 }
 .card{border-radius:12px;overflow:hidden;background:#fff;cursor:pointer;border:1px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:box-shadow var(--med) var(--ease-out),transform var(--fast) var(--ease-out)}
 .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
@@ -494,7 +495,7 @@ body{padding-bottom:60px}
 
   </div>
 
-  <div style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:.8rem">
+  <div class="sc-nav" style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:.8rem">
     <button class="sc-btn-pulse" style="width:34px;height:34px;border-radius:50%;border:1.5px solid #ddd;background:#fff;color:#333;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="scScroll(-1)">‹</button>
     <button class="sc-btn-pulse" style="width:34px;height:34px;border-radius:50%;border:1.5px solid #ddd;background:#fff;color:#333;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="scScroll(1)">›</button>
   </div>
