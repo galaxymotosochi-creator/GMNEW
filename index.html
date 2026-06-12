@@ -343,10 +343,10 @@ body{padding-bottom:60px}
       <div id="rmModalName" style="font-size:18px;font-weight:800;color:#111;margin-bottom:6px"></div>
       <div id="rmModalPrice" style="font-size:15px;color:#333;margin-bottom:10px"></div>
       <div id="rmModalDep" style="font-size:13px;color:#888;margin-bottom:14px"></div>
-      <div id="rmModalTotal" style="font-size:16px;color:#111;font-weight:700;margin-bottom:16px;padding:12px 14px;background:#f5f5f5;border-radius:10px"></div>
+      <div id="rmModalTotal" style="font-size:14px;color:#111;font-weight:700;margin-bottom:16px;padding:12px 14px;background:#f5f5f5;border-radius:10px"></div>
       <div style="display:flex;gap:8px">
         <button onclick="closeRentModal()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:14px;font-weight:500;cursor:pointer">Назад</button>
-        <button onclick="confirmRentModel()" class="btn-s" style="flex:2;padding:12px;font-size:14px;border:none;cursor:pointer">Забронировать</button>
+        <button onclick="confirmRentModel()" class="btn-s" style="flex:2;padding:12px;margin-top:0;font-size:14px;border:none;cursor:pointer">Забронировать</button>
       </div>
     </div>
   </div>
@@ -873,7 +873,7 @@ function selectRentModel() {
   document.getElementById('rmModalName').textContent = m.name;
   document.getElementById('rmModalPrice').innerHTML = 'Цена: <strong>' + dayPrice.toLocaleString('ru-RU') + ' ₽</strong> / день';
   document.getElementById('rmModalDep').innerHTML = '💰 Залог: <strong>' + dep.toLocaleString('ru-RU') + ' ₽</strong>' + (m.name.indexOf('N-MAX') !== -1 ? '' : '');
-  document.getElementById('rmModalTotal').innerHTML = '<div style="display:flex;justify-content:space-between"><span>Цена за день</span><span>' + dayPrice.toLocaleString('ru-RU') + ' ₽</span></div><div style="display:flex;justify-content:space-between;margin-top:4px"><span>Количество дней</span><span>' + days + '</span></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:18px;font-weight:800;color:#111;border-top:1px solid #ddd;padding-top:6px"><span>Итого</span><span>' + total.toLocaleString('ru-RU') + ' ₽</span></div>';
+  document.getElementById('rmModalTotal').innerHTML = '<div style="display:flex;justify-content:space-between;font-size:13px"><span>Цена за день:</span><span>' + dayPrice.toLocaleString('ru-RU') + ' ₽</span></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:13px"><span>Количество дней:</span><span>' + days + '</span></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:14px;font-weight:800;color:#111;border-top:1px solid #ddd;padding-top:6px"><span>Итого:</span><span>' + total.toLocaleString('ru-RU') + ' ₽</span></div>';
   document.getElementById('rentModal').style.display = 'flex';
 }
 
