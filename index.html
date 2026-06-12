@@ -277,7 +277,7 @@ body{padding-bottom:60px}
       <button onclick="nextMonth()" style="background:none;border:1px solid #ddd;border-radius:8px;font-size:16px;cursor:pointer;color:#aaa;padding:4px 10px;line-height:1;font-weight:300">›</button>
     </div>
     <div class="cal-grid" id="rentCalendar"></div>
-    <div style="text-align:center"><button class="btn-s pulse" onclick="nextRentStep()" style="width:auto;padding:10px 24px;display:inline-block">Далее → выбор модели</button></div>
+    <div style="text-align:center"><button class="btn-s pulse" onclick="goToStep2()" style="width:auto;padding:10px 24px;display:inline-block">Далее → выбор модели</button></div>
   </div>
 
   <div class="rent-step" id="step2">
@@ -333,6 +333,24 @@ body{padding-bottom:60px}
     </div>
   </div>
 </section>
+
+<!-- MODAL OVERLAY -->
+<div id="rentModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;justify-content:center;align-items:center;padding:1rem;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)" onclick="if(event.target===this)closeRentModal()">
+  <div style="background:#fff;max-width:420px;width:100%;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.2);position:relative">
+    <button onclick="closeRentModal()" style="position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(0,0,0,.4);color:#fff;font-size:18px;line-height:32px;text-align:center;cursor:pointer;z-index:10">✕</button>
+    <img id="rmModalImg" src="" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#f5f5f5;display:block">
+    <div style="padding:16px 20px 20px">
+      <div id="rmModalName" style="font-size:18px;font-weight:800;color:#111;margin-bottom:6px"></div>
+      <div id="rmModalPrice" style="font-size:15px;color:#333;margin-bottom:10px"></div>
+      <div id="rmModalDep" style="font-size:13px;color:#888;margin-bottom:14px"></div>
+      <div id="rmModalTotal" style="font-size:16px;color:#111;font-weight:700;margin-bottom:16px;padding:12px 14px;background:#f5f5f5;border-radius:10px"></div>
+      <div style="display:flex;gap:8px">
+        <button onclick="closeRentModal()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:14px;font-weight:500;cursor:pointer">Назад</button>
+        <button onclick="confirmRentModel()" class="btn-s" style="flex:2;padding:12px;font-size:14px;border:none;cursor:pointer">Забронировать</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- BUYBACK -->
 <section class="buyback" id="skupka">
@@ -650,6 +668,7 @@ var rentDateStart = null;
 var rentDateEnd = null;
 var rentCurrentMonth = new Date().getMonth();
 var rentCurrentYear = new Date().getFullYear();
+var rentBookings = [];
 
 /* Цены (₽/день) по градациям */
 var rentModels = [
@@ -660,6 +679,11 @@ var rentModels = [
   {name:'YAMAHA GEAR',img:'images/catalog/yamaha-gear.jpg',     d1:1300,d3:1100,d7:900, d14:700, d30:500,  fromPrice:500}
 ];
 
+var rentModelIdx = 0;
+var selectedRentModel = null;
+var rentAvailableModels = [];
+var rentAvailIdx = 0;
+
 function getRentDayPrice(m, days) {
   if (days >= 30) return m.d30;
   if (days >= 14) return m.d14;
@@ -668,21 +692,88 @@ function getRentDayPrice(m, days) {
   return m.d1;
 }
 
-var rentModelIdx = 0;
-var selectedRentModel = null;
+function getDeposit(modelName) {
+  return modelName && modelName.indexOf('N-MAX') !== -1 ? 15000 : 10000;
+}
+
+function makeDateKey(year, month, day) {
+  return year + '-' + String(month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+}
+
+function datesBetween(start, end) {
+  var dates = [];
+  var cur = new Date(start.year, start.month, start.day);
+  var last = new Date(end.year, end.month, end.day);
+  while (cur <= last) {
+    dates.push(makeDateKey(cur.getFullYear(), cur.getMonth(), cur.getDate()));
+    cur.setDate(cur.getDate() + 1);
+  }
+  return dates;
+}
+
+function loadRentBookings(callback) {
+  if (!window.fb) { if (callback) callback(); return; }
+  try {
+    window.fb.collection('galaxymoto_rentals').get().then(function(snap) {
+      rentBookings = [];
+      snap.forEach(function(doc) {
+        var d = doc.data();
+        if (d.dateStart && d.dateEnd && d.model) {
+          rentBookings.push({
+            model: d.model,
+            dateStart: d.dateStart,
+            dateEnd: d.dateEnd,
+            status: d.status || 'new'
+          });
+        }
+      });
+      if (callback) callback();
+    }).catch(function(){ if (callback) callback(); });
+  } catch(e) { if (callback) callback(); }
+}
+
+function isModelFree(modelName, startDate, endDate) {
+  var requested = datesBetween(startDate, endDate);
+  for (var i = 0; i < rentBookings.length; i++) {
+    var b = rentBookings[i];
+    if (b.model !== modelName || b.status === 'cancelled') continue;
+    if (!b.dateStart || !b.dateEnd) continue;
+    var bs = b.dateStart.split('-');
+    var be = b.dateEnd.split('-');
+    var bStart = {year:parseInt(bs[0]),month:parseInt(bs[1])-1,day:parseInt(bs[2])};
+    var bEnd = {year:parseInt(be[0]),month:parseInt(be[1])-1,day:parseInt(be[2])};
+    var booked = datesBetween(bStart, bEnd);
+    for (var j = 0; j < requested.length; j++) {
+      if (booked.indexOf(requested[j]) !== -1) return false;
+    }
+  }
+  return true;
+}
+
+function getNextFreeDate(modelName) {
+  var earliest = null;
+  for (var i = 0; i < rentBookings.length; i++) {
+    var b = rentBookings[i];
+    if (b.model !== modelName || b.status === 'cancelled' || b.status === 'completed') continue;
+    if (b.dateEnd && (!earliest || b.dateEnd > earliest)) {
+      earliest = b.dateEnd;
+    }
+  }
+  return earliest;
+}
 
 function prevMonth() {
   rentCurrentMonth--;
   if (rentCurrentMonth < 0) { rentCurrentMonth = 11; rentCurrentYear--; }
-  updateRentCalendar();
+  renderRentCalendar();
 }
 function nextMonth() {
   rentCurrentMonth++;
   if (rentCurrentMonth > 11) { rentCurrentMonth = 0; rentCurrentYear++; }
-  updateRentCalendar();
+  renderRentCalendar();
 }
 
-function updateRentCalendar() {
+function renderRentCalendar() {
   var months = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
   document.getElementById('rentMonth').textContent = months[rentCurrentMonth]+' '+rentCurrentYear;
   var grid = document.querySelector('.rent .cal-grid');
@@ -693,32 +784,29 @@ function updateRentCalendar() {
   for (var i = 0; i < startOffset; i++) html += '<div></div>';
   
   var today = new Date();
-  // Fetch booked dates from Firestore (занятые даты)
   var bookedDates = [];
-  try {
-    var startStr = rentCurrentYear + '-' + String(rentCurrentMonth+1).padStart(2,'0') + '-' + '01';
-    window.fb.collection('galaxymoto_rentals').get().then(function(snap) {
-      snap.forEach(function(doc) {
-        var d = doc.data();
-        if (d.dateStart && d.dateEnd) {
-          var partsS = d.dateStart.split('-');
-          var partsE = d.dateEnd.split('-');
-          var cur = new Date(parseInt(partsS[0]), parseInt(partsS[1])-1, parseInt(partsS[2]));
-          var end = new Date(parseInt(partsE[0]), parseInt(partsE[1])-1, parseInt(partsE[2]));
-          while (cur <= end) {
-            var key = cur.getFullYear() + '-' + String(cur.getMonth()+1).padStart(2,'0') + '-' + String(cur.getDate()).padStart(2,'0');
-            if (!bookedDates.includes(key)) bookedDates.push(key);
-            cur.setDate(cur.getDate() + 1);
-          }
+  if (rentDateStart && rentDateEnd) {
+    var reqDates = datesBetween(rentDateStart, rentDateEnd);
+    for (var i = 0; i < rentBookings.length; i++) {
+      var b = rentBookings[i];
+      if (b.status === 'cancelled') continue;
+      var bs = b.dateStart.split('-');
+      var be = b.dateEnd.split('-');
+      var bStart = {year:parseInt(bs[0]),month:parseInt(bs[1])-1,day:parseInt(bs[2])};
+      var bEnd = {year:parseInt(be[0]),month:parseInt(be[1])-1,day:parseInt(be[2])};
+      var bDates = datesBetween(bStart, bEnd);
+      for (var j = 0; j < reqDates.length; j++) {
+        if (bDates.indexOf(reqDates[j]) !== -1) {
+          bookedDates.push(reqDates[j]);
+          break;
         }
-      });
-      updateRentCalendar();
-    }).catch(function(){});
-  } catch(e) {}
+      }
+    }
+  }
   
   for (var d = 1; d <= daysInMonth; d++) {
     var cls = 'd';
-    var dateKey = rentCurrentYear + '-' + String(rentCurrentMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    var dateKey = makeDateKey(rentCurrentYear, rentCurrentMonth, d);
     if (d === today.getDate() && rentCurrentMonth === today.getMonth() && rentCurrentYear === today.getFullYear()) cls += ' today';
     if (bookedDates.indexOf(dateKey) !== -1) cls += ' booked';
     if (rentDateStart && rentDateEnd && rentCurrentMonth === rentDateStart.month && rentCurrentYear === rentDateStart.year && rentDateStart.month === rentDateEnd.month) {
@@ -744,31 +832,73 @@ function updateRentCalendar() {
           rentDateEnd = tmp;
         }
       }
-      updateRentCalendar();
+      renderRentCalendar();
     };
   });
 }
 
-updateRentCalendar();
+loadRentBookings(function() {
+  renderRentCalendar();
+});
 
 function showRentModel() {
-  var m = rentModels[rentModelIdx];
+  var m = rentAvailableModels[rentAvailIdx];
+  if (!m) {
+    document.getElementById('rentModelCard').style.display = 'none';
+    return;
+  }
+  document.getElementById('rentModelCard').style.display = '';
   document.getElementById('rmImg').src = m.img;
   document.getElementById('rmName').textContent = m.name;
-  document.getElementById('rmPrice').innerHTML = 'от '+m.fromPrice.toLocaleString('ru-RU')+' ₽ / день';
-  document.getElementById('rmDep').textContent = '';
+  var days = calcRentDays();
+  if (days < 1) days = 1;
+  var dayPrice = getRentDayPrice(m, days);
+  var dep = getDeposit(m.name);
+  document.getElementById('rmPrice').innerHTML = '<span style="font-size:13px;color:#888;font-weight:400">от ' + m.fromPrice.toLocaleString('ru-RU') + ' ₽/день</span><br><span style="font-size:24px;font-weight:800;color:#111">' + dayPrice.toLocaleString('ru-RU') + ' ₽</span><span style="font-size:14px;color:#888;font-weight:400"> / день</span>';
+  document.getElementById('rmDep').textContent = 'Залог: ' + dep.toLocaleString('ru-RU') + ' ₽';
   document.getElementById('rentHint').style.display = 'none';
   document.getElementById('nextModelBtn').style.display = '';
 }
 
 function selectRentModel() {
-  selectedRentModel = rentModels[rentModelIdx];
+  var m = rentAvailableModels[rentAvailIdx];
+  if (!m) return;
+  selectedRentModel = m;
+  var days = calcRentDays();
+  if (days < 1) days = 1;
+  var dayPrice = getRentDayPrice(m, days);
+  var total = days * dayPrice;
+  var dep = getDeposit(m.name);
+  document.getElementById('rmModalImg').src = m.img;
+  document.getElementById('rmModalName').textContent = m.name;
+  document.getElementById('rmModalPrice').innerHTML = 'Цена: <strong>' + dayPrice.toLocaleString('ru-RU') + ' ₽</strong> / день';
+  document.getElementById('rmModalDep').innerHTML = '💰 Залог: <strong>' + dep.toLocaleString('ru-RU') + ' ₽</strong>' + (m.name.indexOf('N-MAX') !== -1 ? '' : '');
+  document.getElementById('rmModalTotal').innerHTML = '<div style="display:flex;justify-content:space-between"><span>Цена за день</span><span>' + dayPrice.toLocaleString('ru-RU') + ' ₽</span></div><div style="display:flex;justify-content:space-between;margin-top:4px"><span>Количество дней</span><span>' + days + '</span></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:18px;font-weight:800;color:#111;border-top:1px solid #ddd;padding-top:6px"><span>Итого</span><span>' + total.toLocaleString('ru-RU') + ' ₽</span></div>';
+  document.getElementById('rentModal').style.display = 'flex';
+}
+
+function goToStep2() {
+  if (!rentDateStart) { alert('Выберите дату заезда'); return; }
+  if (!rentDateEnd) { alert('Выберите дату выезда'); return; }
+  var days = calcRentDays();
+  if (days < 1) { alert('Заезд и выезд должны быть в разные дни'); return; }
+  loadRentBookings(function() {
+    nextRentStep();
+  });
+}
+
+function closeRentModal() {
+  document.getElementById('rentModal').style.display = 'none';
+}
+
+function confirmRentModel() {
+  closeRentModal();
   nextRentStep();
 }
 
 function nextRentModel() {
-  rentModelIdx++;
-  if (rentModelIdx >= rentModels.length) rentModelIdx = 0;
+  rentAvailIdx++;
+  if (rentAvailIdx >= rentAvailableModels.length) rentAvailIdx = 0;
   showRentModel();
 }
 
@@ -788,10 +918,30 @@ function nextRentStep() {
     rentStep++;
     document.getElementById('step'+rentStep).classList.add('active');
     document.querySelector('#rentSteps div:nth-child('+rentStep+')').classList.add('act');
-    if (rentStep === 2) showRentModel();
+    if (rentStep === 2) {
+      var days = calcRentDays();
+      if (days < 1) days = 1;
+      rentAvailableModels = [];
+      for (var i = 0; i < rentModels.length; i++) {
+        if (isModelFree(rentModels[i].name, rentDateStart, rentDateEnd)) {
+          rentAvailableModels.push(rentModels[i]);
+        }
+      }
+      rentAvailIdx = 0;
+      if (rentAvailableModels.length === 0) {
+        document.getElementById('rentModelCard').style.display = 'none';
+        document.getElementById('rmImg').src = '';
+        document.getElementById('rmName').textContent = 'Нет свободных скутеров на эти даты';
+        document.getElementById('rmPrice').innerHTML = 'Попробуйте другие даты';
+        document.getElementById('rmDep').textContent = '';
+        document.getElementById('nextModelBtn').style.display = 'none';
+      } else {
+        showRentModel();
+      }
+    }
     if (rentStep === 3) {
       var days = calcRentDays();
-      if (days === 2) {
+      if (days === 2 && selectedRentModel) {
         var m = selectedRentModel;
         var savePerDay = m.d1 - m.d3;
         var saveTotal = (m.d1 * 2) - (m.d3 * 3);
