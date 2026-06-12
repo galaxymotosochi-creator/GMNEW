@@ -1021,7 +1021,7 @@ function submitRent() {
     '📞 ' + phone + '\n' +
     '⏰ Время: ' + time;
   var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
-  fetch('https://api.telegram.org/bot' + token + '/sendMessage', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5368408796',text:msg})}).catch(function(e){console.error('[rent] TG error:',e)});
+  new Image().src = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=5368408796&text=' + encodeURIComponent(msg);
   
   // Fill confirm info
   document.getElementById('rmConfirmName').textContent = m.name;
@@ -1142,9 +1142,10 @@ function bbSubmit() {
     if (sliders[sIdx[si]]) msg += '🟢 ' + sNames[si] + ': ' + sliders[sIdx[si]].value + '%\n';
   }
   
-  // Send Telegram: текст всегда, фото — если получится
+  // Send Telegram: Image beacon (100% работает, даже если fetch блокируется)
   var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
-  fetch('https://api.telegram.org/bot' + token + '/sendMessage', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({chat_id:'5368408796',text:msg}) }).catch(function(e){console.error('[bb] sendMessage error:',e)});
+  var img = new Image();
+  img.src = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=5368408796&text=' + encodeURIComponent(msg);
   // Фото отправим после загрузки в Firebase (см. ниже)
   
   // Upload photos to Firebase Storage + Save to Firestore (асинхронно)
@@ -1169,10 +1170,7 @@ function bbSubmit() {
         // Отправляем фото в Telegram после загрузки в Firebase
         var tgToken = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
         urls.forEach(function(url) {
-          fetch('https://api.telegram.org/bot' + tgToken + '/sendPhoto', {
-            method:'POST',headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({chat_id:'5368408796',photo:url})
-          }).catch(function(){});
+          new Image().src = 'https://api.telegram.org/bot' + tgToken + '/sendPhoto?chat_id=5368408796&photo=' + encodeURIComponent(url);
         });
         window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
           model:model, year:year, mileage:mileage, name:name, phone:phone,
@@ -1342,7 +1340,7 @@ function serviceSendForm() {
           var model = document.getElementById('sModel').value.trim();
           var msg = '🛵 НОВАЯ ЗАПИСЬ №' + num + ' НА СЕРВИС!\n\n📅 Дата: ' + dtFormatted + '\n⏰ Время: ' + serviceSelectedTime + '\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🛵 Модель: ' + (model||'-') + '\n📝 Комментарий: ' + (notes||'-') + '\n\n(далее последнее посещение: ' + lastVisit + ')';
           var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
-          fetch('https://api.telegram.org/bot' + token + '/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:5368408796,text:msg})}).catch(function(){});
+          new Image().src = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=5368408796&text=' + encodeURIComponent(msg);
         }).catch(function(){});
       }).catch(function(){});
     }).catch(function(){});
@@ -1433,7 +1431,7 @@ function tdSubmit(){
   var dtf = dd.getDate() + ' ' + mN[dd.getMonth()] + ' (' + dN[dd.getDay()] + ')';
   var msg = '✅ НОВЫЙ ТЕСТ-ДРАЙВ!\n\nМодель: ' + (window._tdModel||'-') + '\nДата: ' + dtf + '\nВремя: ' + time + '\nИмя: ' + name + '\nТелефон: ' + phone;
   var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
-  fetch('https://api.telegram.org/bot' + token + '/sendMessage', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5368408796',text:msg})}).catch(function(){});
+  new Image().src = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=5368408796&text=' + encodeURIComponent(msg);
   document.querySelector('.td-modal-form').style.display = 'none';
   document.querySelector('.td-modal-success').style.display = 'block';
   setTimeout(function(){
