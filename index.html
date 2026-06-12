@@ -1171,7 +1171,7 @@ function bbSubmit() {
         urls.forEach(function(url) {
           fetch('https://api.telegram.org/bot' + tgToken + '/sendPhoto', {
             method:'POST',headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({chat_id:'5368408796',photo:url,has_spoiler:true})
+            body:JSON.stringify({chat_id:'5368408796',photo:url})
           }).catch(function(){});
         });
         window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
