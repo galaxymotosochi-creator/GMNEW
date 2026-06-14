@@ -613,10 +613,11 @@ body{padding-bottom:60px}
 // ===== Telegram proxy (решает проблему блокировки api.telegram.org у РФ провайдеров) =====
 var TG_TOKEN = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
 var TG_CHAT = '5368408796';
+var TG_PROXY = 'https://gmnew-pied.vercel.app/api/sendMessage';
 function tgSend(msg) {
-  // Пытаемся отправить через свой прокси-сервер (работает из любой сети)
+  // Отправляем через Vercel-прокси (обходит блокировки РФ провайдеров)
   try {
-    fetch('/api/sendMessage', {
+    fetch(TG_PROXY, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({text: msg})
@@ -630,7 +631,7 @@ function tgSend(msg) {
 }
 function tgSendPhoto(photoUrl, caption) {
   try {
-    fetch('/api/sendMessage', {
+    fetch(TG_PROXY, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({photo: photoUrl, text: caption || ''})
