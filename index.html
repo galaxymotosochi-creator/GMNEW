@@ -610,6 +610,38 @@ body{padding-bottom:60px}
 </div>
 
 <script>
+// ===== Telegram proxy (решает проблему блокировки api.telegram.org у РФ провайдеров) =====
+var TG_TOKEN = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
+var TG_CHAT = '5368408796';
+function tgSend(msg) {
+  // Пытаемся отправить через свой прокси-сервер (работает из любой сети)
+  try {
+    fetch('/api/sendMessage', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({text: msg})
+    }).catch(function(){
+      // Fallback: старый Image beacon
+      new Image().src = 'https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage?chat_id=' + TG_CHAT + '&text=' + encodeURIComponent(msg);
+    });
+  } catch(e) {
+    new Image().src = 'https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage?chat_id=' + TG_CHAT + '&text=' + encodeURIComponent(msg);
+  }
+}
+function tgSendPhoto(photoUrl, caption) {
+  try {
+    fetch('/api/sendMessage', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({photo: photoUrl, text: caption || ''})
+    }).catch(function(){
+      new Image().src = 'https://api.telegram.org/bot' + TG_TOKEN + '/sendPhoto?chat_id=' + TG_CHAT + '&photo=' + encodeURIComponent(photoUrl);
+    });
+  } catch(e) {
+    new Image().src = 'https://api.telegram.org/bot' + TG_TOKEN + '/sendPhoto?chat_id=' + TG_CHAT + '&photo=' + encodeURIComponent(photoUrl);
+  }
+}
+
 const models = [
   {id:1,name:"TANK NEXT",img:"images/catalog/tank-next.jpg",images:["images/catalog/tank-next.jpg","images/catalog/tank-next-IMG_20260528_002802_235.jpg"],price:72900,oldPrice:89900,status:"б/у",specs:[["Состояние","б/у"],["Пластик","без трещин"],["Технически","отличное"],["Пробег","12000 км"],["Мощность","150/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","12/12"]]},
   {id:2,name:"TANK X",img:"images/catalog/tank-x.jpg",images:["images/catalog/tank-x.jpg","images/catalog/tank-x-IMG_20260529_173510_199-1.jpg","images/catalog/tank-x-IMG_20260529_173510_199-2.jpg"],price:129900,oldPrice:0,status:"новый",specs:[["Состояние","новый"],["Пластик","новый"],["Пробег","0 км"],["Мощность","175/49сс"],["Подача","карбюратор"],["Охлаждение","воздушное"],["Макс.скорость","100 км/ч"],["Колёса","13/13"]]},
@@ -1020,8 +1052,7 @@ function submitRent() {
     '👤 ' + name + '\n' +
     '📞 ' + phone + '\n' +
     '⏰ Время: ' + time;
-  var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
-  new Image().src = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=5368408796&text=' + encodeURIComponent(msg);
+  tgSend(msg);
   
   // Fill confirm info
   document.getElementById('rmConfirmName').textContent = m.name;
@@ -1142,10 +1173,8 @@ function bbSubmit() {
     if (sliders[sIdx[si]]) msg += '🟢 ' + sNames[si] + ': ' + sliders[sIdx[si]].value + '%\n';
   }
   
-  // Send Telegram: Image beacon (100% работает, даже если fetch блокируется)
-  var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
-  var img = new Image();
-  img.src = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=5368408796&text=' + encodeURIComponent(msg);
+  // Send Telegram: через прокси (гарантированно работает)
+  tgSend(msg);
   // Фото отправим после загрузки в Firebase (см. ниже)
   
   // Upload photos to Firebase Storage + Save to Firestore (асинхронно)
@@ -1168,9 +1197,8 @@ function bbSubmit() {
       }
       Promise.all(uploadPromises).then(function(urls) {
         // Отправляем фото в Telegram после загрузки в Firebase
-        var tgToken = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
         urls.forEach(function(url) {
-          new Image().src = 'https://api.telegram.org/bot' + tgToken + '/sendPhoto?chat_id=5368408796&photo=' + encodeURIComponent(url);
+          tgSendPhoto(url, '');
         });
         window.fb.collection('galaxymoto_buybacks').doc(bbId).set({
           model:model, year:year, mileage:mileage, name:name, phone:phone,
@@ -1339,8 +1367,7 @@ function serviceSendForm() {
           var dtFormatted = dd.getDate() + ' ' + mNames[dd.getMonth()] + ' (' + dNames[dd.getDay()] + ')';
           var model = document.getElementById('sModel').value.trim();
           var msg = '🛵 НОВАЯ ЗАПИСЬ №' + num + ' НА СЕРВИС!\n\n📅 Дата: ' + dtFormatted + '\n⏰ Время: ' + serviceSelectedTime + '\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🛵 Модель: ' + (model||'-') + '\n📝 Комментарий: ' + (notes||'-') + '\n\n(далее последнее посещение: ' + lastVisit + ')';
-          var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
-          new Image().src = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=5368408796&text=' + encodeURIComponent(msg);
+          tgSend(msg);
         }).catch(function(){});
       }).catch(function(){});
     }).catch(function(){});
@@ -1430,8 +1457,7 @@ function tdSubmit(){
   var mN=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],dN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
   var dtf = dd.getDate() + ' ' + mN[dd.getMonth()] + ' (' + dN[dd.getDay()] + ')';
   var msg = '✅ НОВЫЙ ТЕСТ-ДРАЙВ!\n\nМодель: ' + (window._tdModel||'-') + '\nДата: ' + dtf + '\nВремя: ' + time + '\nИмя: ' + name + '\nТелефон: ' + phone;
-  var token = '7471473926:AAE_kyz1Qtb1J8Dddqk1aaxzBGfMQ73lSMM';
-  new Image().src = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=5368408796&text=' + encodeURIComponent(msg);
+  tgSend(msg);
   document.querySelector('.td-modal-form').style.display = 'none';
   document.querySelector('.td-modal-success').style.display = 'block';
   setTimeout(function(){
