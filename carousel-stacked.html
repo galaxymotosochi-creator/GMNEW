@@ -9,72 +9,91 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter,sans-serif;background:#f5f5f7;padding:40px;color:#111;display:flex;flex-direction:column;align-items:center}
 h1{font-size:22px;margin-bottom:4px;font-weight:700}
-p.desc{color:#888;font-size:13px;margin-bottom:32px}
-/* Page background - dark overlay to simulate modal */
-.page{background:rgba(0,0,0,.3);border-radius:24px;padding:40px;width:auto;display:inline-flex;justify-content:center;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-/* Modal */
-.modal{background:#fff;border-radius:24px;padding:28px;width:400px;box-shadow:0 24px 80px rgba(0,0,0,.15);position:relative}
+p.desc{color:#888;font-size:13px;margin-bottom:32px;text-align:center;max-width:500px;line-height:1.5}
+.page{background:rgba(0,0,0,.25);border-radius:24px;padding:40px;display:inline-flex;justify-content:center;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.modal{background:#fff;border-radius:24px;padding:28px;width:440px;box-shadow:0 24px 80px rgba(0,0,0,.15);position:relative}
 .modal .x{position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:18px;color:#999;cursor:default}
-.modal-title{font-size:15px;font-weight:700;margin-bottom:4px;color:#111}
+.modal-title{font-size:15px;font-weight:700;margin-bottom:2px}
 .modal-sub{font-size:12px;color:#999;margin-bottom:20px}
-/* Carousel container */
-.carousel{position:relative;height:380px;margin:0 -8px 8px}
-/* Card layers - stacked with offset */
-.card{position:absolute;border-radius:16px;padding:20px;transition:all .35s cubic-bezier(.23,1,.32,1);overflow:hidden}
-.card.current{z-index:5;top:0;left:0;right:0;height:100%;background:#fff;border:1px solid #eee;box-shadow:0 8px 40px rgba(0,0,0,.08)}
-.card.next{z-index:4;top:16px;left:24px;right:-24px;height:92%;background:#f8f8f8;border:1px solid #eee;transform:scale(.96);opacity:.6}
-.card.prev{z-index:4;top:16px;left:-24px;right:24px;height:92%;background:#f8f8f8;border:1px solid #eee;transform:scale(.96);opacity:.6}
-.card.far{z-index:3;top:28px;left:-40px;right:40px;height:86%;background:#f2f2f2;border:1px solid #eee;transform:scale(.93);opacity:.3}
-.card.far-r{z-index:3;top:28px;left:40px;right:-40px;height:86%;background:#f2f2f2;border:1px solid #eee;transform:scale(.93);opacity:.3}
-/* Card content */
-.card .num{font-size:11px;font-weight:600;color:#111;margin-bottom:4px}
-.card .sum{font-size:18px;font-weight:700;color:#111;margin-bottom:2px}
-.card .info{font-size:11px;color:#999;line-height:1.4}
-.current .items{background:#f8f8f8;border-radius:12px;padding:12px;margin:12px 0;font-size:12px;line-height:2}
-.current .items .rw{display:flex;justify-content:space-between}
-.current .items hr{border:none;border-top:1px solid #eee;margin:6px 0}
-.current .items .tot{display:flex;justify-content:space-between;font-weight:700;font-size:13px}
-.acts{display:flex;gap:8px;margin-top:10px}
+.carousel{position:relative;height:400px;margin:0 -20px 4px;overflow:visible}
+/* Card base */
+.card{position:absolute;border-radius:16px;padding:18px;transition:all .35s cubic-bezier(.23,1,.32,1);overflow:hidden;display:flex;flex-direction:column}
+/* Active card */
+.card.active{z-index:5;top:0;left:0;right:0;height:100%;background:#fff;border:1px solid #eee;box-shadow:0 8px 48px rgba(0,0,0,.08)}
+/* Peek cards */
+.card.peek-l{z-index:4;top:16px;left:-20px;right:28px;height:92%;background:#f8f8f8;border:1px solid #eee;transform:scale(.95);opacity:.7;padding:14px 16px}
+.card.peek-r{z-index:4;top:16px;left:28px;right:-20px;height:92%;background:#f8f8f8;border:1px solid #eee;transform:scale(.95);opacity:.7;padding:14px 16px}
+/* Far cards */
+.card.far-l{z-index:3;top:28px;left:-34px;right:42px;height:85%;background:#f2f2f2;border:1px solid #eee;transform:scale(.91);opacity:.4;padding:12px}
+.card.far-r{z-index:3;top:28px;left:42px;right:-34px;height:85%;background:#f2f2f2;border:1px solid #eee;transform:scale(.91);opacity:.4;padding:12px}
+/* Content in cards */
+.card .c-num{font-size:11px;font-weight:600;color:#111;margin-bottom:2px}
+.card .c-sum{font-size:16px;font-weight:700;color:#111;margin-bottom:2px}
+.card .c-info{font-size:10px;color:#999;line-height:1.4}
+.card .c-items{font-size:10px;color:#666;line-height:1.8;margin-top:4px;flex:1}
+.card .c-items .rw{display:flex;justify-content:space-between}
+.card .c-items .rw .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%}
+/* Active card full items */
+.active .items{background:#f8f8f8;border-radius:12px;padding:12px;margin:10px 0;font-size:12px;line-height:2;flex:1}
+.active .items .rw{display:flex;justify-content:space-between}
+.active .items hr{border:none;border-top:1px solid #eee;margin:6px 0}
+.active .items .tot{display:flex;justify-content:space-between;font-weight:700;font-size:13px}
+.acts{display:flex;gap:8px;margin-top:8px}
 .ab{flex:1;padding:10px;border-radius:10px;border:none;font-size:12px;font-weight:600;font-family:inherit;text-align:center;cursor:default}
 .ab.dk{background:#111;color:#fff}
 .ab.lt{background:#f5f5f5;color:#888}
-/* Dots */
-.dots{display:flex;gap:5px;justify-content:center;align-items:center;padding:8px 0}
+.dots{display:flex;gap:5px;justify-content:center;align-items:center;padding:6px 0}
 .dots .d{height:4px;border-radius:100px;background:#ddd;transition:all .3s}
 .dots .d.on{background:#111;width:20px}
 .dots .d:not(.on){width:6px}
-/* Footer */
-.footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #f0f0f0;font-size:11px;color:#999}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid #f0f0f0;font-size:11px;color:#999}
 .footer .cntr{display:flex;align-items:center;gap:12px}
 .footer .cntr .ar{font-size:18px;color:#bbb;cursor:default;user-select:none;line-height:1}
 .footer .cntr .ar.on{color:#111}
-/* Preview labels */
-.preview-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:500;color:#bbb;white-space:nowrap}
 </style>
 </head>
 <body>
 <h1>Карусель отложенных чеков</h1>
-<p class="desc">Карточки, стопка, воздух, глубина. Текущий — полностью, остальные — слоями сзади</p>
+<p class="desc">Все карточки информативные. Соседние — видны товары. Текущий — полный состав</p>
 
 <div class="page">
 <div class="modal">
 <div class="x">✕</div>
-<div class="modal-title">Отложенные чеки</div>
-<div class="modal-sub">3 чека в ожидании · проведите влево/вправо</div>
+<div class="modal-title">⏸ Отложенные чеки</div>
+<div class="modal-sub">3 чека · проведите влево/вправо</div>
 
 <div class="carousel">
-  <!-- Дальний левый (3-й сзади) -->
-  <div class="card far"><div class="preview-label" style="font-size:10px">#1 · 1 200 ₽</div></div>
+
+  <!-- Дальний левый -->
+  <div class="card far-l">
+    <div class="c-num">#1</div>
+    <div class="c-sum">1 200 ₽</div>
+    <div class="c-items">
+      <div class="rw"><span class="name">Фильтр салона</span><span>1 200</span></div>
+    </div>
+  </div>
+
   <!-- Предыдущий -->
-  <div class="card prev"><div class="preview-label">#2 · 4 500 ₽</div></div>
+  <div class="card peek-l">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="c-num">#2</div>
+      <div class="c-sum">4 500 ₽</div>
+    </div>
+    <div class="c-info">Петров · 2 товара</div>
+    <div class="c-items">
+      <div class="rw"><span class="name">Аккумулятор 12V</span><span>3 500</span></div>
+      <div class="rw"><span class="name">Клеммы</span><span>1 000</span></div>
+    </div>
+  </div>
+
   <!-- Текущий -->
-  <div class="card current">
+  <div class="card active">
     <div style="display:flex;justify-content:space-between;align-items:flex-start">
       <div>
-        <div class="num">Чек #3</div>
-        <div class="info">12:34 · Иванов Иван</div>
+        <div class="c-num">Чек #3</div>
+        <div class="c-info">12:34 · Иванов Иван · 3 товара</div>
       </div>
-      <div class="sum">3 550 ₽</div>
+      <div class="c-sum">3 550 ₽</div>
     </div>
     <div class="items">
       <div class="rw"><span>Масло моторное 10W-40 ×2</span><span>3 000 ₽</span></div>
@@ -88,10 +107,28 @@ p.desc{color:#888;font-size:13px;margin-bottom:32px}
       <div class="ab dk">→ Продолжить</div>
     </div>
   </div>
+
   <!-- Следующий -->
-  <div class="card next"><div class="preview-label">#4 · 1 800 ₽</div></div>
+  <div class="card peek-r">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="c-num">#4</div>
+      <div class="c-sum">1 800 ₽</div>
+    </div>
+    <div class="c-info">Сидоров · 1 товар</div>
+    <div class="c-items">
+      <div class="rw"><span class="name">Тормозные колодки</span><span>1 800</span></div>
+    </div>
+  </div>
+
   <!-- Дальний правый -->
-  <div class="card far-r"><div class="preview-label" style="font-size:10px">#5 · 3 200 ₽</div></div>
+  <div class="card far-r">
+    <div class="c-num">#5</div>
+    <div class="c-sum">3 200 ₽</div>
+    <div class="c-items">
+      <div class="rw"><span class="name">Свечи зажигания ×4</span><span>3 200</span></div>
+    </div>
+  </div>
+
 </div>
 
 <div class="dots">
@@ -103,7 +140,7 @@ p.desc{color:#888;font-size:13px;margin-bottom:32px}
 </div>
 
 <div class="footer">
-  <span>⏸ 3 чека</span>
+  <span>⏸ Отложено 3</span>
   <div class="cntr">
     <span class="ar">←</span>
     <span>3 / 5</span>
@@ -114,8 +151,9 @@ p.desc{color:#888;font-size:13px;margin-bottom:32px}
 </div>
 
 <p style="color:#888;font-size:12px;margin-top:24px;text-align:center;max-width:500px;line-height:1.6">
-Текущий чек — полностью виден, вся информация. Соседние чеки — слоями сзади, видны только сумма и номер. 
-Точки показывают общее количество. Навигация ← → или свайп.
+Все карточки показывают: номер чека, сумму, клиента, товары. 
+Текущий — полностью развёрнут. Соседние — чуть меньше и прозрачнее, но всё видно.
+Листайте ← →
 </p>
 </body>
 </html>
