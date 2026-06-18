@@ -3,106 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Карусель — Стопка с вылетом</title>
+<title>Карусель отложенных чеков</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,sans-serif;background:#f5f5f7;padding:40px;color:#111}
-h1{font-size:22px;margin-bottom:6px;font-weight:700}
-p.desc{color:#888;font-size:13px;margin-bottom:30px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1000px}
-.card{background:#fff;border-radius:24px;padding:28px;box-shadow:0 2px 24px rgba(0,0,0,.04);position:relative;font-size:13px}
-.card::before{content:attr(data-num);position:absolute;top:-10px;left:-10px;background:#111;color:#fff;font-size:11px;font-weight:700;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.card .title{font-weight:600;font-size:14px;margin-bottom:4px}
-.card .sub{color:#999;font-size:11px;margin-bottom:14px;line-height:1.4}
-/* Carousel cards */
-.carousel{position:relative;height:400px;width:100%;margin-bottom:10px;padding:0 20px}
-.card-main{position:absolute;top:0;left:20px;right:20px;height:100%;background:#fff;z-index:5;border-radius:20px;padding:20px;border:1px solid #eee;box-shadow:0 8px 40px rgba(0,0,0,.06)}
-.card-prev{position:absolute;top:14px;left:-4px;width:44px;height:92%;background:#f5f5f5;z-index:4;border-radius:14px;border:1px solid #eee;display:flex;align-items:center;justify-content:center;font-size:9px;color:#aaa;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:2px}
-.card-next{position:absolute;top:14px;right:-4px;width:44px;height:92%;background:#f5f5f5;z-index:4;border-radius:14px;border:1px solid #eee;display:flex;align-items:center;justify-content:center;font-size:9px;color:#aaa;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:2px}
-.card-far{position:absolute;top:26px;left:-18px;width:34px;height:84%;background:#f0f0f0;z-index:3;border-radius:10px;border:1px solid #eee;display:flex;align-items:center;justify-content:center;font-size:8px;color:#ccc;writing-mode:vertical-rl;text-orientation:mixed}
-.card-far-r{position:absolute;top:26px;right:-18px;width:34px;height:84%;background:#f0f0f0;z-index:3;border-radius:10px;border:1px solid #eee;display:flex;align-items:center;justify-content:center;font-size:8px;color:#ccc;writing-mode:vertical-rl;text-orientation:mixed}
-.mhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:13px;font-weight:600}
-.mhdr .x{font-size:22px;color:#bbb;cursor:default}
-.meta{font-size:11px;color:#999;margin-bottom:12px;line-height:1.5}
-.its{background:#f8f8f8;border-radius:14px;padding:14px;margin:14px 0;font-size:12px;line-height:2.2}
-.its .rw{display:flex;justify-content:space-between}
-.its hr{border:none;border-top:1px solid #eee;margin:6px 0}
-.its .tot{display:flex;justify-content:space-between;font-weight:700;font-size:14px}
-.acts{display:flex;gap:8px;margin-top:14px}
+body{font-family:Inter,sans-serif;background:#f5f5f7;padding:40px;color:#111;display:flex;flex-direction:column;align-items:center}
+h1{font-size:22px;margin-bottom:4px;font-weight:700}
+p.desc{color:#888;font-size:13px;margin-bottom:32px}
+/* Page background - dark overlay to simulate modal */
+.page{background:rgba(0,0,0,.3);border-radius:24px;padding:40px;width:auto;display:inline-flex;justify-content:center;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+/* Modal */
+.modal{background:#fff;border-radius:24px;padding:28px;width:400px;box-shadow:0 24px 80px rgba(0,0,0,.15);position:relative}
+.modal .x{position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:18px;color:#999;cursor:default}
+.modal-title{font-size:15px;font-weight:700;margin-bottom:4px;color:#111}
+.modal-sub{font-size:12px;color:#999;margin-bottom:20px}
+/* Carousel container */
+.carousel{position:relative;height:380px;margin:0 -8px 8px}
+/* Card layers - stacked with offset */
+.card{position:absolute;border-radius:16px;padding:20px;transition:all .35s cubic-bezier(.23,1,.32,1);overflow:hidden}
+.card.current{z-index:5;top:0;left:0;right:0;height:100%;background:#fff;border:1px solid #eee;box-shadow:0 8px 40px rgba(0,0,0,.08)}
+.card.next{z-index:4;top:16px;left:24px;right:-24px;height:92%;background:#f8f8f8;border:1px solid #eee;transform:scale(.96);opacity:.6}
+.card.prev{z-index:4;top:16px;left:-24px;right:24px;height:92%;background:#f8f8f8;border:1px solid #eee;transform:scale(.96);opacity:.6}
+.card.far{z-index:3;top:28px;left:-40px;right:40px;height:86%;background:#f2f2f2;border:1px solid #eee;transform:scale(.93);opacity:.3}
+.card.far-r{z-index:3;top:28px;left:40px;right:-40px;height:86%;background:#f2f2f2;border:1px solid #eee;transform:scale(.93);opacity:.3}
+/* Card content */
+.card .num{font-size:11px;font-weight:600;color:#111;margin-bottom:4px}
+.card .sum{font-size:18px;font-weight:700;color:#111;margin-bottom:2px}
+.card .info{font-size:11px;color:#999;line-height:1.4}
+.current .items{background:#f8f8f8;border-radius:12px;padding:12px;margin:12px 0;font-size:12px;line-height:2}
+.current .items .rw{display:flex;justify-content:space-between}
+.current .items hr{border:none;border-top:1px solid #eee;margin:6px 0}
+.current .items .tot{display:flex;justify-content:space-between;font-weight:700;font-size:13px}
+.acts{display:flex;gap:8px;margin-top:10px}
 .ab{flex:1;padding:10px;border-radius:10px;border:none;font-size:12px;font-weight:600;font-family:inherit;text-align:center;cursor:default}
 .ab.dk{background:#111;color:#fff}
 .ab.lt{background:#f5f5f5;color:#888}
-.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid #f0f0f0}
-.nav .ar{font-size:20px;color:#bbb;cursor:default;user-select:none}
-.nav .ar.on{color:#111}
-.nav .pos{font-size:12px;font-weight:500;color:#999}
-.dots{display:flex;gap:4px;align-items:center;margin-bottom:10px}
-.dots .d{height:5px;border-radius:100px;background:#ddd;transition:.4s}
-.dots .d.on{background:#111}
-/* Variant 2 - full width cards */
-.wide{position:relative;height:380px;width:100%;margin-bottom:10px;overflow:visible}
-.wide .w-main{position:absolute;top:0;left:10%;right:10%;height:100%;background:#fff;z-index:5;border-radius:20px;padding:20px;border:1px solid #eee;box-shadow:0 8px 40px rgba(0,0,0,.06)}
-.wide .w-prev{position:absolute;top:12px;left:4%;width:12%;height:90%;background:#f5f5f5;z-index:4;border-radius:14px;border:1px solid #eee;display:flex;align-items:center;justify-content:center;font-size:9px;color:#aaa;writing-mode:vertical-rl;text-orientation:mixed}
-.wide .w-next{position:absolute;top:12px;right:4%;width:12%;height:90%;background:#f5f5f5;z-index:4;border-radius:14px;border:1px solid #eee;display:flex;align-items:center;justify-content:center;font-size:9px;color:#aaa;writing-mode:vertical-rl;text-orientation:mixed}
+/* Dots */
+.dots{display:flex;gap:5px;justify-content:center;align-items:center;padding:8px 0}
+.dots .d{height:4px;border-radius:100px;background:#ddd;transition:all .3s}
+.dots .d.on{background:#111;width:20px}
+.dots .d:not(.on){width:6px}
+/* Footer */
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #f0f0f0;font-size:11px;color:#999}
+.footer .cntr{display:flex;align-items:center;gap:12px}
+.footer .cntr .ar{font-size:18px;color:#bbb;cursor:default;user-select:none;line-height:1}
+.footer .cntr .ar.on{color:#111}
+/* Preview labels */
+.preview-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:500;color:#bbb;white-space:nowrap}
 </style>
 </head>
 <body>
-<h1>Карусель «Стопка с вылетом»</h1>
-<p class="desc">Текущий чек — полностью. Соседние выглядывают слева и справа, как карточки</p>
-<div class="grid">
+<h1>Карусель отложенных чеков</h1>
+<p class="desc">Карточки, стопка, воздух, глубина. Текущий — полностью, остальные — слоями сзади</p>
 
-<div class="card" data-num="1">
-<div class="title">Карточки с боковыми вылетами</div>
-<div class="sub">Текущий — в центре. Предыдущий и следующий выглядывают сбоку. Дальние — ещё меньше и размытее</div>
+<div class="page">
+<div class="modal">
+<div class="x">✕</div>
+<div class="modal-title">Отложенные чеки</div>
+<div class="modal-sub">3 чека в ожидании · проведите влево/вправо</div>
+
 <div class="carousel">
-<div class="card-far"></div>
-<div class="card-prev">#2 · 4 500 ₽</div>
-<div class="card-main">
-<div class="mhdr"><span>Чек #3</span><span class="x">×</span></div>
-<div class="meta">12:34 · Иванов Иван · 3 товара</div>
-<div class="its">
-<div class="rw"><span>Масло моторное 10W-40 ×2</span><span>3 000 ₽</span></div>
-<div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
-<div class="rw"><span>Прокладка клапанная</span><span>200 ₽</span></div>
-<hr>
-<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+  <!-- Дальний левый (3-й сзади) -->
+  <div class="card far"><div class="preview-label" style="font-size:10px">#1 · 1 200 ₽</div></div>
+  <!-- Предыдущий -->
+  <div class="card prev"><div class="preview-label">#2 · 4 500 ₽</div></div>
+  <!-- Текущий -->
+  <div class="card current">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <div class="num">Чек #3</div>
+        <div class="info">12:34 · Иванов Иван</div>
+      </div>
+      <div class="sum">3 550 ₽</div>
+    </div>
+    <div class="items">
+      <div class="rw"><span>Масло моторное 10W-40 ×2</span><span>3 000 ₽</span></div>
+      <div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
+      <div class="rw"><span>Прокладка клапанная</span><span>200 ₽</span></div>
+      <hr>
+      <div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+    </div>
+    <div class="acts">
+      <div class="ab lt">✕ Удалить</div>
+      <div class="ab dk">→ Продолжить</div>
+    </div>
+  </div>
+  <!-- Следующий -->
+  <div class="card next"><div class="preview-label">#4 · 1 800 ₽</div></div>
+  <!-- Дальний правый -->
+  <div class="card far-r"><div class="preview-label" style="font-size:10px">#5 · 3 200 ₽</div></div>
 </div>
-<div class="acts"><div class="ab lt">✕ Удалить</div><div class="ab dk">→ Продолжить</div></div>
-<div class="nav"><span class="ar">←</span><span class="pos">1 / 4</span><span class="ar on">→</span></div>
+
+<div class="dots">
+  <span class="d"></span>
+  <span class="d"></span>
+  <span class="d on"></span>
+  <span class="d"></span>
+  <span class="d"></span>
 </div>
-<div class="card-next">#4 · 1 800 ₽</div>
-<div class="card-far-r"></div>
+
+<div class="footer">
+  <span>⏸ 3 чека</span>
+  <div class="cntr">
+    <span class="ar">←</span>
+    <span>3 / 5</span>
+    <span class="ar on">→</span>
+  </div>
+</div>
 </div>
 </div>
 
-<div class="card" data-num="2">
-<div class="title">Широкие карты</div>
-<div class="sub">Текущий чек шире, соседние видны по бокам. Позиция — точками</div>
-<div class="wide">
-<div class="w-prev">#2 4 500</div>
-<div class="w-main">
-<div class="mhdr"><span style="font-size:14px">Чек #3</span><span style="font-size:11px;font-weight:400;color:#999">1 / 4</span></div>
-<div class="meta">12:34 · 3 товара · 3 550 ₽</div>
-<div class="its" style="font-size:13px">
-<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
-<div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
-<div class="rw"><span>Прокладка</span><span>200 ₽</span></div>
-<hr>
-<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
-</div>
-<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
-<div class="dots" style="justify-content:center;margin-top:10px">
-<span class="d" style="width:6px"></span>
-<span class="d" style="width:6px"></span>
-<span class="d on" style="width:18px"></span>
-<span class="d" style="width:6px"></span>
-</div>
-</div>
-<div class="w-next">#4 1 800</div>
-</div>
-</div>
-
-</div>
+<p style="color:#888;font-size:12px;margin-top:24px;text-align:center;max-width:500px;line-height:1.6">
+Текущий чек — полностью виден, вся информация. Соседние чеки — слоями сзади, видны только сумма и номер. 
+Точки показывают общее количество. Навигация ← → или свайп.
+</p>
 </body>
 </html>
