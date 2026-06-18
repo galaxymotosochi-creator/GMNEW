@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10 вариантов — Карусель отложенных чеков</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;background:#f5f5f7;padding:30px;color:#111}
+h1{font-size:22px;margin-bottom:6px}
+p.desc{color:#888;font-size:13px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px}
+.card{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 2px 16px rgba(0,0,0,.05);position:relative;font-size:13px}
+.card::before{content:attr(data-num);position:absolute;top:-8px;left:-8px;background:#111;color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.card .title{font-weight:700;font-size:14px;margin-bottom:4px}
+.card .sub{color:#888;font-size:11px;margin-bottom:12px}
+/* Register layout */
+.reg{background:#f5f5f7;border-radius:14px;padding:14px;border:1px solid #e5e5e5}
+.reg-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:11px}
+.reg-hdr .name{font-weight:600}
+.reg-cart{background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;font-size:11px;line-height:1.7}
+.reg-cart .item{display:flex;justify-content:space-between}
+.reg-cart .total{display:flex;justify-content:space-between;font-weight:700;border-top:1px solid #eee;padding-top:3px;margin-top:3px}
+.reg-btns{display:flex;gap:5px}
+.reg-btn{flex:1;padding:7px 5px;border-radius:8px;border:1.5px solid #eee;background:#fff;font-size:10px;font-weight:600;text-align:center;font-family:inherit}
+.reg-btn.dark{background:#111;color:#fff;border-color:#111}
+.reg-btn.orange{background:#f97316;color:#fff;border-color:#f97316}
+.reg-btn.ghost{background:transparent;color:#111;border-color:#ddd}
+.hold-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;background:#fff3cd;color:#92400e}
+.hold-badge .cnt{background:#92400e;color:#fff;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;font-size:8px}
+/* Carousel */
+.car-wrap{background:#fff;border-radius:12px;padding:12px;border:1px solid #eee;margin-top:8px}
+.car-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:11px;font-weight:600}
+.car-dots{display:flex;gap:3px}
+.car-dot{width:6px;height:6px;border-radius:50%;background:#ddd;display:inline-block}
+.car-dot.active{background:#f97316;width:16px;border-radius:100px}
+.car-body{background:#f9f9f9;border-radius:8px;padding:8px;margin-bottom:8px;font-size:10px}
+.car-body .row{display:flex;justify-content:space-between;padding:2px 0}
+.car-actions{display:flex;gap:5px;margin-top:6px}
+.car-btn{flex:1;padding:5px;border-radius:6px;border:none;font-size:10px;font-weight:600;font-family:inherit;text-align:center}
+.car-btn.dark{background:#111;color:#fff}
+.car-btn.light{background:#f5f5f5;color:#555}
+.car-btn.red{background:#fef2f2;color:#dc2626}
+/* Labels */
+.tag{font-size:9px;padding:1px 6px;border-radius:100px;font-weight:600}
+.tag.hold{background:#fff3cd;color:#92400e}
+.tag.num{background:#f0fdf4;color:#16a34a;font-size:8px}
+.ctr{text-align:center;font-size:10px;color:#888}
+</style>
+</head>
+<body>
+<h1>10 вариантов — Карусель отложенных чеков</h1>
+<p class="desc">На кассе: кнопка «Отложенные (N)» → карусель с полными данными</p>
+<div class="grid">
+
+<!-- 1 — Горизонтальная карусель с точками -->
+<div class="card" data-num="1">
+<div class="title">Горизонтальная карусель</div>
+<div class="sub">Свайп/стрелки. Точки внизу показывают позицию</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Смена #12 · Иван</span><span class="hold-badge">⏸️ <span class="cnt">2</span></span></div>
+<div class="reg-cart"><div class="item"><span>Масло моторное</span><span>1 500 ₽</span></div><div class="item"><span>Фильтр</span><span>350 ₽</span></div><div class="total"><span>ИТОГО:</span><span>1 850 ₽</span></div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn dark">💰 Оплатить</div><div class="reg-btn orange">⏸️ Отложенные (2)</div></div>
+<div class="car-wrap">
+<div class="car-hdr"><span>⏸️ Чек #3 <span class="tag hold">отложен</span></span><span>1/2</span></div>
+<div class="car-dots"><span class="car-dot active"></span><span class="car-dot"></span></div>
+<div class="car-body">
+<div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div>
+<div class="row"><span>Прокладка</span><span>200 ₽</span></div>
+<div style="border-top:1px solid #eee;margin:3px 0"></div>
+<div class="row" style="font-weight:700"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="car-actions"><div class="car-btn light">✕ Удалить</div><div class="car-btn dark">→ Продолжить</div></div>
+</div>
+</div></div>
+
+<!-- 2 — Полноразмерный слайд на весь экран кассы -->
+<div class="card" data-num="2">
+<div class="title">Полноэкранный слайд</div>
+<div class="sub">Карусель занимает всю область корзины, заменяет текущий чек</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Смена #12</span><span class="hold-badge">⏸️ <span class="cnt">2</span></span></div>
+<div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;font-size:11px;line-height:1.7">
+<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-weight:600">⏸️ Чек #3 (1 из 2)</span><span>3 550 ₽</span></div>
+<div style="display:flex;gap:3px;margin-bottom:6px"><span class="car-dot active"></span><span class="car-dot"></span></div>
+<div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div>
+<div class="row"><span>Прокладка клапанная</span><span>200 ₽</span></div>
+<div style="border-top:1px solid #eee;margin:4px 0;padding-top:4px;display:flex;justify-content:space-between;font-weight:700"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="reg-btns"><div class="reg-btn ghost">✕ Удалить</div><div class="reg-btn dark">→ Продолжить</div><div class="reg-btn">→ Следующий</div></div>
+</div></div>
+
+<!-- 3 — Свайп-карусель с миниатюрами -->
+<div class="card" data-num="3">
+<div class="title">Миниатюры снизу</div>
+<div class="sub">Маленькие превью всех отложенных чеков. Клик по миниатюре — переход</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Кассир: Иван</span><span class="hold-badge">⏸️ <span class="cnt">3</span></span></div>
+<div class="car-wrap" style="margin-top:0">
+<div class="car-body">
+<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:600">#3 · 3 550 ₽</span><span>1/3</span></div>
+<div class="row"><span>Масло ×2</span><span>3 000 ₽</span></div>
+<div class="row"><span>Фильтр</span><span>350 ₽</span></div>
+<div class="row"><span>Прокладка</span><span>200 ₽</span></div>
+<div style="border-top:1px solid #eee;margin:3px 0"></div>
+<div class="row" style="font-weight:700"><span>Чек #3</span><span>3 550 ₽</span></div>
+</div>
+<div style="display:flex;gap:4px;margin:6px 0">
+<div style="flex:1;padding:4px;background:#f97316;border-radius:4px;font-size:8px;color:#fff;font-weight:500">#3 3 550 ₽</div>
+<div style="flex:1;padding:4px;background:#f0f0f0;border-radius:4px;font-size:8px;color:#888">#4 2 100 ₽</div>
+<div style="flex:1;padding:4px;background:#f0f0f0;border-radius:4px;font-size:8px;color:#888">#5 4 200 ₽</div>
+</div>
+<div class="car-actions"><div class="car-btn light">✕</div><div class="car-btn dark">Продолжить</div></div>
+</div>
+<div class="reg-cart" style="margin-top:8px;margin-bottom:0"><div style="color:#999;text-align:center;padding:4px;font-size:10px">Просмотр отложенного #3</div></div>
+<div class="reg-btns" style="margin-top:6px"><div class="reg-btn">➕ Товар</div><div class="reg-btn dark">💰 Оплатить</div></div>
+</div></div>
+
+<!-- 4 — Модалка поверх кассы -->
+<div class="card" data-num="4">
+<div class="title">Модальная карусель</div>
+<div class="sub">Клик по счётчику → модалка поверх кассы с каруселью</div>
+<div class="reg" style="position:relative;overflow:hidden">
+<div class="reg-hdr"><span class="name">Смена #12</span><span>⚙️</span></div>
+<div class="reg-cart" style="opacity:.4"><div class="item"><span>Товар</span><span>0 ₽</span></div><div class="total"><span>ИТОГО:</span><span>0 ₽</span></div></div>
+<div class="reg-btns" style="opacity:.4"><div class="reg-btn">➕ Товар</div><div class="reg-btn dark">💰 Оплатить</div></div>
+<div style="position:absolute;inset:0;background:rgba(0,0,0,.3);border-radius:14px;display:flex;align-items:center;justify-content:center;z-index:2">
+<div style="background:#fff;border-radius:14px;padding:14px;width:85%;box-shadow:0 4px 20px rgba(0,0,0,.15)">
+<div style="display:flex;justify-content:space-between;font-weight:700;font-size:12px;margin-bottom:6px"><span>⏸️ Отложенные чеки</span><span style="font-size:16px;color:#999">×</span></div>
+<div class="car-dots" style="margin-bottom:6px"><span class="car-dot active"></span><span class="car-dot"></span><span class="car-dot"></span></div>
+<div class="car-body"><div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div><div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div><div class="row"><span>Прокладка</span><span>200 ₽</span></div><div style="border-top:1px solid #eee;margin:3px 0"></div><div class="row" style="font-weight:700"><span>Итого #3</span><span>3 550 ₽</span></div></div>
+<div style="display:flex;gap:4px;margin-bottom:6px"><span style="font-size:10px;color:#888">2 / 3</span></div>
+<div class="car-actions"><div class="car-btn light">✕ Удалить</div><div class="car-btn dark">Продолжить</div></div>
+</div></div>
+</div></div>
+
+<!-- 5 — Вертикальная карусель (список) -->
+<div class="card" data-num="5">
+<div class="title">Вертикальный список-карусель</div>
+<div class="sub">Все отложенные видны списком, активный — с деталями, остальные — свернуты</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Смена #12 · Иван</span><span class="hold-badge">⏸️ <span class="cnt">2</span></span></div>
+<div style="background:#fff;border-radius:10px;padding:8px;margin-bottom:8px;font-size:10px">
+<div style="background:#f97316;color:#fff;border-radius:6px;padding:5px 8px;margin-bottom:4px;display:flex;justify-content:space-between"><span>#3 · 3 550 ₽</span><span>→</span></div>
+<div style="padding:2px 8px 6px;font-size:10px"><
