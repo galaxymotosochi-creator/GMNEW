@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10 вариантов — кнопка отложенных</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;background:#f5f5f7;padding:30px;color:#111}
+h1{font-size:22px;margin-bottom:6px}
+p.desc{color:#888;font-size:13px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:960px}
+.card{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 2px 16px rgba(0,0,0,.05);position:relative;font-size:13px}
+.card::before{content:attr(data-num);position:absolute;top:-8px;left:-8px;background:#111;color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.card .title{font-weight:700;font-size:14px;margin-bottom:4px}
+.card .sub{color:#888;font-size:11px;margin-bottom:12px;line-height:1.4}
+.reg{background:#f5f5f7;border-radius:14px;padding:14px;border:1px solid #e5e5e5}
+.reg-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:12px}
+.reg-hdr .name{font-weight:600}
+.reg-cart{background:#fff;border-radius:10px;padding:10px;margin-bottom:10px;font-size:11px;line-height:1.7}
+.reg-cart .item{display:flex;justify-content:space-between}
+.reg-cart .total{display:flex;justify-content:space-between;font-weight:700;border-top:1px solid #eee;padding-top:3px;margin-top:3px}
+.reg-btns{display:flex;gap:5px}
+.reg-btn{flex:1;padding:8px 5px;border-radius:8px;border:1.5px solid #eee;background:#fff;font-size:11px;font-weight:600;text-align:center;font-family:inherit}
+.reg-btn.dark{background:#111;color:#fff;border-color:#111}
+.reg-btn.yellow{background:#ffdd2d;color:#111;border-color:#ffdd2d;font-weight:700}
+.reg-btn.ghost{background:transparent;border-color:#ddd}
+.reg-btn.sm{padding:5px 10px;font-size:10px;flex:0}
+.tag{font-size:9px;padding:1px 6px;border-radius:100px;font-weight:600}
+.tag.hold{background:#fff3cd;color:#92400e}
+.bar{background:#f5f5f5;border-radius:8px;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;font-size:10px}
+.bar .lbl{font-weight:600}
+.bar .n{color:#f97316;font-weight:700}
+.btm{background:#fff;border-top:1px solid #eee;padding:8px 14px;display:flex;gap:6px;align-items:center}
+.btm .b{flex:1;padding:6px;border-radius:6px;border:1.5px solid #eee;font-size:10px;font-weight:600;text-align:center;font-family:inherit}
+.btm .b.dark{background:#111;color:#fff;border-color:#111}
+.btm .b.yellow{background:#ffdd2d;color:#111;border-color:#ffdd2d;font-weight:700}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;cursor:default}
+.badge.yellow{background:#ffdd2d;color:#111}
+.badge.white{background:#fff;border:1.5px solid #ddd;color:#555}
+.badge.ghost{background:none;color:#f97316;font-weight:500;padding:0}
+.badge.dark{background:#111;color:#fff}
+.circle{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;cursor:default}
+.circle.dark{background:#111;color:#fff}
+.circle.orange{background:#f97316;color:#fff}
+</style>
+</head>
+<body>
+<h1>10 вариантов — где и как разместить кнопку отложенных</h1>
+<p class="desc">На кассе, в шапке, в корзине, на панели — выбирайте</p>
+<div class="grid">
+
+<div class="card" data-num="1">
+<div class="title">Текст в шапке справа от имени</div>
+<div class="sub">Отложенные 2 — оранжевая ссылка рядом с кассиром</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;color:#888">Иван</span><span style="font-size:11px;font-weight:500;color:#f97316;cursor:default">Отложенные 2</span><span style="font-size:14px;color:#999">⚙</span></span></div>
+<div class="reg-cart"><div style="color:#999;text-align:center;padding:6px">Выберите товары</div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn" style="opacity:.4">💰 Оплатить</div></div>
+</div></div>
+
+<div class="card" data-num="2">
+<div class="title">Плашка в нижней панели</div>
+<div class="sub">Отдельная кнопка снизу, рядом с Товар и Оплатить</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="font-size:11px;color:#888">Иван</span></div>
+<div class="reg-cart"><div class="item"><span>Масло моторное</span><span>1 500 ₽</span></div><div class="total"><span>ИТОГО:</span><span>1 500 ₽</span></div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn yellow">💰 Оплатить</div><div class="reg-btn dark">⏸ 2</div></div>
+</div></div>
+
+<div class="card" data-num="3">
+<div class="title">На отдельной строке под шапкой</div>
+<div class="sub">Тонкая серая плашка с количеством. Заметно, но не мешает</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="font-size:11px;color:#888">Иван</span></div>
+<div style="background:#f5f5f5;border-radius:6px;padding:4px 10px;display:flex;justify-content:space-between;align-items:center;font-size:10px;margin-bottom:8px;cursor:default">
+<span style="font-weight:500;color:#555">Отложенные чеки</span>
+<span style="background:#f97316;color:#fff;border-radius:100px;padding:0 8px;font-weight:700">2</span>
+</div>
+<div class="reg-cart"><div style="color:#999;text-align:center;padding:6px">Выберите товары</div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn yellow">💰 Оплатить</div></div>
+</div></div>
+
+<div class="card" data-num="4">
+<div class="title">Иконка-кружок в шапке</div>
+<div class="sub">Чёрный кружок с цифрой. Минималистично</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;color:#888">Иван</span><div style="width:22px;height:22px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;cursor:default">2</div><span style="font-size:14px;color:#999">⚙</span></span></div>
+<div class="reg-cart"><div style="color:#999;text-align:center;padding:6px">Выберите товары</div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn yellow">💰 Оплатить</div></div>
+</div></div>
+
+<div class="card" data-num="5">
+<div class="title">Внутри корзины при пустой корзине</div>
+<div class="sub">Если корзина пуста и есть отложенные — показывать в центре</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="font-size:11px;color:#888">Иван</span></div>
+<div class="reg-cart" style="text-align:center;padding:1.5rem 0;color:#999;font-size:11px;line-height:1.8">
+<div>Выберите товары</div>
+<div style="margin-top:8px;padding:6px 14px;background:#f97316;color:#fff;border-radius:8px;font-size:10px;font-weight:600;display:inline-block;cursor:default">📋 Отложенные чеки (2)</div>
+</div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn" style="opacity:.4">💰 Оплатить</div></div>
+</div></div>
+
+<div class="card" data-num="6">
+<div class="title">Над списком товаров (как заголовок)</div>
+<div class="sub">Маленькая строка с счётчиком между шапкой и корзиной</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="font-size:11px;color:#888">Иван</span></div>
+<div style="display:flex;gap:4px;margin-bottom:6px;font-size:10px;color:#888;border-bottom:1px solid #eee;padding-bottom:4px;justify-content:space-between">
+<span>Товары</span>
+<span style="color:#f97316;font-weight:600;cursor:default">📋 Отложенные 2</span>
+</div>
+<div class="reg-cart"><div class="item"><span>Масло моторное</span><span>1 500 ₽</span></div><div class="total"><span>ИТОГО:</span><span>1 500 ₽</span></div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn yellow">💰 Оплатить</div></div>
+</div></div>
+
+<div class="card" data-num="7">
+<div class="title">Кнопка «Отложенные N» среди кнопок действий</div>
+<div class="sub">Полноценная кнопка наравне с Товар и Оплатить</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="font-size:11px;color:#888">Иван</span></div>
+<div class="reg-cart"><div class="item"><span>Фильтр масляный</span><span>350 ₽</span></div><div class="total"><span>ИТОГО:</span><span>350 ₽</span></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
+<div class="reg-btn">➕ Товар</div>
+<div class="reg-btn yellow">💰 Оплатить</div>
+<div class="reg-btn dark">Отложенные 2</div>
+</div></div></div>
+
+<div class="card" data-num="8">
+<div class="title">Маленькая иконка в углу шапки</div>
+<div class="sub">Только цифра, без текста. Интригует</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;color:#888">Иван</span><div style="width:18px;height:18px;border-radius:50%;background:#f97316;color:#fff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;cursor:default">2</div><span style="font-size:14px;color:#999">⚙</span></span></div>
+<div class="reg-cart"><div style="color:#999;text-align:center;padding:6px">Выберите товары</div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn" style="opacity:.4">💰 Оплатить</div></div>
+</div></div>
+
+<div class="card" data-num="9">
+<div class="title">Плашка над суммой итога</div>
+<div class="sub">Перед ИТОГО если есть отложенные — тонкое уведомление</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="font-size:11px;color:#888">Иван</span></div>
+<div class="reg-cart">
+<div class="item"><span>Масло моторное</span><span>1 500 ₽</span></div>
+<div class="item"><span>Фильтр</span><span>350 ₽</span></div>
+<div style="background:#f5f5f5;border-radius:4px;padding:3px 6px;margin:4px 0;display:flex;justify-content:space-between;font-size:9px;cursor:default">
+<span>📋 2 чека отложены</span><span style="color:#f97316;font-weight:600">→</span>
+</div>
+<div class="total"><span>ИТОГО:</span><span>1 850 ₽</span></div>
+</div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn yellow">💰 Оплатить</div></div>
+</div></div>
+
+<div class="card" data-num="10">
+<div class="title">В выпадающем меню ⚙</div>
+<div class="sub">Клик на ⚙ → там пункт «Отложенные чеки (2)»</div>
+<div class="reg">
+<div class="reg-hdr"><span class="name">Касса</span><span style="font-size:11px;color:#888">Иван</span></div>
+<div class="reg-cart"><div class="item"><span>Масло</span><span>1 500 ₽</span></div><div class="total"><span>ИТОГО:</span><span>1 500 ₽</span></div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn yellow">💰 Оплатить</div></div>
+<div style="position:absolute;top:50px;right:14px;background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.1);padding:6px;z-index:3;font-size:11px;border:1px solid
