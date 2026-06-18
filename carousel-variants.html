@@ -13,51 +13,28 @@ p.desc{color:#888;font-size:13px;margin-bottom:24px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px}
 .card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 2px 20px rgba(0,0,0,.04);position:relative;font-size:13px}
 .card::before{content:attr(data-num);position:absolute;top:-8px;left:-8px;background:#111;color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.card .title{font-weight:600;font-size:13px;margin-bottom:2px;color:#111}
+.card .title{font-weight:600;font-size:13px;margin-bottom:2px}
 .card .sub{color:#999;font-size:10px;margin-bottom:10px}
-/* Modal mockup */
 .modal{background:#fff;border-radius:18px;padding:18px;border:1px solid #eee;box-shadow:0 4px 30px rgba(0,0,0,.06)}
-.modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:12px;font-weight:600}
-.modal-hdr .close{font-size:18px;color:#bbb;cursor:default}
-.car-dots{display:flex;gap:3px;margin-bottom:10px;align-items:center}
-.car-dot{height:4px;border-radius:100px;background:#ddd;display:inline-block;transition:.3s}
-.car-dot.active{background:#111}
-/* Items */
-.items{background:#f8f8f8;border-radius:12px;padding:10px;margin-bottom:10px;font-size:11px;line-height:1.8}
-.items .row{display:flex;justify-content:space-between;padding:1px 0}
-.items .divider{border:none;border-top:1px solid #eee;margin:4px 0}
-.items .total{display:flex;justify-content:space-between;font-weight:700;font-size:12px}
-/* Buttons */
+.mhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:12px;font-weight:600}
+.mhdr .x{font-size:18px;color:#bbb;cursor:default}
+.dots{display:flex;gap:3px;margin-bottom:10px;align-items:center}
+.dots .d{height:4px;border-radius:100px;background:#ddd}
+.dots .d.on{background:#111}
+.its{background:#f8f8f8;border-radius:12px;padding:10px;margin-bottom:10px;font-size:11px;line-height:1.8}
+.its .rw{display:flex;justify-content:space-between;padding:1px 0}
+.its hr{border:none;border-top:1px solid #eee;margin:4px 0}
+.its .tot{display:flex;justify-content:space-between;font-weight:700;font-size:12px}
 .acts{display:flex;gap:5px;margin-top:8px}
-.act-btn{flex:1;padding:7px;border-radius:8px;border:none;font-size:10px;font-weight:600;font-family:inherit;text-align:center}
-.act-btn.dark{background:#111;color:#fff}
-.act-btn.light{background:#f5f5f5;color:#888}
-/* Nav */
+.ab{flex:1;padding:7px;border-radius:8px;border:none;font-size:10px;font-weight:600;font-family:inherit;text-align:center}
+.ab.dk{background:#111;color:#fff}
+.ab.lt{background:#f5f5f5;color:#888}
 .nav{display:flex;justify-content:center;gap:12px;margin-top:8px;font-size:10px;color:#999;align-items:center}
-.nav .arr{font-size:16px;color:#bbb;cursor:default}
-/* Tags */
-.tag{font-size:9px;padding:1px 6px;border-radius:100px;font-weight:600;background:#f0fdf4;color:#16a34a}
-/* Variant specifics */
-.v2-dots{display:flex;gap:6px;margin-bottom:10px}
-.v2-dot{width:6px;height:6px;border-radius:50%;background:#ddd;position:relative}
-.v2-dot.active{background:#111;transform:scale(1.3)}
-.v4-mini{display:flex;gap:6px;margin-top:8px;padding:6px 0}
-.v4-mini .m{flex:1;padding:4px;border-radius:6px;font-size:8px;text-align:center;font-weight:600;cursor:default}
-.v4-mini .m.cur{background:#111;color:#fff}
-.v4-mini .m.oth{background:#f0f0f0;color:#999}
-.v6-strip{display:flex;gap:2px;margin:6px 0;padding:4px 0;border-top:1px solid #eee;border-bottom:1px solid #eee}
-.v6-strip .s{flex:1;height:2px;border-radius:2px;background:#ddd}
-.v6-strip .s.cur{background:#111;height:3px}
-.v8-circles{display:flex;gap:4px;margin-bottom:8px;align-items:center}
-.v8-circles .c{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;cursor:default}
-.v8-circles .c.cur{background:#111;color:#fff}
-.v8-circles .c.oth{background:#f0f0f0;color:#999}
-.v9-progress{height:2px;background:#eee;border-radius:2px;margin-bottom:10px;position:relative}
-.v9-progress .fill{height:100%;background:#111;border-radius:2px;transition:.3s;width:33%}
-.v10-tabs{display:flex;gap:2px;margin-bottom:10px}
-.v10-tab{flex:1;padding:4px;border-radius:6px;font-size:9px;text-align:center;font-weight:600;cursor:default}
-.v10-tab.cur{background:#111;color:#fff}
-.v10-tab.oth{background:#f5f5f5;color:#999}
+.nav .ar{font-size:16px;color:#bbb;cursor:default}
+.mini{display:flex;gap:6px;margin-top:8px}
+.mini .m{flex:1;padding:4px;border-radius:6px;font-size:8px;text-align:center;font-weight:600}
+.mini .m.cur{background:#111;color:#fff}
+.mini .m.oth{background:#f0f0f0;color:#999}
 </style>
 </head>
 <body>
@@ -66,127 +43,191 @@ p.desc{color:#888;font-size:13px;margin-bottom:24px}
 <div class="grid">
 
 <div class="card" data-num="1">
-<div class="title">Минималистичная карусель</div>
-<div class="sub">Тонкие точки внизу. Навигация ← →</div>
+<div class="title">Точки-линии</div>
+<div class="sub">Активная — широкая линия. Остальные — точки. Минимализм</div>
 <div class="modal">
-<div class="modal-hdr"><span>⏸ Отложенный чек · 1 из 2</span><span class="close">×</span></div>
-<div class="car-dots"><span class="car-dot active" style="width:16px"></span><span class="car-dot" style="width:6px"></span></div>
-<div class="items">
-<div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
-<div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div>
-<div class="row"><span>Прокладка</span><span>200 ₽</span></div>
-<hr class="divider">
-<div class="total"><span>Итого</span><span>3 550 ₽</span></div>
+<div class="mhdr"><span>⏸ 1 из 2</span><span class="x">×</span></div>
+<div class="dots"><span class="d on" style="width:16px"></span><span class="d" style="width:6px"></span></div>
+<div class="its">
+<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
+<div class="rw"><span>Прокладка</span><span>200 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
 </div>
-<div class="acts"><div class="act-btn light">✕ Удалить</div><div class="act-btn dark">→ Продолжить</div></div>
-<div class="nav"><span class="arr">←</span><span>1 / 2</span><span class="arr">→</span></div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">→ Продолжить</div></div>
+<div class="nav"><span class="ar">←</span><span>Проведите</span><span class="ar">→</span></div>
 </div></div>
 
 <div class="card" data-num="2">
-<div class="title">Точки-пульсики</div>
-<div class="sub">Активная точка крупнее. Счётчик внизу</div>
+<div class="title">Цифры + точки</div>
+<div class="sub">Номер текущего чека цифрой, остальные — точки</div>
 <div class="modal">
-<div class="modal-hdr"><span>⏸ Чек #3</span><span class="close">×</span></div>
-<div class="v2-dots"><span class="v2-dot active"></span><span class="v2-dot"></span></div>
-<div class="items">
-<div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
-<div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div>
-<div class="row"><span>Прокладка</span><span>200 ₽</span></div>
-<hr class="divider">
-<div class="total"><span>Итого</span><span>3 550 ₽</span></div>
+<div class="mhdr"><span>Чек #3</span><span class="x">×</span></div>
+<div style="display:flex;gap:4px;align-items:center;margin-bottom:10px">
+<span style="font-weight:700;font-size:14px">1</span>
+<span class="d on" style="width:6px;height:6px;border-radius:50%"></span>
+<span class="d" style="width:6px;height:6px;border-radius:50%"></span>
+<span style="font-size:12px;color:#bbb">2</span>
 </div>
-<div class="acts"><div class="act-btn light">Удалить</div><div class="act-btn dark">Продолжить</div></div>
-<div class="nav" style="gap:6px"><span style="font-size:10px;color:#bbb">←</span><span style="color:#999">Чек 1 из 2</span><span style="font-size:10px;color:#bbb">→</span></div>
+<div class="its">
+<div class="rw"><span>Масло ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр</span><span>350 ₽</span></div>
+<div class="rw"><span>Прокладка</span><span>200 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
 </div></div>
 
 <div class="card" data-num="3">
-<div class="title">Счётчик + стрелки</div>
-<div class="sub">Только номер чека и стрелки. Минимум деталей</div>
+<div class="title">Миниатюры снизу</div>
+<div class="sub">Маленькие карточки всех отложенных. Текущий — чёрный</div>
 <div class="modal">
-<div class="modal-hdr"><span>Чек #3</span><span class="close">×</span></div>
-<div style="display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:8px">
-<span style="font-size:14px;color:#bbb;cursor:default">←</span>
-<span style="font-size:11px;font-weight:600;color:#111">1</span>
-<span class="car-dot" style="width:4px;height:4px;background:#111"></span>
-<span class="car-dot" style="width:4px;height:4px"></span>
-<span style="font-size:11px;font-weight:600;color:#bbb">2</span>
-<span style="font-size:14px;color:#111;cursor:default">→</span>
+<div class="mhdr"><span>⏸ Отложенные чеки</span><span class="x">×</span></div>
+<div class="its">
+<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
+<hr>
+<div class="tot"><span>#3 · 3 550 ₽</span></div>
 </div>
-<div class="items">
-<div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
-<div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div>
-<div class="row"><span>Прокладка</span><span>200 ₽</span></div>
-<hr class="divider">
-<div class="total"><span>Итого</span><span>3 550 ₽</span></div>
-</div>
-<div class="acts"><div class="act-btn light">✕</div><div class="act-btn dark">Продолжить</div></div>
-<div style="text-align:center;font-size:9px;color:#bbb;margin-top:6px;cursor:default">Чтобы пролистать — проведите влево/вправо</div>
+<div class="mini"><div class="m cur">#3 · 3 550</div><div class="m oth">#4 · 2 100</div></div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
 </div></div>
 
 <div class="card" data-num="4">
-<div class="title">Миниатюры снизу</div>
-<div class="sub">Маленькие превью всех отложенных. Текущий — чёрный</div>
+<div class="title">Счётчик + стрелки</div>
+<div class="sub">Только номер и стрелки. Максимум воздуха</div>
 <div class="modal">
-<div class="modal-hdr"><span>⏸ Отложенные чеки</span><span class="close">×</span></div>
-<div class="items">
-<div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
-<div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div>
-<div class="row"><span>Прокладка</span><span>200 ₽</span></div>
-<hr class="divider">
-<div class="total"><span>#3 · 3 550 ₽</span><span class="tag">отложен</span></div>
+<div class="mhdr"><span>⏸ Отложенный</span><span class="x">×</span></div>
+<div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:10px">
+<span style="font-size:16px;color:#bbb;cursor:default">←</span>
+<span style="font-size:11px;font-weight:600">1</span>
+<span style="font-size:10px;color:#bbb">/</span>
+<span style="font-size:11px;font-weight:400;color:#bbb">2</span>
+<span style="font-size:16px;color:#111;cursor:default">→</span>
 </div>
-<div class="v4-mini"><div class="m cur">#3 3 550</div><div class="m oth">#4 2 100</div></div>
-<div class="acts"><div class="act-btn light">✕</div><div class="act-btn dark">Продолжить</div></div>
-<div style="display:flex;gap:8px;justify-content:center;margin-top:6px">
-<span style="font-size:12px;color:#bbb;cursor:default">←</span>
-<span style="font-size:10px;color:#999">Клик по миниатюре — перейти</span>
-<span style="font-size:12px;color:#bbb;cursor:default">→</span>
+<div class="its">
+<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
+<div class="rw"><span>Прокладка</span><span>200 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
 </div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
 </div></div>
 
 <div class="card" data-num="5">
-<div class="title">Полоса прогресса</div>
-<div class="sub">Линия прогресса показывает позицию. Элегантно</div>
+<div class="title">Прогресс-бар</div>
+<div class="sub">Линия прогресса, как в YouTube/Instagram stories</div>
 <div class="modal">
-<div class="modal-hdr"><span>⏸ Чек #3</span><span style="font-size:10px;color:#999">1/2</span></div>
+<div class="mhdr"><span>⏸ Чек #3</span><span>1/2</span></div>
 <div style="display:flex;gap:4px;margin-bottom:10px">
 <div style="flex:1;height:2px;border-radius:2px;background:#111"></div>
 <div style="flex:1;height:2px;border-radius:2px;background:#eee"></div>
 </div>
-<div class="items">
-<div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
-<div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div>
-<div class="row"><span>Прокладка</span><span>200 ₽</span></div>
-<hr class="divider">
-<div class="total"><span>Итого</span><span>3 550 ₽</span></div>
+<div class="its">
+<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр</span><span>350 ₽</span></div>
+<div class="rw"><span>Прокладка</span><span>200 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
 </div>
-<div class="acts"><div class="act-btn light">Удалить</div><div class="act-btn dark">Продолжить</div></div>
-<div class="nav"><span style="font-size:12px;color:#bbb;cursor:default">←</span><span style="font-size:9px;color:#999">Проведите влево/вправо</span><span style="font-size:12px;color:#111;cursor:default">→</span></div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
+<div class="nav"><span class="ar">←</span><span>Свайп</span><span class="ar">→</span></div>
 </div></div>
 
 <div class="card" data-num="6">
-<div class="title">Стрипы (как в iOS)</div>
-<div class="sub">Полоски, как в iOS-карусели. Текущая — шире и темнее</div>
+<div class="title">iOS-стрипы</div>
+<div class="sub">Полоски как в iOS. Текущая — шире и темнее</div>
 <div class="modal">
-<div class="modal-hdr"><span>⏸ Отложенные</span><span class="close">×</span></div>
-<div class="v6-strip"><span class="s cur"></span><span class="s"></span><span class="s"></span></div>
-<div class="items">
-<div class="row"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
-<div class="row"><span>Фильтр масляный</span><span>350 ₽</span></div>
-<div class="row"><span>Прокладка</span><span>200 ₽</span></div>
-<hr class="divider">
-<div class="total"><span>Итого</span><span>3 550 ₽</span></div>
+<div class="mhdr"><span>⏸ Отложенные</span><span class="x">×</span></div>
+<div style="display:flex;gap:3px;margin-bottom:10px">
+<div style="flex:1;height:3px;border-radius:3px;background:#111"></div>
+<div style="flex:1;height:2px;border-radius:2px;background:#ddd"></div>
+<div style="flex:1;height:2px;border-radius:2px;background:#ddd"></div>
 </div>
-<div class="acts"><div class="act-btn light">✕ Удалить</div><div class="act-btn dark">→ Продолжить</div></div>
+<div class="its">
+<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр</span><span>350 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
 <div style="text-align:center;font-size:9px;color:#bbb;margin-top:6px">1 / 3</div>
 </div></div>
 
 <div class="card" data-num="7">
 <div class="title">Карточки с наложением</div>
-<div class="sub">Текущий чек — полный. Следующий — выглядывает справа</div>
-<div style="position:relative;height:200px;border-radius:14px;overflow:hidden">
-<div style="position:absolute;top:0;right:0;width:85%;height:100%;background:#f0f0f0;border-radius:14px;padding:14px;z-index:1">
+<div class="sub">Следующий чек выглядывает справа. Эффект глубины</div>
+<div style="position:relative;height:210px;border-radius:14px;overflow:hidden">
+<div style="position:absolute;top:10px;right:0;width:80%;height:90%;background:#f0f0f0;border-radius:14px;padding:14px;z-index:1">
 <div style="font-size:10px;color:#bbb;margin-bottom:6px">#4 · 2 100 ₽</div>
-<div class="row" style="font-size:10px"><span>Торм. колодки</span><span>2 100 ₽</span></div>
+<div style="font-size:10px"><span>Торм. колодки</span></div>
 </div>
-<div style="position
+<div style="position:absolute;top:0;left:0;width:90%;height:100%;background:#fff;border-radius:14px;padding:14px;z-index:2;border:1px solid #eee;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+<div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-weight:600;font-size:12px">#3 · 3 550 ₽</span><span style="font-size:10px;color:#999">1/2</span></div>
+<div class="its" style="margin-bottom:12px">
+<div class="rw"><span>Масло ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр</span><span>350 ₽</span></div>
+<div class="rw"><span>Прокладка</span><span>200 ₽</span></div>
+<hr><div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
+</div></div></div>
+
+<div class="card" data-num="8">
+<div class="title">Кружки с цифрами</div>
+<div class="sub">Вместо точек — кружки с номером чека</div>
+<div class="modal">
+<div class="mhdr"><span>⏸ Чек #3</span><span class="x">×</span></div>
+<div style="display:flex;gap:4px;margin-bottom:10px;align-items:center">
+<div style="width:22px;height:22px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700">3</div>
+<div style="width:22px;height:22px;border-radius:50%;background:#f0f0f0;color:#bbb;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600">4</div>
+</div>
+<div class="its">
+<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр</span><span>350 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
+<div class="nav"><span class="ar">←</span><span>Свайп</span><span class="ar">→</span></div>
+</div></div>
+
+<div class="card" data-num="9">
+<div class="title">Табы-вкладки</div>
+<div class="sub">Вкладки «Чек 1», «Чек 2» сверху. Как браузерные вкладки</div>
+<div class="modal">
+<div style="display:flex;gap:3px;margin-bottom:10px">
+<div style="flex:1;padding:5px;border-radius:6px;background:#111;color:#fff;font-size:9px;font-weight:600;text-align:center">Чек 1</div>
+<div style="flex:1;padding:5px;border-radius:6px;background:#f5f5f5;color:#999;font-size:9px;font-weight:500;text-align:center">Чек 2</div>
+</div>
+<div class="its">
+<div class="rw"><<div class="rw"><span>Масло ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр</span><span>350 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
+</div></div>
+
+<div class="card" data-num="10">
+<div class="title">Компакт: только точки + название</div>
+<div class="sub">Максимально сжато. Точки, название чека, товары, кнопки</div>
+<div class="modal">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<div class="dots" style="margin-bottom:0"><span class="d on" style="width:14px;height:4px"></span><span class="d" style="width:4px;height:4px;border-radius:50%"></span></div>
+<span style="font-size:10px;color:#999">1/2</span>
+</div>
+<div style="font-weight:600;font-size:12px;margin-bottom:8px">Чек #3 · 3 550 ₽</div>
+<div class="its" style="margin-bottom:8px">
+<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
+</div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
+</div></div>
+
+</div>
+</body>
+</html>
