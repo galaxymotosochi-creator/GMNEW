@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10 вариантов — Отложенные чеки</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;background:#f5f5f7;padding:30px;color:#111}
+h1{font-size:22px;margin-bottom:6px}
+p.desc{color:#888;font-size:13px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:960px}
+.card{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 2px 16px rgba(0,0,0,.05);position:relative;font-size:13px}
+.card::before{content:attr(data-num);position:absolute;top:-8px;left:-8px;background:#111;color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.card .title{font-weight:700;font-size:14px;margin-bottom:10px}
+.card .sub{color:#888;font-size:11px;margin-bottom:12px}
+.reg{background:#f5f5f7;border-radius:14px;padding:14px;border:1px solid #e5e5e5}
+.reg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:12px}
+.reg-header .name{font-weight:600}
+.reg-cart{background:#fff;border-radius:10px;padding:10px;margin-bottom:10px;font-size:12px;line-height:1.8}
+.reg-cart .item{display:flex;justify-content:space-between}
+.reg-cart .total{display:flex;justify-content:space-between;font-weight:700;border-top:1px solid #eee;padding-top:4px;margin-top:4px}
+.reg-btns{display:flex;gap:6px}
+.reg-btn{flex:1;padding:8px 6px;border-radius:8px;border:1.5px solid #eee;background:#fff;font-size:11px;font-weight:600;text-align:center;font-family:inherit}
+.reg-btn.dark{background:#111;color:#fff;border-color:#111}
+.reg-btn.orange{background:#f97316;color:#fff;border-color:#f97316}
+.hold-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:#fff3cd;color:#92400e}
+.hold-badge .count{background:#92400e;color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:9px}
+.r-item{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #f0f0f0;font-size:11px}
+.r-item .num{font-weight:600}
+.r-item .amt{font-weight:700}
+.r-item .tag{font-size:9px;padding:1px 6px;border-radius:100px;font-weight:600}
+.r-item .tag.hold{background:#fff3cd;color:#92400e}
+.tab{font-size:11px;padding:4px 10px;border-radius:6px;background:#f5f5f5;font-weight:500}
+.tab.active{background:#111;color:#fff}
+</style>
+</head>
+<body>
+<h1>10 вариантов — Отложенные чеки</h1>
+<p class="desc">Где они живут, как выглядят, как открываются</p>
+<div class="grid">
+
+<div class="card" data-num="1">
+<div class="title">Кнопка-счётчик на кассе</div>
+<div class="sub">Оранжевая кнопка с количеством отложенных. Нажал — открылся список</div>
+<div class="reg">
+<div class="reg-header"><span class="name">Смена #12 · Иван</span><span class="hold-badge">⏸️ <span class="count">2</span></span></div>
+<div class="reg-cart"><div class="item"><span>Масло моторное</span><span>1 500 ₽</span></div><div class="item"><span>Фильтр масляный</span><span>350 ₽</span></div><div class="total"><span>ИТОГО:</span><span>1 850 ₽</span></div></div>
+<div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn dark">💰 Оплатить</div><div class="reg-btn orange">⏸️ Отложить (2)</div></div>
+</div></div>
+
+<div class="card" data-num="2">
+<div class="title">Боковая панель справа</div>
+<div class="sub">Список отложенных всегда виден. Клик — восстановить корзину</div>
+<div style="display:flex;gap:8px">
+<div style="flex:1"><div class="reg"><div class="reg-header"><span class="name">Смена #12</span><span>⚙️</span></div><div class="reg-cart" style="min-height:50px;color:#999;text-align:center;padding:10px;font-size:11px">← Выберите товары</div><div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn" style="opacity:.4">💰 Оплатить</div></div></div></div>
+<div style="width:110px;background:#f5f5f5;border-radius:10px;padding:8px;font-size:10px"><div style="font-weight:700;font-size:11px;margin-bottom:6px">⏸️ 2</div><div style="background:#fff;border-radius:6px;padding:5px 6px;margin-bottom:3px;border-left:2px solid #f97316"><div style="font-weight:600">#3 · 1 850 ₽</div></div><div style="background:#fff;border-radius:6px;padding:5px 6px;border-left:2px solid #f97316"><div style="font-weight:600">#4 · 3 200 ₽</div></div></div></div></div>
+
+<div class="card" data-num="3">
+<div class="title">Вкладки: Чек / Отложенные</div>
+<div class="sub">Переключение между режимами вкладками</div>
+<div style="display:flex;gap:4px;margin-bottom:8px"><div class="tab active">🧾 Чек</div><div class="tab">⏸️ Отложенные 2</div></div>
+<div class="reg"><div class="reg-cart"><div class="item"><span>Ремень ГРМ</span><span>1 200 ₽</span></div><div class="item"><span>Ролик</span><span>650 ₽</span></div><div class="total"><span>ИТОГО:</span><span>1 850 ₽</span></div></div><div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn dark">💰 Оплатить</div><div class="reg-btn" style="background:#fff;color:#f97316;border-color:#f97316">⏸️ Отложить</div></div></div></div>
+
+<div class="card" data-num="4">
+<div class="title">Модалка списка</div>
+<div class="sub">По клику на счётчик — модалка со всеми отложенными</div>
+<div style="background:#fff;border-radius:14px;padding:16px;border:1px solid #eee;max-width:310px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-weight:700;font-size:13px">⏸️ Отложенные чеки</span><span style="font-size:16px;color:#999">×</span></div><div style="font-size:11px;color:#888;margin-bottom:8px">2 чека в ожидании</div><div class="r-item" style="border:1px solid #f0f0f0;border-radius:8px;margin-bottom:4px"><div><div class="num">#3</div><div style="color:#888;font-size:10px">Иванов</div></div><div style="text-align:right"><div class="amt">1 850 ₽</div><div class="tag hold">3 товара</div></div><span style="font-size:14px;color:#f97316;font-weight:700">→</span></div><div class="r-item" style="border:1px solid #f0f0f0;border-radius:8px;margin-bottom:8px"><div><div class="num">#4</div><div style="color:#888;font-size:10px">—</div></div><div style="text-align:right"><div class="amt">3 200 ₽</div><div class="tag hold">5 товаров</div></div><span style="font-size:14px;color:#f97316;font-weight:700">→</span></div><button style="width:100%;padding:8px;border-radius:8px;border:none;background:#f5f5f5;font-size:11px;font-weight:600;font-family:inherit">Закрыть</button></div></div>
+
+<div class="card" data-num="5">
+<div class="title">Длинное нажатие на Оплатить</div>
+<div class="sub">Кнопка «Оплатить» — короткое нажатие = оплата, долгое = отложить</div>
+<div class="reg"><div class="reg-header"><span class="name">Смена #12 · 1 отложенный</span></div><div class="reg-cart"><div class="item"><span>Аккумулятор 12V</span><span>3 500 ₽</span></div><div class="total"><span>ИТОГО:</span><span>3 500 ₽</span></div></div><div class="reg-btns"><div class="reg-btn">➕ Товар</div><div style="flex:1;position:relative"><div class="reg-btn dark" style="width:100%">💰 Оплатить</div><div style="position:absolute;bottom:-4px;right:2px;background:#f97316;color:#fff;font-size:8px;padding:1px 5px;border-radius:4px">⏸️</div></div></div></div></div>
+
+<div class="card" data-num="6">
+<div class="title">Авто-отложение при закрытии</div>
+<div class="sub">Закрыл модалку оплаты × — чек не пропадает, а откладывается сам</div>
+<div class="reg"><div class="reg-header"><span class="name">Смена #12</span><span style="background:#fff3cd;color:#92400e;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600">Есть отложенные</span></div><div class="reg-cart"><div class="item"><span>Колодки тормозные</span><span>2 200 ₽</span></div><div class="item"><span>Датчик ABS</span><span>1 800 ₽</span></div><div class="total"><span>ИТОГО:</span><span>4 000 ₽</span></div></div><div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn dark">💰 Оплатить</div></div></div></div>
+
+<div class="card" data-num="7">
+<div class="title">В строке быстрых действий</div>
+<div class="sub">Отдельная кнопка в нижней панели кассы</div>
+<div class="reg"><div class="reg-header"><span class="name">Иван | Смена #12</span><span>📋 4 чека · 1 отложен</span></div><div class="reg-cart"><div class="item"><span>Свечи зажигания ×4</span><span>1 200 ₽</span></div><div class="total"><span>ИТОГО:</span><span>1 200 ₽</span></div></div><div class="reg-btns"><div class="reg-btn">➕ Товар</div><div class="reg-btn dark">💳 Оплатить</div><div class="reg-btn orange">⏸️</div></div></div></div>
+
+<div class="card" data-num="8">
+<div class="title">Список отложенных в разделе Чеки</div>
+<div class="sub">На странице «Чеки» — вкладка «Отложенные»</div>
+<div style="display:flex;gap:4px;margin-bottom:8px"><div class="tab">Все</div><div class="tab active">Оплачен</div><div class="tab">Долги</div><div class="tab" style="background:#fff3cd;color:#92400e;font-weight:600">⏸️ Отложенные 2</div></div>
+<div class="r-item"><div><div class="num">#3</div><div style="color:#888;font-size:10px">Иван | 12:34</div></div><div><div class="amt">1 850 ₽</div></div><div><span class="tag hold">Отложен</span></div><span style="font-size:14px;color:#f97316;font-weight:700">→</span></div>
+<div class="r-item"><div><div class="num">#4</div><div style="color:#888;font-size:10px">12:45</div></div><div><div class="amt">3 200 ₽</div></div><div><span class="tag hold">Отложен</span></div><span style="font-size:14px;color:#f97316;font-weight:700">→</span></div></div>
+
+<div class="card" data-num="9">
+<div class="title">Отложенный чек — восстановить или удалить</div>
+<div class="sub">При открытии отложенного: корзина восстанавливается полностью</div>
+<div style="background:#fff;border-radius:14px;padding:14px;border:1px solid #eee;max-width:320px">
+<div style="font-weight:700;font-size:13px;margin-bottom:6px">⏸️ Чек #3 (отложен)</div>
+<div style="font-size:11px;color:#888;margin-bottom:10px">Отложен в 12:34 · 3 товара</div>
+<div class="reg-cart" style="margin-bottom:8px"><div class="item"><span>Масло моторное</span><span>1 500 ₽</span></div><div class="item"><span>Фильтр масляный</span><span>350 ₽</span></div><div class="total"><span>ИТОГО:</span><span>1 850 ₽</span></div></div>
+<div style="display:flex;gap:6px"><div style="flex:1;padding:8px;border-radius:8px;border:1px solid #ddd;font-size:11px;font-weight:600;text-align:center
