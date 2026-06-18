@@ -3,132 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Карусель отложенных чеков</title>
+<title>Карусель — один чек</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter,sans-serif;background:#f5f5f7;padding:40px;color:#111;display:flex;flex-direction:column;align-items:center}
 h1{font-size:22px;margin-bottom:4px;font-weight:700}
-p.desc{color:#888;font-size:13px;margin-bottom:32px;text-align:center;max-width:500px;line-height:1.5}
-.page{background:rgba(0,0,0,.25);border-radius:24px;padding:40px;display:inline-flex;justify-content:center;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-.modal{background:#fff;border-radius:24px;padding:28px;width:440px;box-shadow:0 24px 80px rgba(0,0,0,.15);position:relative}
-.modal .x{position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:18px;color:#999;cursor:default}
-.modal-title{font-size:15px;font-weight:700;margin-bottom:2px}
-.modal-sub{font-size:12px;color:#999;margin-bottom:20px}
-.carousel{position:relative;height:400px;margin:0 -20px 4px;overflow:visible}
-/* Card base */
-.card{position:absolute;border-radius:16px;padding:18px;transition:all .35s cubic-bezier(.23,1,.32,1);overflow:hidden;display:flex;flex-direction:column}
-/* Active card */
-.card.active{z-index:5;top:0;left:0;right:0;height:100%;background:#fff;border:1px solid #eee;box-shadow:0 8px 48px rgba(0,0,0,.08)}
-/* Peek cards */
-.card.peek-l{z-index:4;top:16px;left:-20px;right:28px;height:92%;background:#f8f8f8;border:1px solid #eee;transform:scale(.95);opacity:.7;padding:14px 16px}
-.card.peek-r{z-index:4;top:16px;left:28px;right:-20px;height:92%;background:#f8f8f8;border:1px solid #eee;transform:scale(.95);opacity:.7;padding:14px 16px}
-/* Far cards */
-.card.far-l{z-index:3;top:28px;left:-34px;right:42px;height:85%;background:#f2f2f2;border:1px solid #eee;transform:scale(.91);opacity:.4;padding:12px}
-.card.far-r{z-index:3;top:28px;left:42px;right:-34px;height:85%;background:#f2f2f2;border:1px solid #eee;transform:scale(.91);opacity:.4;padding:12px}
-/* Content in cards */
-.card .c-num{font-size:11px;font-weight:600;color:#111;margin-bottom:2px}
-.card .c-sum{font-size:16px;font-weight:700;color:#111;margin-bottom:2px}
-.card .c-info{font-size:10px;color:#999;line-height:1.4}
-.card .c-items{font-size:10px;color:#666;line-height:1.8;margin-top:4px;flex:1}
-.card .c-items .rw{display:flex;justify-content:space-between}
-.card .c-items .rw .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%}
-/* Active card full items */
-.active .items{background:#f8f8f8;border-radius:12px;padding:12px;margin:10px 0;font-size:12px;line-height:2;flex:1}
-.active .items .rw{display:flex;justify-content:space-between}
-.active .items hr{border:none;border-top:1px solid #eee;margin:6px 0}
-.active .items .tot{display:flex;justify-content:space-between;font-weight:700;font-size:13px}
-.acts{display:flex;gap:8px;margin-top:8px}
-.ab{flex:1;padding:10px;border-radius:10px;border:none;font-size:12px;font-weight:600;font-family:inherit;text-align:center;cursor:default}
+p.desc{color:#888;font-size:13px;margin-bottom:32px;text-align:center}
+.page{background:rgba(0,0,0,.25);border-radius:24px;padding:40px;display:inline-flex;justify-content:center}
+.modal{background:#fff;border-radius:24px;padding:28px;width:420px;box-shadow:0 24px 80px rgba(0,0,0,.15);position:relative}
+.modal .x{position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:18px;color:#999}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.hdr .title{font-size:15px;font-weight:700}
+.hdr .ct{font-size:11px;font-weight:500;color:#999;background:#f5f5f5;padding:2px 10px;border-radius:100px}
+.sub{font-size:12px;color:#999;margin-bottom:16px;line-height:1.5}
+/* Table header */
+.thdr{display:flex;font-size:10px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.5px;padding:0 0 6px 0;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
+.thdr .tn{flex:1}
+.thdr .tq{width:50px;text-align:center}
+.thdr .tp{width:70px;text-align:right}
+.thdr .tt{width:80px;text-align:right}
+/* Item rows */
+.item{display:flex;align-items:center;padding:6px 0;border-bottom:1px solid #f8f8f8;font-size:13px;gap:4px}
+.item:last-child{border-bottom:none}
+.item .in{flex:1;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .iq{width:50px;text-align:center;color:#888;font-weight:500}
+.item .ip{width:70px;text-align:right;color:#888}
+.item .it{width:80px;text-align:right;font-weight:600}
+/* Separator */
+.sep{border:none;border-top:1px solid #eee;margin:8px 0}
+/* Total line */
+.total{display:flex;justify-content:space-between;font-weight:700;font-size:14px;padding:4px 0}
+/* Actions */
+.acts{display:flex;gap:8px;margin-top:12px}
+.ab{flex:1;padding:10px;border-radius:10px;border:none;font-size:12px;font-weight:600;font-family:inherit;text-align:center}
 .ab.dk{background:#111;color:#fff}
 .ab.lt{background:#f5f5f5;color:#888}
-.dots{display:flex;gap:5px;justify-content:center;align-items:center;padding:6px 0}
+/* Nav */
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;padding-top:12px;margin-top:12px;border-top:1px solid #f0f0f0}
+.nav .ar{font-size:20px;color:#bbb;user-select:none;line-height:1}
+.nav .ar.on{color:#111}
+.nav .pos{font-size:12px;font-weight:500;color:#999}
+.dots{display:flex;gap:5px;justify-content:center;align-items:center;margin-top:8px}
 .dots .d{height:4px;border-radius:100px;background:#ddd;transition:all .3s}
 .dots .d.on{background:#111;width:20px}
 .dots .d:not(.on){width:6px}
-.footer{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid #f0f0f0;font-size:11px;color:#999}
-.footer .cntr{display:flex;align-items:center;gap:12px}
-.footer .cntr .ar{font-size:18px;color:#bbb;cursor:default;user-select:none;line-height:1}
-.footer .cntr .ar.on{color:#111}
 </style>
 </head>
 <body>
-<h1>Карусель отложенных чеков</h1>
-<p class="desc">Все карточки информативные. Соседние — видны товары. Текущий — полный состав</p>
+<h1>Карусель — один чек</h1>
+<p class="desc">Только текущий чек. Навигация ← →. Все товары в одну строку</p>
 
 <div class="page">
 <div class="modal">
 <div class="x">✕</div>
-<div class="modal-title">⏸ Отложенные чеки</div>
-<div class="modal-sub">3 чека · проведите влево/вправо</div>
+<div class="hdr">
+  <span class="title">⏸ Чек #3</span>
+  <span class="ct">1 / 5</span>
+</div>
+<div class="sub">12:34 · Иванов Иван · 3 товара · 3 550 ₽</div>
 
-<div class="carousel">
+<!-- Заголовки колонок -->
+<div class="thdr">
+  <span class="tn">Товар</span>
+  <span class="tq">Кол-во</span>
+  <span class="tp">Цена</span>
+  <span class="tt">Сумма</span>
+</div>
 
-  <!-- Дальний левый -->
-  <div class="card far-l">
-    <div class="c-num">#1</div>
-    <div class="c-sum">1 200 ₽</div>
-    <div class="c-items">
-      <div class="rw"><span class="name">Фильтр салона</span><span>1 200</span></div>
-    </div>
-  </div>
+<!-- Товары -->
+<div class="item">
+  <span class="in">Масло моторное 10W-40</span>
+  <span class="iq">2</span>
+  <span class="ip">1 500</span>
+  <span class="it">3 000 ₽</span>
+</div>
+<div class="item">
+  <span class="in">Фильтр масляный</span>
+  <span class="iq">1</span>
+  <span class="ip">350</span>
+  <span class="it">350 ₽</span>
+</div>
+<div class="item">
+  <span class="in">Прокладка клапанная</span>
+  <span class="iq">1</span>
+  <span class="ip">200</span>
+  <span class="it">200 ₽</span>
+</div>
 
-  <!-- Предыдущий -->
-  <div class="card peek-l">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start">
-      <div class="c-num">#2</div>
-      <div class="c-sum">4 500 ₽</div>
-    </div>
-    <div class="c-info">Петров · 2 товара</div>
-    <div class="c-items">
-      <div class="rw"><span class="name">Аккумулятор 12V</span><span>3 500</span></div>
-      <div class="rw"><span class="name">Клеммы</span><span>1 000</span></div>
-    </div>
-  </div>
+<hr class="sep">
 
-  <!-- Текущий -->
-  <div class="card active">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start">
-      <div>
-        <div class="c-num">Чек #3</div>
-        <div class="c-info">12:34 · Иванов Иван · 3 товара</div>
-      </div>
-      <div class="c-sum">3 550 ₽</div>
-    </div>
-    <div class="items">
-      <div class="rw"><span>Масло моторное 10W-40 ×2</span><span>3 000 ₽</span></div>
-      <div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
-      <div class="rw"><span>Прокладка клапанная</span><span>200 ₽</span></div>
-      <hr>
-      <div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
-    </div>
-    <div class="acts">
-      <div class="ab lt">✕ Удалить</div>
-      <div class="ab dk">→ Продолжить</div>
-    </div>
-  </div>
+<div class="total">
+  <span>Итого</span>
+  <span>3 550 ₽</span>
+</div>
 
-  <!-- Следующий -->
-  <div class="card peek-r">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start">
-      <div class="c-num">#4</div>
-      <div class="c-sum">1 800 ₽</div>
-    </div>
-    <div class="c-info">Сидоров · 1 товар</div>
-    <div class="c-items">
-      <div class="rw"><span class="name">Тормозные колодки</span><span>1 800</span></div>
-    </div>
-  </div>
-
-  <!-- Дальний правый -->
-  <div class="card far-r">
-    <div class="c-num">#5</div>
-    <div class="c-sum">3 200 ₽</div>
-    <div class="c-items">
-      <div class="rw"><span class="name">Свечи зажигания ×4</span><span>3 200</span></div>
-    </div>
-  </div>
-
+<div class="acts">
+  <div class="ab lt">✕ Удалить</div>
+  <div class="ab dk">→ Продолжить</div>
 </div>
 
 <div class="dots">
@@ -139,21 +111,17 @@ p.desc{color:#888;font-size:13px;margin-bottom:32px;text-align:center;max-width:
   <span class="d"></span>
 </div>
 
-<div class="footer">
-  <span>⏸ Отложено 3</span>
-  <div class="cntr">
-    <span class="ar">←</span>
-    <span>3 / 5</span>
-    <span class="ar on">→</span>
-  </div>
+<div class="nav">
+  <span class="ar">←</span>
+  <span class="pos">Чек 3 из 5</span>
+  <span class="ar on">→</span>
 </div>
 </div>
 </div>
 
-<p style="color:#888;font-size:12px;margin-top:24px;text-align:center;max-width:500px;line-height:1.6">
-Все карточки показывают: номер чека, сумму, клиента, товары. 
-Текущий — полностью развёрнут. Соседние — чуть меньше и прозрачнее, но всё видно.
-Листайте ← →
+<p style="color:#888;font-size:12px;margin-top:24px;text-align:center;max-width:450px;line-height:1.6">
+Один чек на весь экран. Каждый товар — в одну строку: название, кол-во, цена, сумма. 
+Листайте ← →. Точки показывают сколько всего. Счётчик 1/5.
 </p>
 </body>
 </html>
