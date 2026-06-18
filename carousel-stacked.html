@@ -3,99 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Карусель — один чек</title>
+<title>Карусель чеков</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter,sans-serif;background:#f5f5f7;padding:40px;color:#111;display:flex;flex-direction:column;align-items:center}
 h1{font-size:22px;margin-bottom:4px;font-weight:700}
-p.desc{color:#888;font-size:13px;margin-bottom:32px;text-align:center}
+p.desc{color:#888;font-size:13px;margin-bottom:32px}
 .page{background:rgba(0,0,0,.25);border-radius:24px;padding:40px;display:inline-flex;justify-content:center}
-.modal{background:#fff;border-radius:24px;padding:28px;width:420px;box-shadow:0 24px 80px rgba(0,0,0,.15);position:relative}
-.modal .x{position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:18px;color:#999}
+.modal{background:#fff;border-radius:24px;padding:24px;width:400px;box-shadow:0 24px 80px rgba(0,0,0,.15);position:relative}
+.x{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:16px;color:#999}
 .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
-.hdr .title{font-size:15px;font-weight:700}
-.hdr .ct{font-size:11px;font-weight:500;color:#999;background:#f5f5f5;padding:2px 10px;border-radius:100px}
-.sub{font-size:12px;color:#999;margin-bottom:16px;line-height:1.5}
-/* Table header */
-.thdr{display:flex;font-size:10px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.5px;padding:0 0 6px 0;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
-.thdr .tn{flex:1}
-.thdr .tq{width:50px;text-align:center}
-.thdr .tp{width:70px;text-align:right}
-.thdr .tt{width:80px;text-align:right}
-/* Item rows */
-.item{display:flex;align-items:center;padding:6px 0;border-bottom:1px solid #f8f8f8;font-size:13px;gap:4px}
-.item:last-child{border-bottom:none}
-.item .in{flex:1;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.item .iq{width:50px;text-align:center;color:#888;font-weight:500}
-.item .ip{width:70px;text-align:right;color:#888}
-.item .it{width:80px;text-align:right;font-weight:600}
-/* Separator */
-.sep{border:none;border-top:1px solid #eee;margin:8px 0}
-/* Total line */
-.total{display:flex;justify-content:space-between;font-weight:700;font-size:14px;padding:4px 0}
-/* Actions */
+.hdr .t{font-size:15px;font-weight:700}
+.hdr .c{font-size:11px;font-weight:500;color:#999;background:#f5f5f5;padding:2px 10px;border-radius:100px}
+.sub{font-size:12px;color:#999;margin-bottom:14px;line-height:1.5}
+/* Gray box with items */
+.box{background:#f9f9f9;border-radius:12px;padding:12px;font-size:13px;line-height:2}
+.box .row{display:flex;justify-content:space-between;align-items:center}
+.box .row .nl{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.box .row .ql{width:50px;text-align:center;color:#888;font-size:12px}
+.box .row .pl{width:60px;text-align:right;color:#888;font-size:12px}
+.box .row .sl{width:80px;text-align:right;font-weight:600}
+.box hr{border:none;border-top:1px solid #e8e8e8;margin:4px 0}
+.box .tot{display:flex;justify-content:space-between;font-weight:700;font-size:14px;padding:2px 0}
 .acts{display:flex;gap:8px;margin-top:12px}
 .ab{flex:1;padding:10px;border-radius:10px;border:none;font-size:12px;font-weight:600;font-family:inherit;text-align:center}
 .ab.dk{background:#111;color:#fff}
 .ab.lt{background:#f5f5f5;color:#888}
-/* Nav */
-.nav{display:flex;align-items:center;justify-content:center;gap:16px;padding-top:12px;margin-top:12px;border-top:1px solid #f0f0f0}
-.nav .ar{font-size:20px;color:#bbb;user-select:none;line-height:1}
-.nav .ar.on{color:#111}
-.nav .pos{font-size:12px;font-weight:500;color:#999}
-.dots{display:flex;gap:5px;justify-content:center;align-items:center;margin-top:8px}
-.dots .d{height:4px;border-radius:100px;background:#ddd;transition:all .3s}
+.dots{display:flex;gap:5px;justify-content:center;align-items:center;margin-top:10px}
+.dots .d{height:4px;border-radius:100px;background:#ddd}
 .dots .d.on{background:#111;width:20px}
 .dots .d:not(.on){width:6px}
+.nav{display:flex;align-items:center;justify-content:center;gap:12px;padding-top:10px;margin-top:10px;border-top:1px solid #f0f0f0;font-size:11px;color:#999}
+.nav .ar{font-size:18px;color:#bbb;user-select:none;line-height:1}
+.nav .ar.on{color:#111}
 </style>
 </head>
 <body>
-<h1>Карусель — один чек</h1>
-<p class="desc">Только текущий чек. Навигация ← →. Все товары в одну строку</p>
+<h1>Карусель чеков — один экран</h1>
+<p class="desc">Один чек целиком. Табличная раскладка. Навигация ← →</p>
 
 <div class="page">
 <div class="modal">
 <div class="x">✕</div>
+
 <div class="hdr">
-  <span class="title">⏸ Чек #3</span>
-  <span class="ct">1 / 5</span>
+  <span class="t">⏸ Чек #3</span>
+  <span class="c">1 / 5</span>
 </div>
 <div class="sub">12:34 · Иванов Иван · 3 товара · 3 550 ₽</div>
 
-<!-- Заголовки колонок -->
-<div class="thdr">
-  <span class="tn">Товар</span>
-  <span class="tq">Кол-во</span>
-  <span class="tp">Цена</span>
-  <span class="tt">Сумма</span>
-</div>
-
-<!-- Товары -->
-<div class="item">
-  <span class="in">Масло моторное 10W-40</span>
-  <span class="iq">2</span>
-  <span class="ip">1 500</span>
-  <span class="it">3 000 ₽</span>
-</div>
-<div class="item">
-  <span class="in">Фильтр масляный</span>
-  <span class="iq">1</span>
-  <span class="ip">350</span>
-  <span class="it">350 ₽</span>
-</div>
-<div class="item">
-  <span class="in">Прокладка клапанная</span>
-  <span class="iq">1</span>
-  <span class="ip">200</span>
-  <span class="it">200 ₽</span>
-</div>
-
-<hr class="sep">
-
-<div class="total">
-  <span>Итого</span>
-  <span>3 550 ₽</span>
+<div class="box">
+  <div class="row" style="font-size:10px;font-weight:600;color:#aaa;padding:2px 0 4px;border-bottom:1px solid #e8e8e8;margin-bottom:2px">
+    <span class="nl">Товар</span>
+    <span class="ql">Кол-во</span>
+    <span class="pl">Цена</span>
+    <span class="sl">Сумма</span>
+  </div>
+  <div class="row">
+    <span class="nl">Масло моторное 10W-40</span>
+    <span class="ql">2</span>
+    <span class="pl">1 500</span>
+    <span class="sl">3 000 ₽</span>
+  </div>
+  <div class="row">
+    <span class="nl">Фильтр масляный</span>
+    <span class="ql">1</span>
+    <span class="pl">350</span>
+    <span class="sl">350 ₽</span>
+  </div>
+  <div class="row">
+    <span class="nl">Прокладка клапанная</span>
+    <span class="ql">1</span>
+    <span class="pl">200</span>
+    <span class="sl">200 ₽</span>
+  </div>
+  <hr>
+  <div class="tot">
+    <span>Итого</span>
+    <span>3 550 ₽</span>
+  </div>
 </div>
 
 <div class="acts">
@@ -113,15 +100,14 @@ p.desc{color:#888;font-size:13px;margin-bottom:32px;text-align:center}
 
 <div class="nav">
   <span class="ar">←</span>
-  <span class="pos">Чек 3 из 5</span>
+  <span>Чек 3 из 5</span>
   <span class="ar on">→</span>
 </div>
 </div>
 </div>
 
 <p style="color:#888;font-size:12px;margin-top:24px;text-align:center;max-width:450px;line-height:1.6">
-Один чек на весь экран. Каждый товар — в одну строку: название, кол-во, цена, сумма. 
-Листайте ← →. Точки показывают сколько всего. Счётчик 1/5.
+Серая плашка как в модалке. Табличная раскладка: Товар | Кол-во | Цена | Сумма. Один чек целиком. Листайте ← →
 </p>
 </body>
 </html>
