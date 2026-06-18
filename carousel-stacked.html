@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Карусель с наложением</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;background:#f5f5f7;padding:40px;color:#111}
+h1{font-size:24px;margin-bottom:6px;font-weight:700}
+p.desc{color:#888;font-size:14px;margin-bottom:30px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1000px}
+.card{background:#fff;border-radius:24px;padding:24px;box-shadow:0 2px 24px rgba(0,0,0,.04);position:relative;font-size:13px}
+.card::before{content:attr(data-num);position:absolute;top:-10px;left:-10px;background:#111;color:#fff;font-size:11px;font-weight:700;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.card .title{font-weight:600;font-size:14px;margin-bottom:4px}
+.card .sub{color:#999;font-size:11px;margin-bottom:14px;line-height:1.4}
+/* Stacked deck */
+.deck{position:relative;height:340px;width:100%;margin-bottom:8px}
+.deck .layer{position:absolute;border-radius:16px;padding:18px;transition:all .4s}
+.deck .layer-0{top:0;left:0;right:0;height:100%;background:#fff;z-index:5;border:1px solid #eee;box-shadow:0 8px 40px rgba(0,0,0,.06)}
+.deck .layer-1{top:12px;left:12px;right:-4px;height:96%;background:#f8f8f8;z-index:4;border:1px solid #eee;filter:blur(.5px);opacity:.7}
+.deck .layer-2{top:22px;left:22px;right:-8px;height:93%;background:#f2f2f2;z-index:3;border:1px solid #eee;filter:blur(1px);opacity:.5}
+.deck .layer-3{top:30px;left:30px;right:-12px;height:90%;background:#ececec;z-index:2;border:1px solid #eee;filter:blur(1.5px);opacity:.3}
+.mhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:13px;font-weight:600}
+.mhdr .x{font-size:20px;color:#bbb;cursor:default}
+.its{background:#f8f8f8;border-radius:12px;padding:12px;margin:12px 0;font-size:12px;line-height:2}
+.its .rw{display:flex;justify-content:space-between}
+.its hr{border:none;border-top:1px solid #eee;margin:6px 0}
+.its .tot{display:flex;justify-content:space-between;font-weight:700;font-size:13px}
+.acts{display:flex;gap:8px;margin-top:10px}
+.ab{flex:1;padding:10px;border-radius:10px;border:none;font-size:12px;font-weight:600;font-family:inherit;text-align:center;cursor:default}
+.ab.dk{background:#111;color:#fff}
+.ab.lt{background:#f5f5f5;color:#888}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid #f0f0f0}
+.nav .ar{font-size:18px;color:#bbb;cursor:default;user-select:none}
+.nav .ar.on{color:#111}
+.nav .pos{font-size:12px;font-weight:500;color:#999}
+/* Dots */
+.dots{display:flex;gap:4px;align-items:center;margin:10px 0}
+.dots .d{height:5px;border-radius:100px;background:#ddd;transition:.4s}
+.dots .d.on{background:#111}
+/* Variant 2 - peek right */
+.peek{position:relative;height:340px;margin-bottom:8px}
+.peek .main{position:absolute;top:0;left:0;right:40px;height:100%;background:#fff;z-index:5;border-radius:16px;padding:18px;border:1px solid #eee;box-shadow:0 8px 40px rgba(0,0,0,.06)}
+.peek .next{position:absolute;top:16px;right:0;width:60px;height:90%;background:#f5f5f5;z-index:4;border-radius:12px;border:1px solid #eee;display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;writing-mode:vertical-rl}
+.peek .prev{position:absolute;top:16px;left:-30px;width:40px;height:90%;background:#f2f2f2;z-index:4;border-radius:12px;border:1px solid #eee;display:flex;align-items:center;justify-content:center;font-size:10px;color:#ccc;writing-mode:vertical-rl}
+</style>
+</head>
+<body>
+<h1>Карусель «Стопка»</h1>
+<p class="desc">Текущий чек полностью, остальные — прозрачные/размытые слои сзади</p>
+<div class="grid">
+
+<div class="card" data-num="1">
+<div class="title">Стопка с размытием</div>
+<div class="sub">Текущий чек сверху. Остальные лежат слоями позади с размытием и прозрачностью. Точки показывают позицию</div>
+<div class="deck">
+<div class="layer layer-3"><div style="font-size:11px;color:#bbb;text-align:center;padding-top:80px">#2 · 2 100 ₽</div></div>
+<div class="layer layer-2"><div style="font-size:11px;color:#bbb;text-align:center;padding-top:70px">#1 · 4 500 ₽</div></div>
+<div class="layer layer-1"><div style="font-size:11px;color:#aaa;text-align:center;padding-top:60px">#4 · 1 800 ₽</div></div>
+<div class="layer layer-0">
+<div class="mhdr"><span>Чек #3</span><span class="x">×</span></div>
+<div style="font-size:11px;color:#999;margin-bottom:8px">12:34 · Иванов Иван</div>
+<div class="its">
+<div class="rw"><span>Масло моторное 10W-40 ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
+<div class="rw"><span>Прокладка клапанная</span><span>200 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="dots"><span class="d on" style="width:20px"></span><span class="d" style="width:6px"></span><span class="d" style="width:6px"></span><span class="d" style="width:6px"></span></div>
+<div class="acts"><div class="ab lt">✕ Удалить</div><div class="ab dk">→ Продолжить</div></div>
+<div class="nav"><span class="ar">←</span><span class="pos">1 из 4</span><span class="ar on">→</span></div>
+</div>
+</div>
+</div>
+
+<div class="card" data-num="2">
+<div class="title">Подглядывание справа</div>
+<div class="sub">Следующий чек выглядывает справа. Можно оценить сколько их. Текущий — всё внимание на него</div>
+<div class="peek">
+<div class="prev">#2</div>
+<div class="main">
+<div class="mhdr"><span style="font-size:14px">⏸ Чек #3</span><span style="font-size:11px;font-weight:400;color:#999">1 из 3</span></div>
+<div style="font-size:12px;color:#999;margin-bottom:10px">Отложен в 12:34 · 3 товара</div>
+<div class="its" style="font-size:13px">
+<div class="rw"><span>Масло моторное ×2</span><span>3 000 ₽</span></div>
+<div class="rw"><span>Фильтр масляный</span><span>350 ₽</span></div>
+<div class="rw"><span>Прокладка</span><span>200 ₽</span></div>
+<hr>
+<div class="tot"><span>Итого</span><span>3 550 ₽</span></div>
+</div>
+<div class="acts"><div class="ab lt">✕</div><div class="ab dk">Продолжить</div></div>
+<div class="nav"><span class="ar">←</span><span style="font-size:11px;color:#bbb">Проведите влево/вправо</span><span class="ar on">→</span></div>
+</div>
+<div class="next">#4 2 100 ₽</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
