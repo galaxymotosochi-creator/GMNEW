@@ -281,6 +281,9 @@ function init(){
     opsArr.sort(function(a,b){return (a.category==='Транспорт'?1:0)-(b.category==='Транспорт'?1:0)||b.createdAt-a.createdAt;});
     saveCache();
     renderAll();
+  }, function(err){
+    console.error('Firebase ops error:',err);
+    document.getElementById('opsBody').innerHTML='<span style="color:#c62828">Ошибка загрузки: '+err.message+'</span>';
   });
 
   // Subscribe to pays
@@ -288,6 +291,9 @@ function init(){
     paysArr=[];
     snap.forEach(function(doc){var x=doc.data(); x.id=doc.id; if(x.total) paysArr.push(x);});
     saveCache(); renderAll(); renderPays();
+  }, function(err){
+    console.error('Firebase pays error:',err);
+    document.getElementById('paysBody').innerHTML='<span style="color:#c62828">Ошибка загрузки: '+err.message+'</span>';
   });
 }
 
@@ -390,7 +396,11 @@ function saveRecord(){
   } else {
     rec.subcat=gv('f_cat');rec.desc=gv('f_desc');rec.payMethod=gv('f_pay');
   }
-  DB.collection('galaxymoto_finance_ops').add(rec);
+  DB.collection('galaxymoto_finance_ops').add(rec).then(function(){
+    toast('✅ Запись добавлена','success');
+  }).catch(function(err){
+    toast('Ошибка: '+err.message,'error');
+  });
   closeForm();
 }
 
@@ -586,7 +596,11 @@ function saveEditRecord(){
     update.payMethod=gv('ed_pay');
     update.amount=parseFloat(gv('ed_amount'))||0;
   }
-  DB.collection('galaxymoto_finance_ops').doc(id).update(update);
+  DB.collection('galaxymoto_finance_ops').doc(id).update(update).then(function(){
+    toast('✅ Изменения сохранены','success');
+  }).catch(function(err){
+    toast('Ошибка: '+err.message,'error');
+  });
   closeEditModal();
 }
 
@@ -679,7 +693,7 @@ function confirmPaySale(){
         if(o.paidOut>=o.commission)o.fullyPaid=true;
         total+=actual;
         items.push({type:'Продажа',desc:o.model||'Скутер',amount:actual});
-        DB.collection('galaxymoto_finance_ops').doc(o.id).update({paidOut:o.paidOut,fullyPaid:o.fullyPaid});
+        DB.collection('galaxymoto_finance_ops').doc(o.id).update({paidOut:o.paidOut,fullyPaid:o.fullyPaid}).catch(function(err){console.error('Ошибка обновления продажи:',err);});
       }
     }
   });
@@ -701,7 +715,7 @@ function confirmPayRent(){
         if(o.paidOut>=comm)o.fullyPaid=true;
         total+=actual;
         items.push({type:'Аренда',desc:o.model||'Аренда',amount:actual});
-        DB.collection('galaxymoto_finance_ops').doc(o.id).update({paidOut:o.paidOut,fullyPaid:o.fullyPaid});
+        DB.collection('galaxymoto_finance_ops').doc(o.id).update({paidOut:o.paidOut,fullyPaid:o.fullyPaid}).catch(function(err){console.error('Ошибка обновления аренды:',err);});
       }
     }
   });
@@ -723,7 +737,7 @@ function confirmPayTrans(){
         if(o.paidOut>=o.amount)o.fullyPaid=true;
         total+=actual;
         items.push({type:'Транспорт',desc:o.cargo||'Перевозка',amount:actual});
-        DB.collection('galaxymoto_finance_ops').doc(o.id).update({paidOut:o.paidOut,fullyPaid:o.fullyPaid});
+        DB.collection('galaxymoto_finance_ops').doc(o.id).update({paidOut:o.paidOut,fullyPaid:o.fullyPaid}).catch(function(err){console.error('Ошибка обновления транспорта:',err);});
       }
     }
   });
@@ -749,10 +763,13 @@ function recordPay(label,total,items,note,pDate){
     label:label,total:total,date:pDate||new Date().toISOString().split('T')[0],
     items:items,note:note||'',payMethod:payMethod,createdAt:Date.now()
   };
-  DB.collection('galaxymoto_finance_payouts').add(rec);
+  DB.collection('galaxymoto_finance_payouts').add(rec).then(function(){
+    toast('✅ Выплачено '+total.toLocaleString()+' ₽');
+    switchTab('pays');
+  }).catch(function(err){
+    toast('Ошибка: '+err.message,'error');
+  });
   closePayModal();
-  toast('✅ Выплачено '+total.toLocaleString()+' ₽');
-  switchTab('pays');
 }
 
 function renderPays(){
